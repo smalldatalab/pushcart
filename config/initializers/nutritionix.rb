@@ -1,0 +1,1 @@
+NUTRITIONIX_API = Nutritionix.new(Rails.application.secrets.nutritionix_app_id, Rails.application.secrets.nutritionix_secret)

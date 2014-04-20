@@ -1,0 +1,35 @@
+.row
+  %h1 Congratulations, your account is confirmed!
+
+.row
+  %h2 Your endpoint address
+
+  %p Your endpoint e-mail is a filter for grabbing your grocery receipt data. Here's yours:
+
+  %p
+    %b= @user.endpoint_email_with_uri
+
+  %p
+    Want to change you endpoint e-mail to something else?
+    - if mailer
+      = link_to 'Click here.', url_with_login_token(@user, edit_user_url(@user))
+    - else
+      = link_to 'Click here.', edit_user_path(@user)
+
+  %p Simply send receipts to this address and we'll make sure that we collect all the important data you need to know about your grocery shopping.
+
+.row
+  %h2 One last thing to do
+
+  %p To get started collecting your grocery data, all you need to do now is one of the following:
+
+  %ol
+    %li
+      %p Set up an auto-forwarder to send all grocery receipt e-mails to your endpoint e-mail above. (If you like to micromanage your technology, you can also just manually forward e-mail your receipts.)
+    %li
+      %p Simply change your contact e-mail address on the grocery site to the endpoint e-mail. (Don't worry -- we will forward all e-mails from them on to you and won't store anything except for data about your purchases.)
+
+.row
+  %h2 Keep it for your records
+
+  %p Not sure you'll remember this information, or how to navigate back to this page? Never fear: we've already sent you an e-mail with all the information on this page!

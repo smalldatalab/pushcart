@@ -1,0 +1,53 @@
+!!! 5
+%html
+  %head
+    %meta{charset: 'utf-8'}
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
+    %meta{content: "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
+
+    %title= content_for?(:title) ? "#{SITE_NAME} | #{yield(:title)}" : "#{SITE_NAME}"
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'vendor/modernizr'
+    = csrf_meta_tags
+
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    -if Rails.env.production?
+      / Begin Google Analytics javascript
+      :javascript
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '']);
+        _gaq.push(['_setDomainName', '']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      / End Google Analytics script
+
+    %body
+      .row
+        - if flash[:error]
+          .alert-box{"data-alert" => ""}
+            - flash[:error].each do |message|
+              %li= message
+            %a.close{:href => "#"} &times;
+        - if flash[:notice]
+          .alert-box.success{"data-alert" => ""}
+            = flash[:notice]
+            %a.close{:href => "#"} &times;
+
+      = yield
+
+      .row
+        .footer
+          - if current_user
+            .user-info
+              You are signed in as #{current_user.email}.
+              = link_to 'Click here to sign out.', sign_out_user_path, method: :delete
+
+      = javascript_include_tag 'application'
