@@ -32,5 +32,4 @@
 /Capfile
 /config/deploy.rb
 /config/deploy
-/config/templates
 /install.sh
