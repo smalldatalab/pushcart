@@ -17,8 +17,8 @@ describe EmailProcessor do
     EmailProcessor.process(@email)
   end
 
-  it "should send right mailer if email is not successfully scraped" do
-    UserMailer.any_instance.expects(:unprocessable_email).with(@user, @email)
+  it "should save a copy of the email and queue for later scraping" do
+    EmailScraper.expects(:new)
 
     EmailProcessor.process(@email)
   end

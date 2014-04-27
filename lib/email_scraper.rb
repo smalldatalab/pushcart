@@ -1,8 +1,17 @@
 class EmailScraper
 
-  def initialize(email, user)
-    @email = email
-    @user  = user
+  def initialize(email_id)
+    @email = InboundEmail.find(email_id)
+    @user  = @email.user
+    evaluate_and_process
+  end
+
+  def evaluate_and_process
+    @email.scraped = true if scrape
+
+    @email.successfully_processed = true
+
+    @email.save
   end
 
   def scrape
@@ -15,14 +24,6 @@ class EmailScraper
       if @user.save
         return true
       else
-        @user.purchases.each do |i|
-          Rails.logger.info i.errors.full_messages
-          i.items.each do |t|
-            Rails.logger.info t
-            Rails.logger.info t.errors.full_messages
-          end
-        end
-        Rails.logger.info @user.errors.full_messages
         return false
       end
     end
@@ -37,9 +38,9 @@ class EmailScraper
   end
 
   def determine_scraper
-    if @email.subject =~ /Your\sorder\sfor/ && @email.raw_text =~ /Fresh\sDirect/
+    if !!(@email.subject =~ /Your\sorder\sfor/) && !!(@email.raw_text =~ /Fresh\sDirect/)
       return :fd
-    elsif @email.subject =~ Regexp.new('Your Order with Instacart')
+    elsif !!(@email.subject =~ Regexp.new('Your Order with Instacart'))
       return :instacart
     else
       return false
@@ -48,22 +49,6 @@ class EmailScraper
 
 end
 
-# email = Mail.new do
-#   from    'receipt@freshdirect.com'
-#   to      'charming-sands-affectionate-tundra@lets.gopushcart.com'
-#   subject 'Your order for Sunday, Jan 26 2014'
-#   html_part do
-#     body    File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_one.eml')
-#   end
-# end
-
-# email = Mail.new do
-#   from    'orders@instacart.com'
-#   to      'charming-sands-affectionate-tundra@lets.gopushcart.com'
-#   subject 'Fwd: Your Order with Instacart'
-#   html_part do
-#     body    File.read(Rails.root.to_s + '/lib/sample_emails/instacart/instacart_receipt.eml')
-#   end
-# end
+# email = FactoryGirl.create(:inbound_email, :fresh_direct_receipt_one, user: User.last!, to: ["#{User.last!.endpoint_email}@#{EMAIL_URI}"])
 
 # t = EmailScraper.new(email, User.last!).scrape

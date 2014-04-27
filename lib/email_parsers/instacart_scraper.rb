@@ -6,7 +6,7 @@ class InstacartScraper < ReceiptScraper
 
     build_purchase_object
     parse_items_and_add_to_purchase
-    @purchase.raw_message = (Rails.env.development? || Rails.env.test?) ? @email.html_part.to_s : @email.raw_body
+    @purchase.raw_message = @email.raw_html
 
     return @purchase
   end

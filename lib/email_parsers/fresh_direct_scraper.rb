@@ -5,7 +5,7 @@ class FreshDirectScraper < ReceiptScraper
 
     build_purchase_object
     parse_items_and_add_to_purchase
-    @purchase.raw_message = (Rails.env.development? || Rails.env.test?) ? @email.html_part.to_s : @email.raw_body
+    @purchase.raw_message = @email.raw_html
 
     return @purchase
   end
@@ -88,8 +88,3 @@ private
   end
 
 end
-
-# e = FreshDirectScraper.new(Mail.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_one.eml')).process_purchase
-
-
-

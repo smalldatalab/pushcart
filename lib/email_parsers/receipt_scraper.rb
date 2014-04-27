@@ -5,8 +5,7 @@ class ReceiptScraper
   end
 
   def clean_body_html
-    html = (Rails.env.development? || Rails.env.test?) ? @email.html_part.to_s : @email.raw_html
-    html.gsub(/(\r|\n|\=\r|\=\n)/, '')
+    @email.raw_html.gsub(/(\r|\n|\=\r|\=\n)/, '')
   end
 
 private
