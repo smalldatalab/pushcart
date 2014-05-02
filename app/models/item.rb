@@ -37,7 +37,7 @@ class Item < ActiveRecord::Base
       if api_data.blank? || api_data == 'Connection error.'
         return false 
       else
-        self.ntx_api_nutrition_data = api_data.delete '_source'
+        self.ntx_api_nutrition_data = api_data.delete 'fields'
         self.ntx_api_metadata       = api_data
 
         if api_data['_score'].to_f < 0.5

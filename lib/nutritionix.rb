@@ -13,6 +13,7 @@ class Nutritionix
                 appId:  @app,
                 appKey: @key,
                 limit:  1,
+                fields: ['*', ''],
                 query:  query
               }
     response = JSON.parse Net::HTTP.post_form(@url, params).body
