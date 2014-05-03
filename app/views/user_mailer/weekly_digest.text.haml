@@ -1,0 +1,13 @@
+Hi,
+
+Here is your weekly digest of grocery purchases sent to us this past week:
+
+~ The Pushcart Team
+
+******
+
+- @user.inbound_emails.each_with_index do |inbound_email, i|
+  = "Mail #: #{i+1}"
+  = "Subject: #{unbound_email.subject}"
+  = "Time Received: #{unbound_email.created_at}"
+
