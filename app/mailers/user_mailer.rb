@@ -49,4 +49,13 @@ class UserMailer < ActionMailer::Base
       )
   end
 
+  def weekly_digest(user, digest)
+    @user = user
+    @digest = digest
+    mail(
+      to: @user.email,
+      subject: "Weekly digest"
+      )
+  end
+
 end
