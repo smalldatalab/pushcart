@@ -49,6 +49,7 @@ class UserMailer < ActionMailer::Base
       )
   end
 
+### Weekly Digest ###
   def weekly_digest(user, digest)
     @user = user
     @digest = digest
