@@ -52,6 +52,13 @@ gem 'delayed_job_active_record'
 
 # gem 'nutritionix' #This gem sucks and is totally broken
 
+### Admin ###
+gem 'activeadmin',  github: 'gregbell/active_admin' #Move to specific version once a stable Rails 4 gem is on rubygems
+gem 'country_select'
+gem 'polyamorous',  github: 'activerecord-hackery/polyamorous'
+gem 'ransack',      github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
+gem 'formtastic',   github: 'justinfrench/formtastic'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
