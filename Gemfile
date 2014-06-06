@@ -45,8 +45,9 @@ gem 'simple_form'
 
 ### Background Processes ###
 
-gem "foreman", "~> 0.63.0"
+gem "foreman",                   '~> 0.63.0'
 gem 'delayed_job_active_record'
+gem 'whenever',                  require: false
 
 ### External APIs ###
 
