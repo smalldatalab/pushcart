@@ -25,6 +25,24 @@ FactoryGirl.define do
       subject 'Fwd: Your Order with Instacart'
       raw_html File.read(Rails.root.to_s + '/lib/sample_emails/instacart/instacart_receipt.eml')
     end
+
+    trait :peapod_receipt_one do
+      from 'yourfriends@peapod.com'
+      subject 'Peapod by Stop & Shop Order Confirmation j50570360'
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/peapod/receipt_one.eml')
+    end
+
+    trait :peapod_receipt_two do
+      from 'yourfriends@peapod.com'
+      subject 'Fwd: Peapod by Stop & Shop Order Confirmation j49123888'
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/peapod/receipt_two.eml')
+    end
+
+    trait :peapod_receipt_three do
+      from 'yourfriends@peapod.com'
+      subject 'Fwd: Peapod by Stop & Shop Order Confirmation j48340159'
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/peapod/receipt_three.eml')
+    end
   end
 
   factory :inbound_email do

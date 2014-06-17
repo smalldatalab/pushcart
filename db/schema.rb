@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140505135135) do
+ActiveRecord::Schema.define(version: 20140617083859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,21 +65,6 @@ ActiveRecord::Schema.define(version: 20140505135135) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  create_table "inbound_emails", force: true do |t|
-    t.integer  "user_id"
-    t.text     "raw_html"
-    t.text     "raw_text"
-    t.string   "to"
-    t.string   "from"
-    t.string   "subject"
-    t.boolean  "successfully_processed", default: false
-    t.boolean  "scraped",                default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "inbound_emails", ["user_id"], name: "index_inbound_emails_on_user_id", using: :btree
-
   create_table "items", force: true do |t|
     t.integer  "purchase_id"
     t.string   "name"
@@ -96,6 +81,31 @@ ActiveRecord::Schema.define(version: 20140505135135) do
   end
 
   add_index "items", ["purchase_id"], name: "index_items_on_purchase_id", using: :btree
+
+  create_table "messages", force: true do |t|
+    t.integer  "user_id"
+    t.text     "raw_html"
+    t.text     "raw_text"
+    t.string   "to"
+    t.string   "from"
+    t.string   "subject"
+    t.boolean  "successfully_processed", default: false
+    t.boolean  "scraped",                default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "kind"
+    t.integer  "oauth_application_id"
+  end
+
+  add_index "messages", ["oauth_application_id"], name: "index_messages_on_oauth_application_id", using: :btree
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
+
+  create_table "missions", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "oauth_access_grants", force: true do |t|
     t.integer  "resource_owner_id", null: false
@@ -126,13 +136,14 @@ ActiveRecord::Schema.define(version: 20140505135135) do
   add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
 
   create_table "oauth_applications", force: true do |t|
-    t.string   "name",                         null: false
-    t.string   "uid",                          null: false
-    t.string   "secret",                       null: false
-    t.boolean  "whitelisted",  default: false
-    t.text     "redirect_uri",                 null: false
+    t.string   "name",                           null: false
+    t.string   "uid",                            null: false
+    t.string   "secret",                         null: false
+    t.boolean  "whitelisted",    default: false
+    t.text     "redirect_uri",                   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "endpoint_email"
   end
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
@@ -169,6 +180,8 @@ ActiveRecord::Schema.define(version: 20140505135135) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "household_size"
+    t.integer  "mission_id"
+    t.text     "mission_statement"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

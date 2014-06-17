@@ -81,6 +81,7 @@ group :development, :test do
   gem 'json_spec'
   gem 'email_spec'
   gem 'simplecov', '~> 0.7.1', require: false
+  gem 'pry'
   gem 'database_cleaner'
 end
 

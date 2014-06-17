@@ -1,4 +1,4 @@
-ActiveAdmin.register InboundEmail do
+ActiveAdmin.register Message do
   actions :all, except: [:new, :edit, :delete]
 
   index do
