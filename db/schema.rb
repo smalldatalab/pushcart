@@ -11,10 +11,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140420171853) do
+ActiveRecord::Schema.define(version: 20140617083859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: true do |t|
+    t.string   "namespace"
+    t.text     "body"
+    t.string   "resource_id",   null: false
+    t.string   "resource_type", null: false
+    t.integer  "author_id"
+    t.string   "author_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
+
+  create_table "admin_users", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
+  add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -32,21 +65,6 @@ ActiveRecord::Schema.define(version: 20140420171853) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  create_table "inbound_emails", force: true do |t|
-    t.integer  "user_id"
-    t.text     "raw_html"
-    t.text     "raw_text"
-    t.string   "to"
-    t.string   "from"
-    t.string   "subject"
-    t.boolean  "successfully_processed", default: false
-    t.boolean  "scraped",                default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "inbound_emails", ["user_id"], name: "index_inbound_emails_on_user_id", using: :btree
-
   create_table "items", force: true do |t|
     t.integer  "purchase_id"
     t.string   "name"
@@ -63,6 +81,72 @@ ActiveRecord::Schema.define(version: 20140420171853) do
   end
 
   add_index "items", ["purchase_id"], name: "index_items_on_purchase_id", using: :btree
+
+  create_table "messages", force: true do |t|
+    t.integer  "user_id"
+    t.text     "raw_html"
+    t.text     "raw_text"
+    t.string   "to"
+    t.string   "from"
+    t.string   "subject"
+    t.boolean  "successfully_processed", default: false
+    t.boolean  "scraped",                default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "kind"
+    t.integer  "oauth_application_id"
+  end
+
+  add_index "messages", ["oauth_application_id"], name: "index_messages_on_oauth_application_id", using: :btree
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
+
+  create_table "missions", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "oauth_access_grants", force: true do |t|
+    t.integer  "resource_owner_id", null: false
+    t.integer  "application_id",    null: false
+    t.string   "token",             null: false
+    t.integer  "expires_in",        null: false
+    t.text     "redirect_uri",      null: false
+    t.datetime "created_at",        null: false
+    t.datetime "revoked_at"
+    t.string   "scopes"
+  end
+
+  add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
+
+  create_table "oauth_access_tokens", force: true do |t|
+    t.integer  "resource_owner_id"
+    t.integer  "application_id"
+    t.string   "token",             null: false
+    t.string   "refresh_token"
+    t.integer  "expires_in"
+    t.datetime "revoked_at"
+    t.datetime "created_at",        null: false
+    t.string   "scopes"
+  end
+
+  add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true, using: :btree
+  add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id", using: :btree
+  add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
+
+  create_table "oauth_applications", force: true do |t|
+    t.string   "name",                           null: false
+    t.string   "uid",                            null: false
+    t.string   "secret",                         null: false
+    t.boolean  "whitelisted",    default: false
+    t.text     "redirect_uri",                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "endpoint_email"
+  end
+
+  add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
 
   create_table "purchases", force: true do |t|
     t.integer  "user_id"
@@ -96,6 +180,8 @@ ActiveRecord::Schema.define(version: 20140420171853) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "household_size"
+    t.integer  "mission_id"
+    t.text     "mission_statement"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

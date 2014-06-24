@@ -4,9 +4,10 @@ class User < ActiveRecord::Base
   has_many :purchases
   has_many :items, through: :purchases
   has_many :inbound_emails
-
+  belongs_to :mission
 
   after_initialize :set_endpoint_email, :set_login_token
+  after_create     :send_set_mission_request
 
   validates_presence_of   :email, :endpoint_email, :household_size
   validates_uniqueness_of :email, :endpoint_email, :login_token
@@ -26,6 +27,17 @@ class User < ActiveRecord::Base
     else
       login_token
     end
+  end
+
+  def reset_mission_statement(statement)
+    self.mission_statement = statement
+    self.mission = nil
+    MissionMailer.delay.new_mission(email, mission_statement)
+    save
+  end
+
+  def send_set_mission_request
+    MissionMailer.delay.set_mission(self.id)
   end
 
 private

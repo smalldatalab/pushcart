@@ -4,7 +4,7 @@ class UserConfirmationsController < Devise::ConfirmationsController
 
   def after_confirmation_path_for(resource_name, resource)
     sign_in resource
-    UserMailer.getting_started(resource).deliver
+    UserMailer.delay.getting_started(resource.id).deliver
     account_confirmation_path
   end
 

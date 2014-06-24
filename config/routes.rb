@@ -1,8 +1,14 @@
 Pushcart::Application.routes.draw do
 
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   ### API ###
 
   scope 'api' do
+    scope 'v1' do
+      use_doorkeeper
+    end
+
     api_version(:module => "api/v1", :path => {:value => "v1"}, :defaults => {:format => "json"}) do
       resources :users, only: [:show, :index] do
         resources :purchases, only: [:show, :index] do

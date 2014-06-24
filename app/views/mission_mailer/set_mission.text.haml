@@ -1,0 +1,25 @@
+= "~~~~~ Write your mission ABOVE THIS LINE ~~~~~"
+
+Hi,
+\
+An important part of the Pushcart experience is defining your mission. Missions give your Pushcart data shape and meaning, and illuminate for our data analysts what strategies would be most effective for you in achieving your goals.
+\
+- if @user.mission_statement.nil?
+  = "You do not currently have not yet defined your mission on Pushcart."
+- else
+  = "Your current mission is:"
+  = @user.mission_statement
+\
+If you would like to set or update your mission, simple reply to this e-mail with your mission. You can be as specific or verbose as you want, but we find that the best missions are ones that are concrete and have a clear path to success. Some example missions:
+\
+"Eat more vegetables and less fats."
+\
+"Help my son lose 10 pounds."
+\
+"Have more energy."
+\
+etc.
+\
+= "You can always change your mission again in the future, too. To reset your mission, just send an e-mail to set_my_mission@#{SITE_URL} with your new mission in the subject line of the email."
+\
+= '~ The Pushcart Team'

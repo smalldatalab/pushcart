@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   def new_login_token
     @return_path = params[:return_path]
     @user = User.find_by_email(params[:email])
-    UserMailer.resend_login_url(@user, @return_path).deliver
+    UserMailer.delay.resend_login_url(@user.id, @return_path).deliver
     flash[:notice] = "Thank you! Check your e-mail for your new login URL."
     redirect_to :back
   end

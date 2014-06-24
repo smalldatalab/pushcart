@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby "2.1.1"
+ruby "2.1.2"
 
-gem 'rails', '4.1.0'
+gem 'rails', '4.1.1'
 
 gem 'thin'
 
@@ -45,12 +45,20 @@ gem 'simple_form'
 
 ### Background Processes ###
 
-gem "foreman", "~> 0.63.0"
+gem "foreman",                   '~> 0.63.0'
 gem 'delayed_job_active_record'
+gem 'whenever',                  require: false
 
 ### External APIs ###
 
 # gem 'nutritionix' #This gem sucks and is totally broken
+
+### Admin ###
+gem 'activeadmin',  github: 'gregbell/active_admin' #Move to specific version once a stable Rails 4 gem is on rubygems
+gem 'country_select'
+gem 'polyamorous',  github: 'activerecord-hackery/polyamorous'
+gem 'ransack',      github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
+gem 'formtastic',   github: 'justinfrench/formtastic'
 
 group :development do
   gem 'better_errors'
@@ -73,6 +81,7 @@ group :development, :test do
   gem 'json_spec'
   gem 'email_spec'
   gem 'simplecov', '~> 0.7.1', require: false
+  gem 'pry'
   gem 'database_cleaner'
 end
 
