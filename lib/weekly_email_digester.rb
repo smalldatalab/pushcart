@@ -8,9 +8,10 @@ module WeeklyEmailDigester
 private
 
   def build_digest(user)
-    user.inbound_emails.map.with_index do |inbound_email, i|
+    user.messages.map.with_index do |inbound_email, i|
       "Mail #: #{i+1}\n" +
       "Subject: #{inbound_email.subject}\n" +
+      "Sender: #{SITE_NAME}" +
       "Time Received: #{inbound_email.created_at}\n"
     end
   end

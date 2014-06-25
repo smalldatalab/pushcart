@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 
   has_many :purchases
   has_many :items, through: :purchases
-  has_many :inbound_emails
+  has_many :messages
   belongs_to :mission
 
   after_initialize :set_endpoint_email, :set_login_token

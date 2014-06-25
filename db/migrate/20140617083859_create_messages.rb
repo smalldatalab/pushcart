@@ -1,6 +1,6 @@
 class CreateMessages < ActiveRecord::Migration
   def change
-    rename_table :inbound_emails, :messages
+    rename_table :messages, :messages
 
     change_table :messages do |t|
       t.string      :kind

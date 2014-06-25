@@ -54,7 +54,7 @@ class UserMailer < BaseMailer
     @digest = digest
     mail(
       to: @user.email,
-      subject: "Weekly digest"
+      subject: "Your Weekly PushCart Digest #{Date.today} - #{Date.today + 6}"
       )
   end
 

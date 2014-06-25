@@ -1,7 +1,7 @@
 require 'weekly_email_digester'
 WeeklyDigestMailerJob = Struct.new(:user) do
 
-  def perform
+  def self.perform
     deliver_digest(weekly_digest)
     destroy_emails_marked_for_destruction
   end
@@ -25,7 +25,7 @@ private
   end
 
   def user_inbound_emails
-    user.inbound_emails
+    user.messages
   end
   
 end
