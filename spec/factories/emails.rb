@@ -9,21 +9,21 @@ FactoryGirl.define do
     trait :fresh_direct_receipt_one do
       from 'receipt@freshdirect.com'
       subject 'Your order for Sunday, Jan 26 2014'
-      # raw_html File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_one.eml')
-      # raw_text File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_one.eml')
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_one.eml')
+      raw_text File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_one.eml')
     end
 
     trait :fresh_direct_receipt_two do
       from 'receipt@freshdirect.com'
       subject 'Your order for Sunday, Jan 26 2014'
-      # raw_html File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_two.eml')
-      # raw_text File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_two.eml')
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_two.eml')
+      raw_text File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_two.eml')
     end
 
     trait :instacart_receipt do
       from 'orders@instacart.com'
       subject 'Fwd: Your Order with Instacart'
-      # raw_html File.read(Rails.root.to_s + '/lib/sample_emails/instacart/instacart_receipt.eml')
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/instacart/instacart_receipt.eml')
     end
 
     trait :peapod_receipt_one do
@@ -56,21 +56,21 @@ FactoryGirl.define do
     trait :fresh_direct_receipt_one do
       from 'receipt@freshdirect.com'
       subject 'Your order for Sunday, Jan 26 2014'
-      # raw_html File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_one.eml')
-      # raw_text File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_one.eml')
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_one.eml')
+      raw_text File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_one.eml')
     end
 
     trait :fresh_direct_receipt_two do
       from 'receipt@freshdirect.com'
       subject 'Your order for Sunday, Jan 26 2014'
-      # raw_html File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_two.eml')
-      # raw_text File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_two.eml')
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_two.eml')
+      raw_text File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_two.eml')
     end
 
     trait :instacart_receipt do
       from 'orders@instacart.com'
       subject 'Fwd: Your Order with Instacart'
-      # raw_html File.read(Rails.root.to_s + '/lib/sample_emails/instacart/instacart_receipt.eml')
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/instacart/instacart_receipt.eml')
     end
   end
 end
