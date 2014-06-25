@@ -15,17 +15,5 @@ private
   def deliver_digest(digest)
     UserMailer.weekly_digest(user, digest).deliver
   end
-
-  def destroy_emails_marked_for_destruction
-    emails_marked_for_destruction.destroy_all
-  end
-
-  def emails_marked_for_destruction
-    user_inbound_emails.older_than_a_month
-  end
-
-  def user_inbound_emails
-    user.messages
-  end
   
 end
