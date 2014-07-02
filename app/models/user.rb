@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   has_many :purchases
   has_many :items, through: :purchases
+  has_many :messages
   belongs_to :mission
 
   after_initialize :set_endpoint_email, :set_login_token
@@ -10,6 +11,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of   :email, :endpoint_email, :household_size
   validates_uniqueness_of :email, :endpoint_email, :login_token
+
 
   def endpoint_email_with_uri
     "#{endpoint_email}@#{EMAIL_URI}"
