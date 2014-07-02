@@ -28,5 +28,12 @@ FactoryGirl.define do
       subject 'Fwd: Your Order with Instacart'
       raw_html File.read(Rails.root.to_s + '/lib/sample_emails/instacart/instacart_receipt.eml')
     end
+
+    trait :set_mission do
+      to "set_your_mission@#{SITE_URL}"
+      from 'michael.carroll@cornell.edu'
+      subject 'Re: Set your household mission!'
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/missions/set_mission_example.eml')
+    end
   end
 end

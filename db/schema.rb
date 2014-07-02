@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140617083859) do
+ActiveRecord::Schema.define(version: 20140628092236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,14 @@ ActiveRecord::Schema.define(version: 20140617083859) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "household_members", force: true do |t|
+    t.integer  "user_id"
+    t.string   "age"
+    t.string   "gender"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "items", force: true do |t|
     t.integer  "purchase_id"
@@ -164,8 +172,8 @@ ActiveRecord::Schema.define(version: 20140617083859) do
   add_index "purchases", ["user_id"], name: "index_purchases_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.string   "email",                           default: "", null: false
+    t.integer  "sign_in_count",                   default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -174,19 +182,18 @@ ActiveRecord::Schema.define(version: 20140617083859) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.string   "endpoint_email",         default: "", null: false
-    t.string   "login_token",            default: "", null: false
-    t.datetime "login_token_expires_at"
+    t.string   "endpoint_email",                  default: "", null: false
+    t.datetime "authentication_token_expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "household_size"
     t.integer  "mission_id"
     t.text     "mission_statement"
+    t.string   "authentication_token"
   end
 
+  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["endpoint_email"], name: "index_users_on_endpoint_email", unique: true, using: :btree
-  add_index "users", ["login_token"], name: "index_users_on_login_token", unique: true, using: :btree
 
 end

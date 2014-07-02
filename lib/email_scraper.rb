@@ -1,7 +1,7 @@
 class EmailScraper
 
   def initialize(email_id)
-    @email = InboundEmail.find(email_id)
+    @email = Message.find(email_id)
     @user  = @email.user
     evaluate_and_process
   end

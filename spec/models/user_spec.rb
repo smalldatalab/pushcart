@@ -10,6 +10,7 @@ describe User do
   describe "#reset_mission_statement" do
 
     before(:each) do
+      Delayed::Worker.delay_jobs = false
       @user = FactoryGirl.create(:user, :with_mission)
     end
 

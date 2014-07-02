@@ -1,18 +1,29 @@
 class User < ActiveRecord::Base
+  acts_as_token_authenticatable
+
   devise :registerable, :confirmable, :timeoutable, :trackable
 
   has_many :purchases
   has_many :items, through: :purchases
+  has_many :household_members, dependent: :destroy
+  has_many :messages, dependent: :destroy
+
   belongs_to :mission
 
-  after_initialize :set_endpoint_email, :set_login_token
-  after_create     :send_set_mission_request
+  after_initialize :set_endpoint_email
+  # after_create     :send_set_mission_request
 
-  validates_presence_of   :email, :endpoint_email, :household_size
-  validates_uniqueness_of :email, :endpoint_email, :login_token
+  validates_presence_of   :email, :endpoint_email
+  validates_uniqueness_of :email, :endpoint_email
+
+  accepts_nested_attributes_for :household_members
 
   def endpoint_email_with_uri
     "#{endpoint_email}@#{EMAIL_URI}"
+  end
+
+  def household_size
+    household_members.count
   end
 
   def login_token_expired?
@@ -20,10 +31,12 @@ class User < ActiveRecord::Base
   end
 
   def return_or_set_login_token
-    if login_token_expired?
-      refresh_login_token
+    if authentication_token.nil? || authentication_token_expires_at.blank? || Time.now > authentication_token_expires_at
+      self.authentication_token = nil
+      save
+      authentication_token
     else
-      login_token
+      authentication_token
     end
   end
 
@@ -46,17 +59,6 @@ private
 
   def set_endpoint_email
     generate_random_endpoint_email if endpoint_email.blank?
-  end
-
-  def set_login_token
-    self.login_token = SecureRandom.urlsafe_base64(20) if login_token.blank?
-  end
-
-  def refresh_login_token
-    self.login_token            = SecureRandom.urlsafe_base64(20)
-    self.login_token_expires_at = DateTime.now + 8.hours
-    save
-    return login_token
   end
 
 end

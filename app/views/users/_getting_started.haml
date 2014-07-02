@@ -1,35 +1,69 @@
 .row
-  %h1 Congratulations, your account is confirmed!
+  - if confirmation
+    %h1 Congratulations, your account is confirmed!
+  - else
+    %h1 Your Pushcart account
 
-.row
+.row.large-11.small-centered.columns
   %h2 Your endpoint address
 
-  %p Your endpoint e-mail is a filter for grabbing your grocery receipt data. Here's yours:
+  .large-11.small-centered.columns
+    %p Your endpoint e-mail is a filter for grabbing your grocery receipt data. Here's yours:
 
-  %p
-    %b= @user.endpoint_email_with_uri
+    %p
+      %b= @user.endpoint_email_with_uri
 
-  %p
-    Want to change you endpoint e-mail to something else?
-    - if mailer
-      = link_to 'Click here.', url_with_login_token(@user, edit_user_url(@user))
+    %p
+      Want to change you endpoint e-mail to something else?
+      - if mailer
+        = link_to 'Click here.', url_with_login_token(@user, edit_user_url(@user))
+      - else
+        = link_to 'Click here.', edit_user_path(@user)
+
+    %p Simply send receipts to this address and we'll make sure that we collect all the important data you need to know about your grocery shopping.
+
+.row.large-11.small-centered.columns
+  %h2 Your household information
+
+  .large-11.small-centered.columns
+    %h3 Household Mission
+    - if @user.mission_statement.blank?
+      %p
+        = "You have not yet set a mission for your household."
+        = link_to 'Please do so here.', edit_household_path
     - else
-      = link_to 'Click here.', edit_user_path(@user)
+      %p.large-11.small-centered.columns
+        %b= @user.mission_statement
 
-  %p Simply send receipts to this address and we'll make sure that we collect all the important data you need to know about your grocery shopping.
+    %h3 Household Demographics
+    - if @user.household_members.empty?
+      %p
+        = "You have not added any members to your household yet."
+        = link_to 'Please do so here.', edit_household_path
+    - else
+      - @user.household_members.each_with_index do |hm, index|
+        %p.large-11.small-centered.columns
+          %b= "##{index+1} #{hm.gender}, #{hm.age} years old"
 
-.row
-  %h2 One last thing to do
+    %p
+      = "Need to change your mission or demographic information?"
+      = link_to 'You can do so here.', edit_household_path
 
-  %p To get started collecting your grocery data, all you need to do now is one of the following:
+- if confirmation
+  .row.large-11.small-centered.columns
+    %h2 One last thing to do
 
-  %ol
-    %li
-      %p Set up an auto-forwarder to send all grocery receipt e-mails to your endpoint e-mail above. (If you like to micromanage your technology, you can also just manually forward e-mail your receipts.)
-    %li
-      %p Simply change your contact e-mail address on the grocery site to the endpoint e-mail. (Don't worry -- we will forward all e-mails from them on to you and won't store anything except for data about your purchases.)
+    .large-11.small-centered.columns
+      %p To get started collecting your grocery data, all you need to do now is one of the following:
 
-.row
-  %h2 Keep it for your records
+      %ol
+        %li
+          %p Set up an auto-forwarder to send all grocery receipt e-mails to your endpoint e-mail above. (If you like to micromanage your technology, you can also just manually forward e-mail your receipts.)
+        %li
+          %p Simply change your contact e-mail address on the grocery site to the endpoint e-mail. (Don't worry -- we will forward all e-mails from them on to you and won't store anything except for data about your purchases.)
 
-  %p Not sure you'll remember this information, or how to navigate back to this page? Never fear: we've already sent you an e-mail with all the information on this page!
+  .row.large-11.small-centered.columns
+    %h2 Keep it for your records
+
+    .large-11.small-centered.columns
+      %p Not sure you'll remember this information, or how to navigate back to this page? Never fear: we've already sent you an e-mail with all the information on this page!
