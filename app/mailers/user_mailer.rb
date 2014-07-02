@@ -48,4 +48,14 @@ class UserMailer < BaseMailer
       )
   end
 
+### Weekly Digest ###
+  def weekly_digest(user, digest)
+    @user = user
+    @digest = digest
+    mail(
+      to: @user.email,
+      subject: "Your Weekly PushCart Digest #{Date.today} - #{Date.today + 6}"
+      )
+  end
+
 end

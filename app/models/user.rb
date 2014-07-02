@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :household_members
 
+
   def endpoint_email_with_uri
     "#{endpoint_email}@#{EMAIL_URI}"
   end
