@@ -34,6 +34,8 @@ class EmailScraper
       return FreshDirectScraper.new(@email).process_purchase
     elsif scraper == :instacart
       return InstacartScraper.new(@email).process_purchase
+    elsif scraper == :peapod
+      return PeapodScraper.new(@email).process_purchase
     end
   end
 
@@ -42,6 +44,8 @@ class EmailScraper
       return :fd
     elsif !!(@email.subject =~ Regexp.new('Your Order with Instacart'))
       return :instacart
+    elsif !!(@email.subject =~ Regexp.new('Peapod')) && !!(@email.subject =~ Regexp.new('Order Confirmation'))
+      return :peapod
     else
       return false
     end

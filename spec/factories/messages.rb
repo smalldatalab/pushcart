@@ -9,6 +9,15 @@ FactoryGirl.define do
     raw_html ''
     raw_text ''
 
+    trait :set_mission do
+      to "set_your_mission@#{SITE_URL}"
+      from 'michael.carroll@cornell.edu'
+      subject 'Re: Set your household mission!'
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/missions/set_mission_example.eml')
+    end
+
+    ### Grocery service e-mails ###
+
     trait :fresh_direct_receipt_one do
       from 'receipt@freshdirect.com'
       subject 'Your order for Sunday, Jan 26 2014'
@@ -29,11 +38,23 @@ FactoryGirl.define do
       raw_html File.read(Rails.root.to_s + '/lib/sample_emails/instacart/instacart_receipt.eml')
     end
 
-    trait :set_mission do
-      to "set_your_mission@#{SITE_URL}"
-      from 'michael.carroll@cornell.edu'
-      subject 'Re: Set your household mission!'
-      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/missions/set_mission_example.eml')
+    trait :peapod_receipt_one do
+      from 'yourfriends@peapod.com'
+      subject 'Peapod by Stop & Shop Order Confirmation j50570360'
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/peapod/receipt_one.eml')
     end
+
+    trait :peapod_receipt_two do
+      from 'yourfriends@peapod.com'
+      subject 'Fwd: Peapod by Stop & Shop Order Confirmation j49123888'
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/peapod/receipt_two.eml')
+    end
+
+    trait :peapod_receipt_three do
+      from 'yourfriends@peapod.com'
+      subject 'Re: Peapod by Stop & Shop Order Confirmation j48340159'
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/peapod/receipt_three.eml')
+    end
+
   end
 end
