@@ -30,7 +30,7 @@
     - if @user.mission_statement.blank?
       %p
         = "You have not yet set a mission for your household."
-        = link_to 'Please do so here.', edit_household_path
+        = link_to 'Please do so here.', url_with_login_token(@user, edit_household_url)
     - else
       %p.large-11.small-centered.columns
         %b= @user.mission_statement
@@ -39,7 +39,7 @@
     - if @user.household_members.empty?
       %p
         = "You have not added any members to your household yet."
-        = link_to 'Please do so here.', edit_household_path
+        = link_to 'Please do so here.', url_with_login_token(@user, edit_household_url)
     - else
       - @user.household_members.each_with_index do |hm, index|
         %p.large-11.small-centered.columns
@@ -47,7 +47,7 @@
 
     %p
       = "Need to change your mission or demographic information?"
-      = link_to 'You can do so here.', edit_household_path
+      = link_to 'You can do so here.', url_with_login_token(@user, edit_household_url)
 
 - if confirmation
   .row.large-11.small-centered.columns
