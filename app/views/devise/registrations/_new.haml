@@ -2,13 +2,9 @@
   = f.error_notification
 
   .row
-    .large-8.push-1.columns
+    .large-8.push-2.columns
       .form-inputs
-        = f.input :email, required: true, autofocus: true
-
-    .large-2.pull-1.columns
-      .form-inputs
-        = f.input :household_size, as: :integer, required: true
+        = f.input :email, required: true, autofocus: true, label: false, placeholder: 'you@some-email.com'
 
   .row
     .large-4.small-centered.columns
