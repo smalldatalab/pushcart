@@ -2,7 +2,7 @@ class EmailProcessor
   def self.process(email)
     @email = email
     source_email = @email.from
-    target_email = filter_other_recipients(@email.to).gsub(/@#{EMAIL_URI}/, '')
+    target_email = filter_other_recipients(@email.to)
 
     # if target_email == 'set_your_mission'
     #   set_user_from_email(source_email)
@@ -52,7 +52,7 @@ private
   def self.set_user_from_email(email_address)
 
     if email_address =~ /@#{EMAIL_URI}/
-      @user = User.find_by_endpoint_email email_address
+      @user = User.find_by_endpoint_email email_address.gsub(/@#{EMAIL_URI}/, '')
     else
       @user = User.find_by_email email_address
     end
