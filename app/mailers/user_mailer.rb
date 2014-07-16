@@ -7,7 +7,7 @@ class UserMailer < BaseMailer
     @return_address = return_address
     mail(
         to: @email.from,
-        subject: "[#{SITE_NAME}: Could not find your account] #{@email.subject}"
+        subject: "[#{SITE_NAME.titleize}: Could not find your account] #{@email.subject}"
       )
   end
 
@@ -16,7 +16,7 @@ class UserMailer < BaseMailer
     @email = email
     mail(
         to: @user.email,
-        subject: "[#{SITE_NAME}: Receipt processed] #{@email.subject}"
+        subject: "[#{SITE_NAME.titleize}: Receipt processed] #{@email.subject}"
       )
   end
 
@@ -25,19 +25,29 @@ class UserMailer < BaseMailer
     @email = email
     mail(
         to: @user.email,
-        subject: "[#{SITE_NAME}: Not processed] #{@email.subject}"
+        subject: "[#{SITE_NAME.titleize}: Not processed] #{@email.subject}"
       )
   end
 
-  ### Authentication ###
+  ### Onboarding ###
 
   def getting_started(user_id)
     set_user(user_id)
     mail(
       to: @user.email,
-      subject: "Getting started with #{SITE_NAME}"
+      subject: "Getting started with #{SITE_NAME.titleize}"
       )
   end
+
+  def set_mission_and_household(user_id)
+    set_user(user_id)
+    mail(
+          to: @user.email,
+          subject: "Just one last thing to get the most out of #{SITE_NAME.titleize}!"
+        )
+  end
+
+  ### Authentication ###
 
   def resend_login_url(user_id, url=nil)
     set_user(user_id)
