@@ -4,4 +4,12 @@ class Message < ActiveRecord::Base
 
   serialize   :to, Array
 
+  after_create :pass_through_original_email
+
+private
+
+  def pass_through_original_email
+    UserMailer.delay.message_received(from, raw_html)
+  end
+
 end

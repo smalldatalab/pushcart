@@ -10,7 +10,7 @@ class UserMailer < BaseMailer
         subject: "[#{SITE_NAME.titleize}: Could not find your account] #{@email.subject}"
       )
   end
-
+ 
   def email_processed(user_id, email)
     set_user(user_id)
     @email = email
@@ -58,7 +58,8 @@ class UserMailer < BaseMailer
       )
   end
 
-### Weekly Digest ###
+  ### Weekly Digest ###
+
   def weekly_digest(user, digest)
     @user = user
     @digest = digest
@@ -68,4 +69,16 @@ class UserMailer < BaseMailer
       )
   end
 
+  ### Message Confirmation ###
+
+  def message_received(email, content)
+    @content = content
+    mail(
+      to: email,
+      subject: "[Pushcart] #{@message.subject}"
+    ) do |format|
+      format.html
+    end
+  end 
+  
 end
