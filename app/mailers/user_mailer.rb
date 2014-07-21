@@ -71,14 +71,12 @@ class UserMailer < BaseMailer
 
   ### Message Confirmation ###
 
-  def message_received(email, content)
-    @content = content
+  def message_received(message)
+    @message = message
     mail(
-      to: email,
+      to: @message.from,
       subject: "[Pushcart] #{@message.subject}"
-    ) do |format|
-      format.html
-    end
+      )
   end 
   
 end

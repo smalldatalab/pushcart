@@ -9,7 +9,7 @@ class Message < ActiveRecord::Base
 private
 
   def pass_through_original_email
-    UserMailer.delay.message_received(from, raw_html)
+    UserMailer.delay.message_received(self)
   end
 
 end
