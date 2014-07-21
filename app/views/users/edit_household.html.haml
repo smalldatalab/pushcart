@@ -1,0 +1,34 @@
+.row
+  %h1 Your household
+
+.row
+  = simple_nested_form_for @user do |f|
+    .large-11.small-centered.columns
+      %h3 Set your household mission
+      %p Your household mission [yaddi yaddi yadda]...
+    .large-11.small-centered.columns
+      = f.input :mission_statement, label: false, input_html: {rows: 5}
+
+    .large-11.small-centered.columns
+      %h3 Who are you shopping for?
+      %p Information about your family helps us blah blah... (Please include yourself.)
+    .large-11.small-centered.columns
+      = f.fields_for :household_members, class: 'row' do |hm_form|
+        .large-2.columns
+          %h5= 'Person'
+        .large-3.columns
+          = hm_form.input :gender, collection: ['Male', 'Female', 'N/A'], label: false, prompt: 'Gender'
+        .large-3.columns
+          = hm_form.input :age, collection: HouseholdMember.age_collection, label: false, prompt: 'Age'
+        .large-1.columns
+          = hm_form.link_to_remove 'Remove', class: 'button small person-button'
+        .row
+
+    .row
+      .large-11.small-centered.columns
+        = f.link_to_add "Add person to household", :household_members, class: 'button small'
+
+
+    .row
+      .large-4.small-4.offset-4.small-centered.columns
+        = f.button :submit, 'Update Household', class: 'button'

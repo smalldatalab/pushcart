@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
-  before_action :set_user, except: [ :thank_you_for_registering,
-                                     :login_token_expired,
-                                     :new_login_token ]
+  acts_as_token_authentication_handler_for User, fallback_to_devise: false
+
+  before_action :set_user_or_redirect, except: [ :thank_you_for_registering,
+                                                 :login_token_expired,
+                                                 :new_login_token ]
 
   def edit
   end
@@ -12,7 +14,7 @@ class UsersController < ApplicationController
       redirect_to action: "account_confirmation"
     else
       flash[:error] = @user.errors
-      render action: "edit"
+      redirect_to :back
     end
   end
 
@@ -20,6 +22,9 @@ class UsersController < ApplicationController
   end
 
   def account_confirmation
+  end
+
+  def my_account
   end
 
   def change_settings
@@ -36,23 +41,38 @@ class UsersController < ApplicationController
 
   end
 
-  def new_login_token
+  def new_authentication_token
     @return_path = params[:return_path]
     @user = User.find_by_email(params[:email])
-    UserMailer.resend_login_url(@user, @return_path).deliver
+    UserMailer.delay.resend_login_url(@user.id, @return_path)
     flash[:notice] = "Thank you! Check your e-mail for your new login URL."
     redirect_to :back
   end
 
+  def edit_household
+
+  end
+
 protected
 
-  def set_user
+  def set_user_or_redirect
     @user = current_user
+    # if @user.nil?
+    #   flash[:notice] = "You do not have permission to access this page."
+    #   redirect_to :root
+    # end
   end
 
   def user_params
     params.require(:user).permit( 
-                                  :endpoint_email
+                                  :endpoint_email,
+                                  :mission_statement,
+                                  household_members_attributes: [
+                                                                  :id,
+                                                                  :age,
+                                                                  :gender,
+                                                                  :_destroy
+                                                                ]
                                 )
   end
 

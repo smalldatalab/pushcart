@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby "2.1.2"
+ruby '2.1.2'
 
 gem 'rails', '4.1.1'
 
@@ -25,6 +25,7 @@ gem 'rack-cors'
 ### Authentication ###
 
 gem 'devise'
+gem 'simple_token_authentication' #Auto-login tokens
 gem 'doorkeeper'
 gem 'bazaar'
 
@@ -37,16 +38,18 @@ gem 'coffee-rails',     '~> 4.0.1'
 gem 'jquery-rails'
 gem 'uglifier',         '>= 1.3.0'
 gem 'foundation-rails'
-gem 'foundation-icons-sass-rails', "3.0.0"
+gem 'foundation-icons-sass-rails', '3.0.0'
 
 ### Forms ###
 
-gem 'simple_form'
+gem 'simple_form',      '~> 3.1.0.rc1'
+gem 'nested_form'
 
 ### Background Processes ###
 
-gem "foreman", "~> 0.63.0"
+gem 'foreman',                   '~> 0.63.0'
 gem 'delayed_job_active_record'
+gem 'whenever',                  require: false
 
 ### External APIs ###
 
@@ -80,6 +83,7 @@ group :development, :test do
   gem 'json_spec'
   gem 'email_spec'
   gem 'simplecov', '~> 0.7.1', require: false
+  gem 'pry'
   gem 'database_cleaner'
 end
 

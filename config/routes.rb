@@ -14,6 +14,7 @@ Pushcart::Application.routes.draw do
         resources :purchases, only: [:show, :index] do
           resources :items, only: [:show, :index]
         end
+        resources :messages
       end
     end
   end
@@ -27,9 +28,11 @@ Pushcart::Application.routes.draw do
                                       confirmations: "user_confirmations"
                                     }
     get 'account_confirmation',      to: 'users#account_confirmation'
+    get 'my_account',                to: 'users#my_account'
     get 'thank_you_for_registering', to: 'users#thank_you_for_registering'
     get 'login_token_expired',       to: 'users#login_token_expired'
-    post 'new_login_token',          to: 'users#new_login_token'
+    post 'new_authentication_token', to: 'users#new_authentication_token'
+    get 'edit_household',            to: 'users#edit_household'  
     delete 'sign_out',               to: 'users#log_out',  as: 'sign_out_user'
   ######
 

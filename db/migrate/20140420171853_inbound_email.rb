@@ -1,6 +1,6 @@
 class InboundEmail < ActiveRecord::Migration
   def change
-    create_table :inbound_emails do |t|
+    create_table :messages do |t|
       t.belongs_to :user, index: true
       t.text       :raw_html
       t.text       :raw_text

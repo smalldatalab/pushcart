@@ -1,7 +1,7 @@
 class EmailScraper
 
   def initialize(email_id)
-    @email = InboundEmail.find(email_id)
+    @email = Message.find(email_id)
     @user  = @email.user
     evaluate_and_process
   end
@@ -12,6 +12,8 @@ class EmailScraper
     @email.successfully_processed = true
 
     @email.save
+
+    UserMailer.delay.set_mission_and_household(@user.id) if @email.scraped && @user.purchases.count == 1 && (@user.household_size == 0 || @user.mission_statement.nil?)
   end
 
   def scrape
@@ -34,6 +36,8 @@ class EmailScraper
       return FreshDirectScraper.new(@email).process_purchase
     elsif scraper == :instacart
       return InstacartScraper.new(@email).process_purchase
+    elsif scraper == :peapod
+      return PeapodScraper.new(@email).process_purchase
     end
   end
 
@@ -42,6 +46,8 @@ class EmailScraper
       return :fd
     elsif !!(@email.subject =~ Regexp.new('Your Order with Instacart'))
       return :instacart
+    elsif !!(@email.subject =~ Regexp.new('Peapod')) && !!(@email.subject =~ Regexp.new('Order Confirmation'))
+      return :peapod
     else
       return false
     end

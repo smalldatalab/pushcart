@@ -6,7 +6,7 @@ class Api::V1::BaseController < ActionController::Base
 private
 
   def set_api_version
-    @api_version = "v1"
+    @api_version = 'v1'
   end
 
   def set_user
