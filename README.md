@@ -129,4 +129,3 @@ The login process will issue a POST request to `http://gopushcart.com/api/v1/oau
             client_secret: clientSecret
 
 With the correct credentials entered, PushCart will send an access token to the client server. 
->>>>>>> staging
