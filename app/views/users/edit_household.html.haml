@@ -5,13 +5,13 @@
   = simple_nested_form_for @user do |f|
     .large-11.small-centered.columns
       %h3 Set your household mission
-      %p Your household mission [yaddi yaddi yadda]...
+      %p Please tell us about a healthy change you’d like to make to your grocery shopping. Don’t worry, if you don’t have a goal or if nothing is coming to mind, just let us know and we'll send you a menu of common evidence-based goals you can choose from.
     .large-11.small-centered.columns
       = f.input :mission_statement, label: false, input_html: {rows: 5}
 
     .large-11.small-centered.columns
       %h3 Who are you shopping for?
-      %p Information about your family helps us blah blah... (Please include yourself.)
+      %p Having information on the number of people you shop for and their age helps us tailor our recommendations better. (Please include yourself.)
     .large-11.small-centered.columns
       = f.fields_for :household_members, class: 'row' do |hm_form|
         .large-2.columns
