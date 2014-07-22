@@ -13,7 +13,7 @@ class EmailScraper
 
     @email.save
 
-    UserMailer.delay.set_mission_and_household(@user.id) if @email.scraped && @user.purchases.count == 1 && (@user.household_size == 0 || @user.mission_statement.nil?)
+    UserMailer.delay.onboarding_complete(@user.id) if @email.scraped && @user.purchases.count == 1
   end
 
   def scrape

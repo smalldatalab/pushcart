@@ -39,11 +39,27 @@ class UserMailer < BaseMailer
       )
   end
 
-  def set_mission_and_household(user_id)
+  def welcome(user_id)
     set_user(user_id)
     mail(
           to: @user.email,
-          subject: "Just one last thing to get the most out of #{SITE_NAME.titleize}!"
+          subject: "Welcome to #{SITE_NAME.titleize}!"
+        )
+  end
+
+  def new_pushcart_endpoint_email(user_id)
+    set_user(user_id)
+    mail(
+          to: @user.email,
+          subject: "[Important] Get your data auto-magically with your #{SITE_NAME.titleize} e-mail!"
+        )
+  end
+
+  def onboarding_complete(user_id)
+    set_user(user_id)
+    mail(
+          to: @user.email,
+          subject: "Your #{SITE_NAME.titleize} account in a nutshell."
         )
   end
 

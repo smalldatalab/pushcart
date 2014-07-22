@@ -11,7 +11,9 @@ class User < ActiveRecord::Base
   belongs_to :mission
 
   after_initialize :set_endpoint_email
-  # after_create     :send_set_mission_request
+  after_create     :send_welcome_email
+  after_save       :send_onboarding_emails,         if: Proc.new { |u| u.confirmed_at_changed? && u.confirmed_at_was.nil? }
+  after_save       :send_pushcart_endpoint_mailer,  if: Proc.new { |u| u.endpoint_email_changed? && !u.confirmed_at_was.nil? }
 
   validates_presence_of   :email, :endpoint_email
   validates_uniqueness_of :email, :endpoint_email
@@ -48,8 +50,17 @@ class User < ActiveRecord::Base
     save
   end
 
-  def send_set_mission_request
-    MissionMailer.delay.set_mission(self.id)
+  def send_welcome_email
+    UserMailer.delay.welcome(self.id)
+  end
+
+  def send_onboarding_emails
+    UserMailer.delay.getting_started(self.id) if (household_size == 0 || mission_statement.nil?)
+    send_pushcart_endpoint_mailer
+  end
+
+  def send_pushcart_endpoint_mailer
+    UserMailer.delay.new_pushcart_endpoint_email(self.id)
   end
 
 private

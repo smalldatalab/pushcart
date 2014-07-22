@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   end
 
   def edit_household
-
+    @user.household_members.build
   end
 
 protected

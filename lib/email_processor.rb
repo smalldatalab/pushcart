@@ -4,21 +4,14 @@ class EmailProcessor
     source_email = @email.from
     target_email = filter_other_recipients(@email.to)
 
-    # if target_email == 'set_your_mission'
-    #   set_user_from_email(source_email)
-      
-    #   @user.reset_mission_statement(@email.subject)
-    #   create_message('user_mission_setting_message', @user, app)
-    # elsif target_email == 'set_my_mission'
-    #   set_user_from_email(source_email)
-    #   @user.reset_mission_statement(@email.subject)
-    #   create_message('user_mission_setting_message', @user, app)
     if target_email =~ /^pushcart-app-/
       set_user_from_email(source_email)
       unless @user.nil?
         app = ClientApp.find_by_endpoint_email target_email.gsub(/^pushcart-app-/, '')
         create_message('user_to_application_message', @user, app)
       end
+    # elsif target_email =~ /^hello/
+    #   create_message('user_mission_setting_message', nil, app)
     else
       set_user_from_email(target_email)
 
