@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 
   def log_out
     sign_out @user
-    flash[:notice] = "You have successfully logged out."
+    flash[:notice] = 'You have successfully logged out.'
     redirect_to :root
   end
 

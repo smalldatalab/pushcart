@@ -1,4 +1,7 @@
-%p Thanks for sending us a message.  This is a confirmation that we've received it.  
+- if @message.scraped
+  %p The following grocery receipt has been scraped and the data saved in your Pushcart account.
+- else 
+  %p We recently received the following message for you, but did not determine it was a scrapable grocery receipt. If we were wrong in that determination, please let us know: michael.carroll@cornell.edu
 
 %p ~ The Pushcart Team
 
