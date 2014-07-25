@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def update
     if @user.update_attributes user_params
       flash[:notice] = 'Your settings were successfully updated.'
-      redirect_to action: "account_confirmation"
+      redirect_to action: 'my_account'
     else
       flash[:error] = @user.errors
       redirect_to :back
