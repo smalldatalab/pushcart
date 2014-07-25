@@ -87,8 +87,8 @@ class UserMailer < BaseMailer
 
   ### Message Confirmation ###
 
-  def message_received(message)
-    @message = message
+  def message_received(message_id)
+    @message = Message.find(message_id)
     mail(
       to: @message.from,
       subject: "[Pushcart] #{@message.subject}"
