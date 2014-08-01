@@ -6,4 +6,18 @@ module ApplicationHelper
     return raw("#{path}?user_email=#{user.email}&user_token=#{user.authentication_token}")
   end
 
+### Devise AJAX helpers
+
+  def resource_name
+    :user
+  end
+ 
+  def resource
+    @resource ||= User.new
+  end
+ 
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
+
 end
