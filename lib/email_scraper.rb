@@ -42,7 +42,7 @@ class EmailScraper
   end
 
   def determine_scraper
-    if !!(@email.subject =~ /Your\sorder\sfor/) && !!(@email.raw_text =~ /Fresh\sDirect/)
+    if !!(@email.subject =~ /Your\sorder\sfor/) && !!(@email.raw_text =~ /Fresh\s*Direct/i) && !(@email.subject =~ /on\sits\sway/)
       return :fd
     elsif !!(@email.subject =~ Regexp.new('Your Order with Instacart'))
       return :instacart
@@ -55,6 +55,6 @@ class EmailScraper
 
 end
 
-# email = FactoryGirl.create(:inbound_email, :fresh_direct_receipt_one, user: User.last!, to: ["#{User.last!.endpoint_email}@#{EMAIL_URI}"])
+# email = FactoryGirl.create(:email, :fresh_direct_receipt_one, user: User.last!, to: ["#{User.last!.endpoint_email}@#{EMAIL_URI}"])
 
-# t = EmailScraper.new(email, User.last!).scrape
+# t = EmailScraper.new(email).scrape
