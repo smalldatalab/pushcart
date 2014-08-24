@@ -33,3 +33,6 @@
 /config/deploy.rb
 /config/deploy
 /install.sh
+
+# Ignore dumps
+/*.dmp
