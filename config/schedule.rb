@@ -1,5 +1,7 @@
-# send a weekly digest of receipts sent to user and after email is sent
-# look for emails that are past a month old and delete it 
-# every :monday, :at => '12pm'  
-#   runner "WeeklyDigestMailerJob.perform"
-# end
+set :output, "#{path}/log/cron.log"
+
+set :environment, ENV['RAILS_ENV']
+
+every :monday, at: '9:00 am' do
+  rake 'weekly_digest:mail_all_users'
+end

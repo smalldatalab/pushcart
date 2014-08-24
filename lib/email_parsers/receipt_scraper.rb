@@ -19,11 +19,14 @@ private
   end
 
   def clean_string(el)
+
     # Remove spaces & px
     clean = el.gsub(/(\s|px)/, '')
+
     # Downcase
     clean = clean.downcase
-    #Chop off trailing ;
+
+    # Chop off trailing ;
     clean = clean.gsub(/;$/, '')
 
     return clean

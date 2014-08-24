@@ -16,6 +16,10 @@ class Item < ActiveRecord::Base
     end
   end
 
+  def filtered_category
+    CategoryDigester.chew(category, name)
+  end
+
   # def upc
   #   ntx_api_nutrition_data['upc']
   # end

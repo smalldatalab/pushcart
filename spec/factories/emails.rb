@@ -34,6 +34,12 @@ FactoryGirl.define do
       raw_text File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/receipt_four.eml')
     end
 
+    trait :fresh_direct_auto_forward_receipt_one do
+      from 'receipt@freshdirect.com'
+      subject 'Fwd: Your order for Sunday, Aug 17 2014'
+      raw_text File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/gmail_autoforward_receipt.eml')
+    end
+
     trait :instacart_receipt do
       from 'orders@instacart.com'
       subject 'Fwd: Your Order with Instacart'

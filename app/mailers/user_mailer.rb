@@ -81,7 +81,7 @@ class UserMailer < BaseMailer
     @digest = digest
     mail(
       to: @user.email,
-      subject: "Your Weekly PushCart Digest #{Date.today} - #{Date.today + 6}"
+      subject: "Your Weekly Pushcart Digest | #{american_date_format(Date.today)} - #{american_date_format(Date.today + 6)}"
       )
   end
 
@@ -94,5 +94,9 @@ class UserMailer < BaseMailer
       subject: "[Pushcart] #{@message.subject}"
       )
   end 
-  
+
+  def american_date_format(date)
+    date.strftime("%b %-d")
+  end
+
 end
