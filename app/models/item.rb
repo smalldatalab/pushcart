@@ -24,7 +24,7 @@ class Item < ActiveRecord::Base
   #   ntx_api_nutrition_data['upc']
   # end
 
-# private
+private
 
   def use_privacy_hashing?
     USE_PRIVACY_HASHING && !name.nil?

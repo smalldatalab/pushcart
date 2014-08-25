@@ -1,1 +1,24 @@
 Your weekly Pushcart report:
+\
+Your mission:
+\
+- if @user.mission_statement.nil?
+  You still need to set a mission!
+  = link_to 'Please do so here.', url_with_login_token(@user, edit_household_url)
+- else
+  = @user.mission_statement
+\
+Your cart:
+Food Group | Breakdown (% of Cart)
+\
+- @digest.categories_breakdown.each do |cat, cat_hash|
+  - unless cat == :total || cat == :high_percent
+    - band_width = (cat_hash[:percent].to_f/@digest.categories_breakdown[:high_percent].to_f)*100
+    = "#{cat.to_s} | #{ cat_hash[:percent] == 0 ? '0%' : cat_hash[:percent].round(1) }"
+\
+= "# | Name | $"
+- @digest.items_with_categories.each do |cat, items|
+  - unless items.empty?
+    = "CATEGORY: #{cat.to_s}"
+    - items.each do |item|
+      = "#{item.quantity.blank? ? 'N/A' : "%g" % item.quantity} | #{item.name} | #{number_to_currency(item.total_price)}"

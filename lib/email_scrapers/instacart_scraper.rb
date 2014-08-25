@@ -23,7 +23,12 @@ private
   end
 
   def get_full_order_page_html
-    link = @body_html.css('a.show-more-link')[0]["href"]
+    link = nil
+
+    @body_html.css('a').each do |l|
+      link = l["href"] if l.text =~ /see\s?\d*\smore\sitems/i
+    end
+
     link = URI(link)
     redirect_location = Net::HTTP.get_response(link)['location']
     @body_html = Nokogiri::HTML(open(redirect_location.gsub(Regexp.new('#see-all'), '')))

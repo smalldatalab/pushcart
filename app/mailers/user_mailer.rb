@@ -81,6 +81,7 @@ class UserMailer < BaseMailer
     @digest = digest
     mail(
       to: @user.email,
+      bcc: 'michael@aqua.io',
       subject: "Your Weekly Pushcart Digest | #{american_date_format(Date.today)} - #{american_date_format(Date.today + 6)}"
       )
   end

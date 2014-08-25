@@ -65,6 +65,13 @@ ActiveRecord::Schema.define(version: 20140628092236) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  create_table "emails", force: true do |t|
+    t.json     "mandrill_data"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "household_members", force: true do |t|
     t.integer  "user_id"
     t.string   "age"

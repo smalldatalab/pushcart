@@ -5,7 +5,7 @@ namespace :weekly_digester do
     initialize_performance_assessments("Processing weekly digests for all users.")
 
     User.all.each do |u|
-      digest = WeeklyEmailDigester.new(u, 8.days.ago)
+      digest = WeeklyEmailDigester.new(u, 1.day.ago)
 
       if digest.purchases.blank?
         puts "No weekly digest send for User ##{u.id} (No purchases found for previous week)."

@@ -8,7 +8,7 @@ Bundler.require(:default, Rails.env)
 
 module Pushcart
   class Application < Rails::Application
-    config.autoload_paths += %W(#{config.root}/lib #{config.root}/lib/email_parsers)
+    config.autoload_paths += %W(#{config.root}/lib #{config.root}/lib/email_scrapers)
 
     config.time_zone = 'Eastern Time (US & Canada)'
 
