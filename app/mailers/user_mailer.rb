@@ -82,7 +82,7 @@ class UserMailer < BaseMailer
     mail(
       to: @user.email,
       bcc: 'michael@aqua.io',
-      subject: "Your Weekly Pushcart Digest | #{american_date_format(Date.today)} - #{american_date_format(Date.today + 6)}"
+      subject: "Your Weekly Pushcart Digest | #{american_date_format(digest.start_date)} - #{american_date_format(digest.end_date)}"
       )
   end
 
