@@ -86,6 +86,17 @@ class UserMailer < BaseMailer
       )
   end
 
+  ### Replacement Suggestion ###
+
+  def replacement_suggestion(user)
+    @user = user
+    mail(
+      to: @user.email,
+      bcc: 'michael@aqua.io',
+      subject: "A suggested item substitution for your next purchase!"
+      )
+  end
+
   ### Message Confirmation ###
 
   def message_received(message_id)
