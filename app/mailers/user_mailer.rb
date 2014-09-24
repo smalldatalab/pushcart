@@ -88,8 +88,10 @@ class UserMailer < BaseMailer
 
   ### Replacement Suggestion ###
 
-  def replacement_suggestion(user)
-    @user = user
+  def replacement_suggestion(item)
+    @item = item
+    @user = item.user
+    @swap = item.swap
     mail(
       to: @user.email,
       bcc: 'michael@aqua.io',

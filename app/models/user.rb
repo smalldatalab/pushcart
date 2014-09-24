@@ -63,16 +63,23 @@ class User < ActiveRecord::Base
     UserMailer.delay.new_pushcart_endpoint_email(self.id)
   end
 
-private
+  def generate_endpoint_email_recommendation
+    email_root = /^[^\@]*/.match(email)[0].downcase
+    recommendation = email_root.dup
+    trailer = 1
 
-  def generate_random_endpoint_email
-    self.endpoint_email = "#{::Bazaar.super_object.parameterize}-#{::Bazaar.super_object.parameterize}"
+    until User.find_by_endpoint_email(recommendation).nil?
+      recommendation = "#{email_root}-#{trailer}"
+      trailer += 1
+    end
+
+    self.endpoint_email = recommendation
   end
 
+private
+
   def set_endpoint_email
-    generate_random_endpoint_email if endpoint_email.blank?
+    generate_endpoint_email_recommendation if endpoint_email.blank?
   end
 
 end
-
-# User.create(email: "michael@aqua.io")

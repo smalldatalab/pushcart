@@ -102,10 +102,11 @@
                                   %table.table-inner{border: "0", cellpadding: "0", cellspacing: "0", width: "600"}
                                     %tr
                                       %td{align: "center", style: "color:#FFF; font-family: Roboto; font-weight:bold; font-size:38px; line-height:150%", valign: "top"}
-                                        = "Next time you buy from FreshDirect, try replacing your #{link_to 'Dorritos', '#', {style: 'color:#FFFFFF;font-size:45px;'}} with".html_safe
+                                        = "Next time you buy from #{@item.purchase.vendor}, try replacing your #{@item.name} with".html_safe
                                     %tr
                                       %td{align: "center", style: "color:#FFF; font-family: Roboto; font-weight:bold; font-size:58px; line-height:150%", valign: "top"}
-                                        = link_to 'Green Grapes', '#', {style: 'color:#FFFFFF;'}
+                                        = @swap.name
+                                        / = link_to 'Green Grapes', '#', {style: 'color:#FFFFFF;'}
 
 
                             %table{border: "0", cellpadding: "0", cellspacing: "0", width: "100%"}

@@ -1,5 +1,6 @@
 ActiveAdmin.register Item do
-  actions :all, except: [:new, :edit, :delete]
+  permit_params :swap_id
+  actions :all, except: [:new, :destroy]
 
   index do
     selectable_column
@@ -16,6 +17,13 @@ ActiveAdmin.register Item do
     column :created_at
 
     actions
+  end
+
+  form do |f|
+    f.inputs "Make a swap" do
+      f.input :swap
+    end
+    f.actions
   end
 
 end

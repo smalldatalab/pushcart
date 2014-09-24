@@ -5,6 +5,7 @@ ActiveAdmin.register User do
     selectable_column
     id_column
 
+    column :email
     column :endpoint_email
     column :sign_in_count
     column :confirmed_at
@@ -13,7 +14,7 @@ ActiveAdmin.register User do
     column :updated_at
     column :household_size
 
-    actions
+    # actions
   end
 
   show do |ad|
@@ -25,6 +26,15 @@ ActiveAdmin.register User do
       row :created_at
       row :updated_at
       row :household_size
+    end
+
+    panel 'Purchases' do
+      table_for ad.purchases do
+        column :vendor
+        column :total_price
+        column :created_at
+        column('') { |p| link_to('View Purchase', admin_purchase_path(p)) }
+      end
     end
     active_admin_comments
   end
