@@ -166,4 +166,18 @@
       %script{src: "startup/common-files/js/jquery.backgroundvideo.min.js"}
       %script{src: "startup/common-files/js/froogaloop.min.js"}
       %script{src: "startup/common-files/js/startup-kit.js"}
-      = javascript_include_tag 'homepage_meta'
+      = javascript_include_tag 'jquery'
+      = javascript_include_tag 'jquery_ujs'
+      :javascript
+        $('#success-message').hide();
+
+        $("form#new_user_sign_up").bind("ajax:success", function(e, data, status, xhr) {
+          if (data.success) {
+            $('#new_user_sign_up').hide();
+            $('#success-message').text('Thanks! You should receive a confirmation e-mail momentarily!');
+            return $('#success-message').slideToggle(1000, "easeOutBack");
+          } else {
+            $('#success-message').text("" + data.errors);
+            return $('#success-message').slideToggle(1000, "easeOutBack");
+          }
+        });
