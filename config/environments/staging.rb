@@ -36,7 +36,7 @@ Pushcart::Application.configure do
   config.assets.digest = true
 
 
-  config.assets.precompile += ['homepage_meta.js']
+  config.assets.precompile = ['*.js']
 
   # Version of your assets, change this if you want to expire all your assets.
   config.assets.version = '1.0'
