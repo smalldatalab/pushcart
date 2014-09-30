@@ -5,7 +5,6 @@ class Item < ActiveRecord::Base
 
   # before_create :set_json_default_fields
   before_create :retrieve_nutritionix_api_data
-  # before_create :encrypt_attributes, if: :use_privacy_hashing?
 
   after_update :send_swap_mailer, if: proc { |item| item.swap_id_changed? }
 
@@ -28,10 +27,6 @@ class Item < ActiveRecord::Base
   # end
 
 private
-
-  def use_privacy_hashing?
-    USE_PRIVACY_HASHING && !name.nil?
-  end
 
   # def set_json_default_fields
   #   self.
@@ -56,29 +51,8 @@ private
     end
   end
 
-  def encrypt_attributes
-    aes = OpenSSL::Cipher.new('AES-256-CBC')
-    aes.encrypt
-    aes.key = SECRET_KEY
-    self.name = Base64.encode64(aes.update(name) + aes.final).encode('UTF-8')
-    ['brand_name', 'brand_id', 'item_name', 'item_description', '_id', 'keywords', 'nf_ingredient_statement'].each do |field|
-      unless ntx_api_nutrition_data.nil? or ntx_api_nutrition_data[field].nil?
-        data = ntx_api_nutrition_data[field].to_s
-        self.ntx_api_nutrition_data[field] = Base64.encode64(aes.update(data) + aes.final).encode('UTF-8')
-      end
-    end
-  end
-
   def send_swap_mailer
     UserMailer.replacement_suggestion(self).deliver
   end
-
-  # def decrypt_attribute(data)
-  #   aes = OpenSSL::Cipher.new('AES-256-CBC')
-  #   aes.decrypt
-  #   aes.key = SECRET_KEY
-  #   data = Base64.decode64(data).encode('ascii-8bit')
-  #   p aes.update(data) + aes.final
-  # end
 
 end
