@@ -1,169 +1,115 @@
-!!!
-%html{lang: "en"}
-  %head
-    %meta{charset: "utf-8"}/
-    %meta{content: "yes", name: "apple-mobile-web-app-capable"}/
-    %meta{content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", name: "viewport"}/
-    %meta{content: "black", name: "apple-mobile-web-app-status-bar-style"}/
-    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
-    %meta{content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", name: "viewport"}/
-    %meta{content: "black", name: "apple-mobile-web-app-status-bar-style"}/
-    %link{href: "startup/flat-ui/images/favicon.ico", rel: "shortcut icon"}/
-    %link{href: "startup/flat-ui/bootstrap/css/bootstrap.css", rel: "stylesheet"}/
-    %link{href: "startup/flat-ui/css/flat-ui.css", rel: "stylesheet"}/
-    / Using only with Flat-UI (free)
-    %link{href: "startup/common-files/css/icon-font.css", rel: "stylesheet"}/
-    / end
-    %link{href: "startup/common-files/css/animations.css", rel: "stylesheet"}/
-    %link{href: "static/css/style.css", rel: "stylesheet"}/
-    %link{href: "http://fonts.googleapis.com/css?family=Patua+One", rel: "stylesheet", type: "text/css"}/
-    %title Pushcart | shop smart. eat smart.
+.page-wrapper
+  %header.header-9
+    .container
+      .row
+        .navbar.col-sm-12{role: "navigation"}
+          .navbar-header
+            #logoWrapper.wrapper{"data-content-field" => "site-title"}
+              %a{href: "http://www.gopushcart.com"}
+                = image_tag "Pushcart_Logo_Reverse_No_Tag.png", alt: "",  height: "250", width: "250"
+  %section.header-9-sub.bg-midnight-blue
+    .background  
+    .container
+      .row
+        .col-sm-6.col-sm-offset-3
+          .hero-unit.bordered
+            %p.wide-text
+              shop smart.
+              %br>/
+              eat smart.
+          %p.wide-text.text-warning
+  %section#signup.content-13.subscribe-form.bg-turquoise
+    .container
+      .row
+        = simple_form_for(:user, url: registration_path(:user), html: {id: 'new_user_sign_up'}, format: :json, remote: true) do |f|
 
-    -if Rails.env.production?
-      / Begin Google Analytics javascript
-      :javascript
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', '']);
-        _gaq.push(['_setDomainName', '']);
-        _gaq.push(['_trackPageview']);
+          .col-sm-8
+            = f.input :email, required: true, autofocus: true, label: false, spellcheck: false, placeholder: '|Enter your e-mail here'
 
-        (function() {
-          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-      / End Google Analytics script
-  %body
-    .page-wrapper
-      %header.header-9
-        .container
-          .row
-            .navbar.col-sm-12{role: "navigation"}
-              .navbar-header
-                #logoWrapper.wrapper{"data-content-field" => "site-title"}
-                  %a{href: "http://www.gopushcart.com"}
-                    %img{alt: "", height: "250", src: "startup/common-files/img/header/Pushcart_Logo_Reverse_No_Tag.png", width: "250"}/
-      %section.header-9-sub.bg-midnight-blue
-        .background  
-        .container
-          .row
-            .col-sm-6.col-sm-offset-3
-              .hero-unit.bordered
-                %p.wide-text
-                  shop smart.
-                  %br>/
-                  eat smart.
-              %p.wide-text.text-warning
-      %section#signup.content-13.subscribe-form.bg-turquoise
-        .container
-          .row
-            = simple_form_for(:user, url: registration_path(:user), html: {id: 'new_user_sign_up'}, format: :json, remote: true) do |f|
+          .col-sm-4
+            = f.button :submit, 'Request a Beta Invite', class: "btn btn-large btn-primary"
 
-              .col-sm-8
-                = f.input :email, required: true, autofocus: true, label: false, spellcheck: false, placeholder: '|Enter your e-mail here'
-
-              .col-sm-4
-                = f.button :submit, 'Request a Beta Invite', class: "btn btn-large btn-primary"
-
-              %p{ style: "color: black; text-align: right; font-size: 11px; padding-right: 20px;" }
-                = link_to 'Never got your confirmation e-mail?', new_confirmation_path(:user), { style: "color: black; text-decoration: underline;" }
-          .row      
-            %h2#success-message{ style: "color: white;" }
-      %section.content-27.bg-clouds
-        .container
-          .row
-            .col-sm-4
-              %img{alt: "", height: "271", src: "startup/common-files/icons/basket@2x.png", width: "271"}/
-            .col-sm-7.col-sm-offset-1
-              %br/
-              %h3 You buy your groceries online to save time and money. Now go the extra step for your health.
-              %h3
-                Pushcart works seamlessly with your online grocery service to analyze your purchases and map them to your personal health goals.
-              %h3
-                No receipt scanning, no apps to install. Just clear insights and tips on achieving your health goals delivered straight to your email inbox.
-              %div{align: "center"}
-                %h4 Supported Online Groceries
-                %a.btn{href: "http://www.freshdirect.com"}
-                  %img{alt: "", height: "100", src: "startup/common-files/icons/freshdirect.png", width: "100"}/
-                \ 
-                %a{href: "http://www.instacart.com"}
-                  %img{alt: "", height: "100", src: "startup/common-files/icons/instacart.png", width: "150"}/
-                \ 
-                %a{href: "http://www.peapod.com"}
-                  %img{alt: "", height: "100", src: "startup/common-files/icons/peapod_logo.png", width: "100"}/
-      %section.content-16.v-center
-        %div
-          .container
-            %h3
-              %img{alt: "", height: "200", src: "startup/common-files/icons/Clipboard@2x.png", width: "200"}/
-              Getting Started Is As Easy As 1-2-3
-        %a.control-btn.fui-arrow-down{href: "#step1"}
-      %section.content-31
-        .container
-          #step1.row
-            .number 1
-            .col-sm-8.col-sm-offset-2
-              %h3 Sign Up With Your Email
-              %p
-                All you have to do is signup
-                %a{href: "#signup"} above
-                for Pushcart with your email. That's it. No receipts to save, or apps to install. We're in limited Beta but once you're added you'll get an invite email with the next step right away.
+          %p{ style: "color: black; text-align: right; font-size: 11px; padding-right: 20px;" }
+            = link_to 'Never got your confirmation e-mail?', new_confirmation_path(:user), { style: "color: black; text-decoration: underline;" }
+      .row      
+        %h2#success-message{ style: "color: white;" }
+  %section.content-27.bg-clouds
+    .container
+      .row
+        .col-sm-4
+          = image_tag "basket@2x.png", alt: "", height: "271",  width: "271"
+        .col-sm-7.col-sm-offset-1
+          %br/
+          %h3 You buy your groceries online to save time and money. Now go the extra step for your health.
+          %h3
+            Pushcart works seamlessly with your online grocery service to analyze your purchases and map them to your personal health goals.
+          %h3
+            No receipt scanning, no apps to install. Just clear insights and tips on achieving your health goals delivered straight to your email inbox.
+          %div{align: "center"}
+            %h4 Supported Online Groceries
+            %a.btn{href: "http://www.freshdirect.com"}
+              = image_tag "freshdirect.png", alt: "", height: "100", width: "100"
+            %a{href: "http://www.instacart.com"}
+              = image_tag "instacart.png", alt: "", height: "100", width: "150"
+            %a{href: "http://www.peapod.com"}
+              = image_tag "peapod_logo.png", alt: "", height: "100", width: "100"
+  %section.content-16.v-center
+    %div
+      .container
+        %h3
+          = image_tag "Clipboard@2x.png", alt: "", height: "200", width: "200"
+          Getting Started Is As Easy As 1-2-3
+    %a.control-btn.fui-arrow-down{href: "#step1"}
+  %section.content-31
+    .container
+      #step1.row
+        .number 1
+        .col-sm-8.col-sm-offset-2
+          %h3 Sign Up With Your Email
+          %p
+            All you have to do is signup
+            %a{href: "#signup"} above
+            for Pushcart with your email. That's it. No receipts to save, or apps to install. We're in limited Beta but once you're added you'll get an invite email with the next step right away.
+          .box
+            .img
+              = image_tag "Mail@2x.png", alt: "", width: "96.5", height: "100"
+      .row
+        .number 2
+        .col-sm-8.col-sm-offset-2
+          #pt-1.page-transitions.pt-perspective
+            .pt-page.pt-page-current
+              %h3 Set A Personal Health Goal
+              %p You'll receive an email from Pushcart with a link to a brief form where you can select a personal health goal to achieve from a library of options we've created with the help of nutritionists, physiciains and cognitive behavioral therapists. If you don't see a goal that fits, feel free to write in your own and we'll create a custom goal setting in Pushcart for you.
+              %p You can also add additional details on the other members of your household and their personal health goals as well.
               .box
                 .img
-                  %img{alt: "", height: "100", src: "startup/common-files/img/content/Mail@2x.png", width: "96.5"}/
-                  %img{alt: "", height: "100", src: "startup/common-files/icons/Mail@2x.png", width: "96.5"}/
-          .row
-            .number 2
-            .col-sm-8.col-sm-offset-2
-              #pt-1.page-transitions.pt-perspective
-                .pt-page.pt-page-current
-                  %h3 Set A Personal Health Goal
-                  %p You'll receive an email from Pushcart with a link to a brief form where you can select a personal health goal to achieve from a library of options we've created with the help of nutritionists, physiciains and cognitive behavioral therapists. If you don't see a goal that fits, feel free to write in your own and we'll create a custom goal setting in Pushcart for you.
-                  %p You can also add additional details on the other members of your household and their personal health goals as well.
-                  .box
-                    .img
-                      %img{alt: "", height: "102", src: "startup/common-files/img/content/Goal@2x.png", width: "102"}/
-                      %img{alt: "", height: "102", src: "startup/common-files/img/content/Goal@2x.png", width: "102"}/
-          .row
-            .number 3
-            .col-sm-8.col-sm-offset-2
-              #pt-2.page-transitions.pt-perspective
-                .pt-page.pt-page-current
-                  %h3 Track Your Progress
-                  %p
-                    By using Pushcart's simple email setup, your online grocery receipts are automatically tracked by Pushcart against your health goals.
-                  %p
-                    Every time you place a new grocery order, you'll receive a email from Pushcart with beautiful data visualizations of how your purchases map to your goals.
-                  .box
-                    .img
-                      %img{alt: "", height: "200", src: "startup/common-files/icons/Graph@2x.png", width: "200"}/
-                      %img{alt: "", height: "200", src: "startup/common-files/icons/Graph@2x.png", width: "200"}/
-      %section.contacts-4
-        .container
-          .content
-            %h3 Get in touch with us!
-            %p
-              Pushcart is a product designed and developed by the Small Data Lab at Cornell Tech in New York City.
-              %br/
-            .links
-              %a{href: "http://smalldata.tech.cornell.edu"} smalldata.tech.cornell.edu
-      %footer.footer-4.bg-midnight-blue
-        .container
-          %div{style: "font-family: 'Patua One', cursive;"}
-            %a{href: "http://www.gopushcart.com"} Pushcart
-      / Placed at the end of the document so the pages load faster
-      %script{src: "startup/common-files/js/jquery-1.10.2.min.js"}
-      %script{src: "startup/common-files/js/jquery.bxslider.min.js"}
-      %script{src: "startup/common-files/js/jquery.scrollTo-1.4.3.1-min.js"}
-      %script{src: "startup/common-files/js/jquery.sharrre.min.js"}
-      %script{src: "startup/flat-ui/js/bootstrap.min.js"}
-      %script{src: "startup/common-files/js/masonry.pkgd.min.js"}
-      %script{src: "startup/common-files/js/modernizr.custom.js"}
-      %script{src: "startup/common-files/js/page-transitions.js"}
-      %script{src: "startup/common-files/js/easing.min.js"}
-      %script{src: "startup/common-files/js/jquery.svg.js"}
-      %script{src: "startup/common-files/js/jquery.svganim.js"}
-      %script{src: "startup/common-files/js/jquery.backgroundvideo.min.js"}
-      %script{src: "startup/common-files/js/froogaloop.min.js"}
-      %script{src: "startup/common-files/js/startup-kit.js"}
-      = javascript_include_tag 'homepage_meta'
+                  = image_tag "Goal@2x.png", alt: "", height: "102", width: "102"
+                  = image_tag "Goal@2x.png", alt: "", height: "102", width: "102"
+      .row
+        .number 3
+        .col-sm-8.col-sm-offset-2
+          #pt-2.page-transitions.pt-perspective
+            .pt-page.pt-page-current
+              %h3 Track Your Progress
+              %p
+                By using Pushcart's simple email setup, your online grocery receipts are automatically tracked by Pushcart against your health goals.
+              %p
+                Every time you place a new grocery order, you'll receive a email from Pushcart with beautiful data visualizations of how your purchases map to your goals.
+              .box
+                .img
+                  = image_tag "Graph@2x.png", alt: "", height: "200", width: "200"
+                  = image_tag "Graph@2x.png", alt: "", height: "200", width: "200"
+  %section.contacts-4
+    .container
+      .content
+        %h3 Get in touch with us!
+        %p
+          Pushcart is a product designed and developed by the Small Data Lab at Cornell Tech in New York City.
+          %br/
+        .links
+          %a{href: "http://smalldata.tech.cornell.edu"} smalldata.tech.cornell.edu
+  %footer.footer-4.bg-midnight-blue
+    .container
+      %div{style: "font-family: 'Patua One', cursive;"}
+        %a.homepage-footer{href: "http://www.gopushcart.com"} Pushcart
+= javascript_include_tag 'homepage_meta'

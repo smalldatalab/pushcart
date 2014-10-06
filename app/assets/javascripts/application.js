@@ -1,8 +1,5 @@
 //= require jquery
 //= require jquery_ujs
-//= require foundation
+//= require bootstrap-sprockets
 //= require turbolinks
 //= require jquery_nested_form
-//= require homepage
-
-$(function(){ $(document).foundation(); });
