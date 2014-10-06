@@ -81,6 +81,8 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-sass (3.2.0.2)
+      sass (~> 3.2)
     bourbon (3.2.3)
       sass (~> 3.2)
       thor
@@ -143,12 +145,6 @@ GEM
     foreman (0.63.0)
       dotenv (>= 0.7)
       thor (>= 0.13.6)
-    foundation-icons-sass-rails (3.0.0)
-      railties (>= 3.1.1)
-      sass-rails (>= 3.1.1)
-    foundation-rails (5.2.2.0)
-      railties (>= 3.1.0)
-      sass (>= 3.2.0)
     griddler (0.6.4)
       htmlentities
       rails (>= 3.2.0)
@@ -352,6 +348,7 @@ DEPENDENCIES
   bazaar
   better_errors
   binding_of_caller
+  bootstrap-sass (~> 3.2.0)
   capistrano (~> 2.15.5)
   capistrano-ext
   capistrano_colors
@@ -366,8 +363,6 @@ DEPENDENCIES
   faker
   foreman (~> 0.63.0)
   formtastic!
-  foundation-icons-sass-rails (= 3.0.0)
-  foundation-rails
   griddler
   haml
   jquery-rails
