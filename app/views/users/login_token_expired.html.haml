@@ -1,8 +1,10 @@
-.row
-  %h1 Link Expired
+.container
+  .row
+    .col-md-offset-1.col-md-10
+      %h1 Link Expired
 
-  %p It appears that the link you are trying to access is expired. We expire all links sent to you via e-mail after 8 hours, for your security.
+      %p It appears that the link you are trying to access is expired. We expire all links sent to you via e-mail after 8 hours, for your security.
 
-  %p Please enter your e-mail below and we'll send you a new link that you can use.
+      %p Please enter your e-mail below and we'll send you a new link that you can use.
 
-  = render 'new_login_token_form', return_path: @ref
+      = render 'new_login_token_form', return_path: @ref

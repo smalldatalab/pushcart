@@ -1,34 +1,32 @@
-.row
-  %h1 Your household
-
-.row
-  = simple_nested_form_for @user do |f|
-    .large-11.small-centered.columns
+.container
+  .row
+    .col-md-10
+      %h1 Your household
+  .row
+    .col-md-9.col-md-offset-1
       %h3 Set your household mission
       %p Please tell us about a healthy change you’d like to make to your grocery shopping. Don’t worry, if you don’t have a goal or if nothing is coming to mind, just let us know and we'll send you a menu of common evidence-based goals you can choose from.
-    .large-11.small-centered.columns
+  = simple_nested_form_for @user do |f|
+    .col-md-9.col-md-offset-1
       = f.input :mission_statement, label: false, input_html: {rows: 5}
-
-    .large-11.small-centered.columns
-      %h3 Who are you shopping for?
-      %p Having information on the number of people you shop for and their age helps us tailor our recommendations better. (Please include yourself.)
-    .large-11.small-centered.columns
-      = f.fields_for :household_members, class: 'row' do |hm_form|
-        .large-2.columns
-          %h5= 'Person'
-        .large-3.columns
-          = hm_form.input :gender, collection: ['Male', 'Female', 'N/A'], label: false, prompt: 'Gender'
-        .large-3.columns
-          = hm_form.input :age, collection: HouseholdMember.age_collection, label: false, prompt: 'Age'
-        .large-1.columns
-          = hm_form.link_to_remove 'Remove', class: 'button small person-button'
+    .row
+      .col-md-9.col-md-offset-1
+        %h3 Who are you shopping for?
+        %p Having information on the number of people you shop for and their age helps us tailor our recommendations better. (Please include yourself.)
+    #edit-form
+      = f.fields_for :household_members do |hm_form|
         .row
-
+          .col-md-1.col-md-offset-1
+            %h5= 'Person'
+          .col-md-3
+            = hm_form.input :gender, collection: ['Male', 'Female', 'N/A'], label: false, prompt: 'Gender'
+          .col-md-3
+            = hm_form.input :age, collection: HouseholdMember.age_collection, label: false, prompt: 'Age'
+          .col-md-2
+            = hm_form.link_to_remove 'Remove', class: 'button person-button remove_nested_fields'
     .row
-      .large-11.small-centered.columns
-        = f.link_to_add "Add person to household", :household_members, class: 'button small'
-
-
+      .col-md-3.col-md-offset-1
+        = f.link_to_add "Add person to household", :household_members, class: 'btn btn-primary', data: { target: "#edit-form" }
     .row
-      .large-4.small-4.offset-4.small-centered.columns
-        = f.button :submit, 'Update Household', class: 'button'
+      .col-md-3.col-md-offset-5
+        = f.button :submit, 'Update Household', class: 'btn btn-primary'

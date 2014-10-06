@@ -1,9 +1,10 @@
 = form_tag new_login_token_path do
-  .row
-    .large-8.columns
-      = text_field_tag "email", nil, placeholder: "your email address"
-    = hidden_field_tag 'return_path', defined?(return_path) ? return_path : ''
+  .container
+    .row
+      .col-md-offset-2.col-md-8
+        = text_field_tag "email", nil, placeholder: "your email address"
+        = hidden_field_tag 'return_path', defined?(return_path) ? return_path : ''
 
-  .row
-    .large-12.columns
-      = submit_tag "Submit", class: "button"
+    .row
+      .col-md-offset-2
+        = submit_tag "Submit", class: "button"

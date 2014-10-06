@@ -1,14 +1,14 @@
 = simple_form_for @user do |f|
   .row
-    .large-12.columns
+    .col-md-offset-2.col-md-1
       Endpoint email
-    .large-6.columns
+    .col-md-4
       = f.input :endpoint_email, label: false
-    .large-6.columns
+    .col-md-3
       = "@#{EMAIL_URI}"
-    .large-12.columns
-      %p This e-mail address is where all your grocery reciepts should be sent. Once you change it, we recommend that you update it in any auto-mailers or grocery accounts immediately, as we will no longer forward e-mails sent to the old endpoint address.
-
   .row
-    .large-12.columns
+    .col-md-offset-1.col-md-8
+      %p This e-mail address is where all your grocery receipts should be sent. Once you change it, we recommend that you update it in any auto-mailers or grocery accounts immediately, as we will no longer forward e-mails sent to the old endpoint address.
+  .row
+    .col-md-offset-2
       = f.button :submit, 'Update my settings', class: 'button'
