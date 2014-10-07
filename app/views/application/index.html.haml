@@ -6,7 +6,7 @@
           .navbar-header
             #logoWrapper.wrapper{"data-content-field" => "site-title"}
               %a{href: "http://www.gopushcart.com"}
-                = image_tag "Pushcart_Logo_Reverse_No_Tag.png", alt: "",  height: "250", width: "250"
+                = image_tag "#{ASSETS_URL_ROOT}/Pushcart_Logo_Reverse_No_Tag.png", alt: "",  height: "250", width: "250"
   %section.header-9-sub.bg-midnight-blue
     .background  
     .container
@@ -37,7 +37,7 @@
     .container
       .row
         .col-sm-4
-          = image_tag "basket@2x.png", alt: "", height: "271",  width: "271"
+          = image_tag "#{ASSETS_URL_ROOT}/basket%402x.png", alt: "", height: "271",  width: "271"
         .col-sm-7.col-sm-offset-1
           %br/
           %h3 You buy your groceries online to save time and money. Now go the extra step for your health.
@@ -48,16 +48,16 @@
           %div{align: "center"}
             %h4 Supported Online Groceries
             %a.btn{href: "http://www.freshdirect.com"}
-              = image_tag "freshdirect.png", alt: "", height: "100", width: "100"
+              = image_tag "#{ASSETS_URL_ROOT}/freshdirect.png", alt: "", height: "100", width: "100"
             %a{href: "http://www.instacart.com"}
-              = image_tag "instacart.png", alt: "", height: "100", width: "150"
+              = image_tag "#{ASSETS_URL_ROOT}/instacart.png", alt: "", height: "100", width: "150"
             %a{href: "http://www.peapod.com"}
-              = image_tag "peapod_logo.png", alt: "", height: "100", width: "100"
+              = image_tag "#{ASSETS_URL_ROOT}/peapod_logo.png", alt: "", height: "100", width: "100"
   %section.content-16.v-center
     %div
       .container
         %h3
-          = image_tag "Clipboard@2x.png", alt: "", height: "200", width: "200"
+          = image_tag "#{ASSETS_URL_ROOT}/Clipboard%402x.png", alt: "", height: "200", width: "200"
           Getting Started Is As Easy As 1-2-3
     %a.control-btn.fui-arrow-down{href: "#step1"}
   %section.content-31
@@ -72,8 +72,8 @@
             for Pushcart with your email. That's it. No receipts to save, or apps to install. We're in limited Beta but once you're added you'll get an invite email with the next step right away.
           .box
             .img
-              = image_tag "Mail@2x.png", alt: "", width: "96.5", height: "100"
-              = image_tag "Mail@2x.png", alt: "", width: "96.5", height: "100"
+              = image_tag "#{ASSETS_URL_ROOT}/Mail%402x.png", alt: "", width: "96.5", height: "100"
+              = image_tag "#{ASSETS_URL_ROOT}/Mail%402x.png", alt: "", width: "96.5", height: "100"
       .row
         .number 2
         .col-sm-8.col-sm-offset-2
@@ -84,8 +84,8 @@
               %p You can also add additional details on the other members of your household and their personal health goals as well.
               .box
                 .img
-                  = image_tag "Goal@2x.png", alt: "", height: "102", width: "102"
-                  = image_tag "Goal@2x.png", alt: "", height: "102", width: "102"
+                  = image_tag "#{ASSETS_URL_ROOT}/Goal%402x.png", alt: "", height: "102", width: "102"
+                  = image_tag "#{ASSETS_URL_ROOT}/Goal%402x.png", alt: "", height: "102", width: "102"
       .row
         .number 3
         .col-sm-8.col-sm-offset-2
@@ -98,8 +98,8 @@
                 Every time you place a new grocery order, you'll receive a email from Pushcart with beautiful data visualizations of how your purchases map to your goals.
               .box
                 .img
-                  = image_tag "Graph@2x.png", alt: "", height: "200", width: "200"
-                  = image_tag "Graph@2x.png", alt: "", height: "200", width: "200"
+                  = image_tag "#{ASSETS_URL_ROOT}/Graph%402x.png", alt: "", height: "200", width: "200"
+                  = image_tag "#{ASSETS_URL_ROOT}/Graph%402x.png", alt: "", height: "200", width: "200"
   %section.contacts-4
     .container
       .content
