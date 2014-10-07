@@ -31,13 +31,13 @@ gem 'bazaar'
 
 ### Assets ###
 
-gem 'turbolinks'
+# gem 'turbolinks'
 gem 'haml'
 gem 'sass-rails',       '~> 4.0.2'
 gem 'coffee-rails',     '~> 4.0.1'
 gem 'jquery-rails'
 gem 'uglifier',         '>= 1.3.0'
-gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootstrap-sass',   '~> 3.2.0'
 
 ### Forms ###
 
