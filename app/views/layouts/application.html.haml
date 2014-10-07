@@ -6,10 +6,9 @@
     %meta{content: "yes", name: "apple-mobile-web-app-capable"}/
     %meta{content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", name: "viewport"}/
     %meta{content: "black", name: "apple-mobile-web-app-status-bar-style"}/
-    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
     %link{href: "http://fonts.googleapis.com/css?family=Patua+One", rel: "stylesheet", type: "text/css"}/
     %title= content_for?(:title) ? "#{SITE_NAME} | #{yield(:title)}" : "#{SITE_NAME}"
-    = stylesheet_link_tag 'application'
+    = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
 
     <!--[if IE]>
@@ -31,26 +30,26 @@
         })();
       / End Google Analytics script
 
-%body
-  .row
-    - if flash[:error]
-      .alert-box{"data-alert" => ""}
-        - flash[:error].each do |message|
-          %li= message
-        %a.close{:href => "#"} &times;
-    - if flash[:notice]
-      .alert-box.success{"data-alert" => ""}
-        = flash[:notice]
-        %a.close{:href => "#"} &times;
-
-  = yield
-  
-  .container 
+  %body
     .row
-      .footer
-      - if current_user && !current_page?('/')
-        .user-info
-          You are signed in as #{current_user.email}.
-          = link_to 'Click here to sign out.', sign_out_user_path, method: :delete
+      - if flash[:error]
+        .alert-box{"data-alert" => ""}
+          - flash[:error].each do |message|
+            %li= message
+          %a.close{:href => "#"} &times;
+      - if flash[:notice]
+        .alert-box.success{"data-alert" => ""}
+          = flash[:notice]
+          %a.close{:href => "#"} &times;
 
-  = javascript_include_tag 'application'
+    = yield
+    
+    .container 
+      .row
+        .footer
+        - if current_user && !current_page?('/')
+          .user-info
+            You are signed in as #{current_user.email}.
+            = link_to 'Click here to sign out.', sign_out_user_path, method: :delete
+
+    = javascript_include_tag 'application'
