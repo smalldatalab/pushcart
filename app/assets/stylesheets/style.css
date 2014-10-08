@@ -650,7 +650,7 @@ section * {
   padding: 0;
   width: 30px;
   height: 30px;
-  background: url("../../startup/common-files/icons/menu-icon@2x.png") 50% no-repeat;
+  background: url('https://s3.amazonaws.com/pushcart-assets/images/menu-icon%402x.png') 50% no-repeat;
   -webkit-background-size: 17px 12px;
   -moz-background-size: 17px 12px;
   -o-background-size: 17px 12px;
@@ -1768,10 +1768,10 @@ body > .navbar-collapse .navbar-search .btn-primary:hover {
   }
 }
 /**
- * Copntact 4 stylesheet  
+ * Contact 4 stylesheet  
  * */
 .contacts-4 {
-  background: #34495e url('map.jpg') 50% 50% no-repeat;
+  background: #34495e url('https://s3.amazonaws.com/pushcart-assets/images/map.jpg') 50% 50% no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
