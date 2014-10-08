@@ -933,7 +933,7 @@ body > .navbar-collapse .navbar-search .btn-primary:hover {
   text-align: center;
 }
 .header-9-sub .background {
-  background-image: url('img-4.jpg');
+  background-image: url('https://s3.amazonaws.com/pushcart-assets/images/img-4.jpg');
   opacity: 100;
   filter: alpha(opacity=10000);
   opacity: 1;
