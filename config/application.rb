@@ -26,5 +26,11 @@ module Pushcart
         resource '*', headers: :any, methods: [:post, :get]
       end
     end
+
+    config.action_controller.asset_host = Proc.new { |source|
+                                                      if source =~ /\b(.png|.jpg|.gif|.jpeg)\b/i
+                                                        'https://s3.amazonaws.com/pushcart-assets/images'
+                                                      end
+                                                    }
   end
 end
