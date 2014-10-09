@@ -5,8 +5,10 @@
   .row
     .col-md-9.col-md-offset-1
       %h3 Set your household mission
-      %p Please tell us about a healthy change you’d like to make to your grocery shopping. Don’t worry, if you don’t have a goal or if nothing is coming to mind, just let us know and we'll send you a menu of common evidence-based goals you can choose from.
+      %p Please tell us about a healthy change you’d like to make to your grocery shopping.
+
   = simple_nested_form_for @user do |f|
+  
     .col-md-9.col-md-offset-1
       = f.input :mission_statement, label: false, input_html: {rows: 5}
     .row

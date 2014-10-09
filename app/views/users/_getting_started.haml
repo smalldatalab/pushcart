@@ -7,20 +7,20 @@
         %h1 Your Pushcart account
   .row
     .col-md-offset-2.col-md-8
-      %h2 Your endpoint address
+      %h2 Your Pushcart forwarding address
   .row
     .col-md-offset-2.col-md-8
-      %p Your endpoint e-mail is a filter for grabbing your grocery receipt data. Here's yours:
+      %p Your Pushcart forwarding e-mail address is a filter for grabbing your grocery receipt data. Here's yours:
       %p
         %b
           = @user.endpoint_email_with_uri
       %p
-        Want to change you endpoint e-mail to something else?
+        Want to change your Pushcart forwarding e-mail address to something else?
         - if mailer
           = link_to 'Click here.', url_with_login_token(@user, edit_user_url(@user))
         - else
           = link_to 'Click here.', edit_user_path(@user)
-      %p Simply send receipts to this address and we'll make sure that we collect all the important data you need to know about your grocery shopping.
+      %p Simply send receipts to this address and we'll make sure that we collect all the important data you need to know about your grocery shopping for you.
   .row
     .col-md-offset-1.col-md-10
       %h2 Your household information
