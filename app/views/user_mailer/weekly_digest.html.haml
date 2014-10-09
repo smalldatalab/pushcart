@@ -146,7 +146,7 @@
                                               %tr
                                                 %td.columnsContainer30{align: "right", height: "50", style: "font-size:16px; font-family:Roboto; color:#FFF; font-weight:bold;", valign: "middle", width: "19%"}= cat.to_s
                                                 %td{align: "left", height: "50", valign: "top", width: "12%"}
-                                                  %img{height: "50", src: image_url("/assets/weekly_digest/#{cat.to_s}.png"), width: "68"}/
+                                                  %img{height: "50", src: "#{ASSETS_URL_ROOT}/weekly_digest/#{cat.to_s}.png", width: "68"}/
                                                 %td{align: "left", height: "50", valign: "top", width: "69%"}
                                                   %table{border: "0", cellpadding: "0", cellspacing: "0", width: "100%"}
                                                     %tr
@@ -200,7 +200,7 @@
                                         %tr
                                           %td{align: "left", style: "color:#FFF; font-family: Roboto; font-weight:bold; font-size:32px; font-stretch:normal; font-variant:normal;"}= cat.to_s
                                           %td{align: "left"}
-                                            %img{height: "52", src: image_url("/assets/weekly_digest/#{cat.to_s}.png"), width: "52"}/
+                                            %img{height: "52", src: "#{ASSETS_URL_ROOT}/weekly_digest/#{cat.to_s}.png", width: "52"}/
                                 - items.each do |item|
                                   %table{border: "0", cellpadding: "0", cellspacing: "0", width: "100%"}
                                     %tr
