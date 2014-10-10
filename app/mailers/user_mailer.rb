@@ -16,6 +16,7 @@ class UserMailer < BaseMailer
     @email = email
     mail(
         to: @user.email,
+        reply_to: user_endpoint_reply_to,
         subject: "[#{SITE_NAME.titleize}: Receipt processed] #{@email.subject}"
       )
   end
@@ -25,6 +26,7 @@ class UserMailer < BaseMailer
     @email = email
     mail(
         to: @user.email,
+        reply_to: user_endpoint_reply_to,
         subject: "[#{SITE_NAME.titleize}: Not processed] #{@email.subject}"
       )
   end
@@ -34,17 +36,9 @@ class UserMailer < BaseMailer
   def getting_started(user_id)
     set_user(user_id)
     mail(
-      to: @user.email,
-      subject: "Getting started with #{SITE_NAME.titleize}"
+        to: @user.email,
+        subject: "Getting started with #{SITE_NAME.titleize}"
       )
-  end
-
-  def welcome(user_id)
-    set_user(user_id)
-    mail(
-          to: @user.email,
-          subject: "Welcome to #{SITE_NAME.titleize}!"
-        )
   end
 
   def new_pushcart_endpoint_email(user_id)
@@ -59,6 +53,7 @@ class UserMailer < BaseMailer
     set_user(user_id)
     mail(
           to: @user.email,
+          reply_to: user_endpoint_reply_to,
           subject: "Your #{SITE_NAME.titleize} account in a nutshell."
         )
   end
@@ -81,6 +76,7 @@ class UserMailer < BaseMailer
     @digest = digest
     mail(
       to: @user.email,
+      reply_to: user_endpoint_reply_to,
       bcc: 'michael@aqua.io',
       subject: "Your Weekly Pushcart Digest | #{american_date_format(digest.start_date)} - #{american_date_format(digest.end_date)}"
       )
@@ -94,6 +90,7 @@ class UserMailer < BaseMailer
     @swap = item.swap
     mail(
       to: @user.email,
+      reply_to: user_endpoint_reply_to,
       bcc: 'michael@aqua.io',
       subject: "A suggested item substitution for your next purchase!"
       )
