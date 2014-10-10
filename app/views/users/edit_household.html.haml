@@ -10,7 +10,7 @@
   = simple_nested_form_for @user do |f|
   
     .col-md-9.col-md-offset-1
-      = f.input :mission_statement, label: false, input_html: {rows: 5}
+      = f.input :mission_id, collection: Mission.all, label: false
     .row
       .col-md-9.col-md-offset-1
         %h3 Who are you shopping for?

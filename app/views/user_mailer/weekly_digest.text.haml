@@ -2,11 +2,11 @@ Your weekly Pushcart report:
 \
 Your mission:
 \
-- if @user.mission_statement.nil?
+- if @user.mission_id.nil?
   You still need to set a mission!
   = link_to 'Please do so here.', url_with_login_token(@user, edit_household_url)
 - else
-  = @user.mission_statement
+  = @user.mission.name
 \
 Your cart:
 Food Group | Breakdown (% of Cart)

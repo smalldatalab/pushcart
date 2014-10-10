@@ -66,7 +66,7 @@ protected
   def user_params
     params.require(:user).permit( 
                                   :endpoint_email,
-                                  :mission_statement,
+                                  :mission_id,
                                   household_members_attributes: [
                                                                   :id,
                                                                   :age,

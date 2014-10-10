@@ -42,15 +42,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def reset_mission_statement(statement)
-    self.mission_statement = statement
-    self.mission = nil
-    MissionMailer.delay.new_mission(email, mission_statement)
-    save
-  end
-
   def send_onboarding_emails
-    UserMailer.delay.getting_started(self.id) if (household_size == 0 || mission_statement.nil?)
+    UserMailer.delay.getting_started(self.id) if (household_size == 0 || mission_id.nil?)
     send_pushcart_endpoint_mailer
   end
 

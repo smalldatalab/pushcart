@@ -9,31 +9,6 @@ describe User do
     # end
   end
 
-  describe "#reset_mission_statement" do
-
-    # before(:each) do
-    #   Delayed::Worker.delay_jobs = false
-    #   @user = FactoryGirl.create(:user, :with_mission)
-    # end
-
-    # it "should change the :mission_statement" do
-    #   @user.reset_mission_statement('Some new mission')
-    #   @user.mission_statement.should == 'Some new mission'
-    # end
-
-    # it "should set the :mission to nil" do
-    #   @user.reset_mission_statement('Some new mission')
-    #   @user.mission.should == nil
-    # end
-
-    # it "should send out the right mailer" do
-    #   Delayed::Worker.delay_jobs = false
-    #   MissionMailer.any_instance.expects(:new_mission).with(@user.email, 'Some new mission')
-    #   @user.reset_mission_statement('Some new mission')
-    # end
-
-  end
-
   describe '#generate_endpoint_email_recommendation' do
 
     it 'should return user root e-mail address' do

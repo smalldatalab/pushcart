@@ -69,11 +69,11 @@
                             %table.table-inner{border: "0", cellpadding: "0", cellspacing: "0", width: "600"}
                               %tr
                                 %td{align: "center", style: "color:#70BF41; line-height:150%; font-size:38px; font-family:Roboto; font-weight:bold;", valign: "top"}
-                                  - if @user.mission_statement.nil?
+                                  - if @user.mission_id.nil?
                                     You still need to set a mission!
                                     = link_to 'Please do so here.', url_with_login_token(@user, edit_household_url)
                                   - else
-                                    = simple_format @user.mission_statement
+                                    = simple_format @user.mission.name
                             %table{border: "0", cellpadding: "0", cellspacing: "0", width: "100%"}
                               %tr
                                 %td{height: "20"}

@@ -115,10 +115,10 @@
                         
                             <p class="p1" style="margin: 1em 0;padding: 0;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #606060;font-family: Helvetica;font-size: 15px;line-height: 150%;text-align: left"><span class="s1"><strong>1) Your Household’s Mission</strong></span></p>
 
-                            <% if @user.mission_statement.blank? %>
+                            <% if @user.mission_id.blank? %>
                               <p class="p3" style="margin: 1em 0;padding: 0;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #606060;font-family: Helvetica;font-size: 15px;line-height: 150%;text-align: left"><span class="s1">You have not yet set a mission for your household. Remember your mission is the personal goal you want to achieve with Pushcart’s support and guidance. Please set your mission </span><a href=<%= url_with_login_token(@user, edit_household_url) %> target="_blank" style="word-wrap: break-word;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #6DC6DD;font-weight: normal;text-decoration: underline"><span class="s2"><strong>here</strong></span></a><span class="s1">.</span><br /></p>
                             <% else %>
-                              <p class="p3" style="margin: 1em 0;padding: 0;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #606060;font-family: Helvetica;font-size: 15px;line-height: 150%;text-align: left"><span class="s1"><%= @user.mission_statement %></span></p>
+                              <p class="p3" style="margin: 1em 0;padding: 0;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #606060;font-family: Helvetica;font-size: 15px;line-height: 150%;text-align: left"><span class="s1"><%= @user.mission.name %></span></p>
                               <p class="p3" style="margin: 1em 0;padding: 0;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #606060;font-family: Helvetica;font-size: 15px;line-height: 150%;text-align: left"><span class="s1">Want to reset your mission? You can do so </span><a href=<%= url_with_login_token(@user, edit_household_url) %> target="_blank" style="word-wrap: break-word;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #6DC6DD;font-weight: normal;text-decoration: underline"><span class="s2"><strong>here</strong></span></a><span class="s1">.</span><br /></p>
                             <% end %>
 

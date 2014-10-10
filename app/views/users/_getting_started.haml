@@ -27,14 +27,14 @@
   .row
     .col-md-offset-2.col-md-8
       %h3 Household Mission
-      - if @user.mission_statement.blank?
+      - if @user.mission_id.nil?
         %p
           = "You have not yet set a mission for your household."
           = link_to 'Please do so here.', url_with_login_token(@user, edit_household_url)
       - else
         %p
           %b
-            = @user.mission_statement
+            = @user.mission.name
       %h3 Household Demographics
       - if @user.household_members.empty?
         %p
