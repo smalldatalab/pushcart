@@ -8,7 +8,7 @@ private
     @user = User.find(user_id)
   end
 
-  def endpoint_reply_to
+  def user_endpoint_reply_to
     "\"Your Pushcart forwarding address\" <#{@user.endpoint_email_with_uri}>"
   end
 

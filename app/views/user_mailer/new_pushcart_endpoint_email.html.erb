@@ -59,6 +59,10 @@
                         
                           <p class="p1" style="margin: 1em 0;padding: 0;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #606060;font-family: Helvetica;font-size: 15px;line-height: 150%;text-align: left">You will still get your online grocery order receipts and notifications forwarded to you, and your account information is fully secure. Setting this up allows Pushcart to simply track and provide feedback on your online grocery orders without the hassle of saving and forwarding email receipts, etc. <br /><br /></p>
 
+                          <% if Date.new(2014,11).future? %>
+                            <p class="p2" style="margin: 1em 0;padding: 0;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #606060;font-family: Helvetica;font-size: 15px;line-height: 150%;text-align: left"><span class="s1" style="line-height:1.6em"><strong>Once you’ve successfully set up your online grocery account(s) with the Pushcart forwarding address, you will be eligible for a $10 credit.</strong></span></p>
+                          <% end %>
+
                           <% if false %>
                             <p class="p2" style="margin: 1em 0;padding: 0;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #606060;font-family: Helvetica;font-size: 15px;line-height: 150%;text-align: left"><br /><span class="s1" style="line-height:1.6em">Want to change you Pushcart e-mail to something else? Click </span><a href=<%= url_with_login_token(@user, edit_user_url(@user)) %> target="_blank" style="word-wrap: break-word;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #6DC6DD;font-weight: normal;text-decoration: underline"><span class="s2" style="line-height:1.6em"><strong>here</strong></span></a><span class="s1" style="line-height:1.6em">.</span></p>
                           <% end %>

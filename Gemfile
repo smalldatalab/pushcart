@@ -65,6 +65,7 @@ gem 'formtastic',   github: 'justinfrench/formtastic'
 ### Other ###
 
 gem 'table_print'
+gem 'string-urlize', '~> 1.0.2'
 
 group :development do
   gem 'better_errors'
