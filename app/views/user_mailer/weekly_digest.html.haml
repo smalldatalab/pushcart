@@ -129,12 +129,12 @@
                                 %td{align: "center", valign: "top"}
                                   %table.table-inner{border: "0", cellpadding: "0", cellspacing: "0", width: "600"}
                                     %tr
-                                      %td{align: "center", style: "color:#FFF; font-family: Roboto; font-weight:bold; font-size:32px; line-height:150%", valign: "top"} Food Group Breakdown (% of Cart)
+                                      %td{align: "center", style: "color:#FFF; font-family: Roboto; font-weight:bold; font-size:32px; line-height:150%", valign: "top"} Food Group Breakdown (% of cart by servings)
                             %table{border: "0", cellpadding: "0", cellspacing: "0", width: "100%"}
                               %tr
                                 %td{height: "25"}
                             - @digest.categories_breakdown.each do |cat, cat_hash|
-                              - unless cat == :total || cat == :high_percent
+                              - unless cat == :total || cat == :high_percent || cat == :servings_total
                                 - band_width = (cat_hash[:percent].to_f/@digest.categories_breakdown[:high_percent].to_f)*100
                                 %table{border: "0", cellpadding: "0", cellspacing: "0", width: "100%"}
                                   %tr
@@ -180,6 +180,7 @@
                                   %table.table-inner{border: "0", cellpadding: "0", cellspacing: "0", width: "600"}
                                     %tr
                                       %td{align: "center", style: "color:#70BF41; line-height:150%; font-size:38px; font-family:Roboto; font-weight:bold;", valign: "bottom"} #
+                                      %td{align: "center", style: "color:#70BF41; line-height:150%; font-size:38px; font-family:Roboto; font-weight:bold;", valign: "bottom"} Servings
                                       %td{align: "center", style: "color:#70BF41; line-height:150%; font-size:38px; font-family:Roboto; font-weight:bold;", valign: "bottom"} Name
                                       %td{align: "center", style: "color:#70BF41; line-height:150%; font-size:38px; font-family:Roboto; font-weight:bold;", valign: "bottom"} $
                             %table{border: "0", cellpadding: "0", cellspacing: "0", width: "100%"}
@@ -207,7 +208,8 @@
                                       %td{height: "20"}
                                   %table.table-inner{border: "0", cellpadding: "0", cellspacing: "0", width: "600"}
                                     %tr
-                                      %td.columnsContainer2{align: "center", style: "color:#FFF; font-family: Roboto; font-weight:bold; font-size:32px; ", width: "122"}= item.quantity.blank? ? 'N/A' : "%g" % item.quantity
+                                      %td.columnsContainer2{align: "center", style: "color:#FFF; font-family: Roboto; font-weight:bold; font-size:32px; ", width: "122"}= beautify_numerical_output(item.quantity)
+                                      %td.columnsContainer2{align: "center", style: "color:#FFF; font-family: Roboto; font-weight:bold; font-size:32px; ", width: "122"}= beautify_numerical_output(item.servings_total, true)
                                       %td.columnsContainer2{align: "center", style: "color:#FFF; font-family: Roboto; font-weight:bold; font-size:32px; ", width: "352"}= item.name
                                       %td.columnsContainer2{align: "center", style: "color:#FFF; font-family: Roboto; font-weight:bold; font-size:32px;", width: "126"}= number_to_currency(item.total_price)
                                   %table{border: "0", cellpadding: "0", cellspacing: "0", width: "100%"}

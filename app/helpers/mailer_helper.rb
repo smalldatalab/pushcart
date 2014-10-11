@@ -24,4 +24,12 @@ module MailerHelper
     search_string.urlize.gsub('-', space_filler)
   end
 
+  def beautify_numerical_output(num, na=false)
+    if na && num == 0.0
+      return 'N/A'
+    else
+      return num.blank? ? 'N/A' : "%g" % num
+    end
+  end
+
 end

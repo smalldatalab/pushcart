@@ -49,13 +49,15 @@ class WeeklyEmailDigester
 
     @items.each do |i|
       @categories_breakdown[i.filtered_category][:count] += 1
+      @categories_breakdown[i.filtered_category][:servings] += i.servings_total
       @categories_breakdown[:total] += 1
+      @categories_breakdown[:servings_total] += i.servings_total
     end
 
     percentages = []
 
     CategoryDigester.ruminate.each do |cat|
-      percent = (@categories_breakdown[cat][:count].to_f/@categories_breakdown[:total].to_f)*100
+      percent = (@categories_breakdown[cat][:servings].to_f/@categories_breakdown[:servings_total].to_f)*100
       @categories_breakdown[cat][:percent] = percent
       percentages << percent
     end
@@ -80,8 +82,8 @@ private
   end
 
   def blank_categories_breakdown
-    categories_breakdown = { total: 0 }
-    CategoryDigester.ruminate.map { |c| categories_breakdown[c] = { count: 0 } }
+    categories_breakdown = { total: 0, servings_total: 0 }
+    CategoryDigester.ruminate.map { |c| categories_breakdown[c] = { count: 0, servings: 0 } }
     return categories_breakdown
   end
 

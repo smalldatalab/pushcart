@@ -26,6 +26,14 @@ class Item < ActiveRecord::Base
     CategoryDigester.chew(category, name)
   end
 
+  def servings_per
+    ntx_api_nutrition_data.blank? ? nil : ntx_api_nutrition_data['nf_servings_per_container']
+  end
+
+  def servings_total
+    quantity.to_f * servings_per.to_f
+  end
+
   # def upc
   #   ntx_api_nutrition_data['upc']
   # end

@@ -12,13 +12,13 @@ Your cart:
 Food Group | Breakdown (% of Cart)
 \
 - @digest.categories_breakdown.each do |cat, cat_hash|
-  - unless cat == :total || cat == :high_percent
+  - unless cat == :total || cat == :high_percent || cat == :servings_total
     - band_width = (cat_hash[:percent].to_f/@digest.categories_breakdown[:high_percent].to_f)*100
     = "#{cat.to_s} | #{ cat_hash[:percent] == 0 ? '0%' : cat_hash[:percent].round(1) }"
 \
-= "# | Name | $"
+= "# | Total Servings | Name | $"
 - @digest.items_with_categories.each do |cat, items|
   - unless items.empty?
     = "CATEGORY: #{cat.to_s}"
     - items.each do |item|
-      = "#{item.quantity.blank? ? 'N/A' : "%g" % item.quantity} | #{item.name} | #{number_to_currency(item.total_price)}"
+      = "#{beautify_numerical_output(item.quantity)} | #{beautify_numerical_output(item.servings_total, true)} | #{item.name} | #{number_to_currency(item.total_price)}"
