@@ -55,14 +55,6 @@ class UsersController < ApplicationController
 
 protected
 
-  def set_user_or_redirect
-    @user = current_user
-    # if @user.nil?
-    #   flash[:notice] = "You do not have permission to access this page."
-    #   redirect_to :root
-    # end
-  end
-
   def user_params
     params.require(:user).permit( 
                                   :endpoint_email,

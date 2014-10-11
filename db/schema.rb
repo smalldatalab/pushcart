@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141010140357) do
+ActiveRecord::Schema.define(version: 20141010161104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20141010140357) do
     t.json     "ntx_api_nutrition_data"
     t.json     "ntx_api_metadata"
     t.integer  "swap_id"
+    t.string   "swap_feedback"
   end
 
   add_index "items", ["purchase_id"], name: "index_items_on_purchase_id", using: :btree

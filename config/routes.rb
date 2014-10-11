@@ -23,6 +23,9 @@ Pushcart::Application.routes.draw do
 
   ### User Site ###
     resources :users, only: [:edit, :update]
+    resources :items, only: [] do
+      get :swap_feedback,  on: :member
+    end
     devise_for :users, controllers: {
                                       registrations: "user_registrations",
                                       confirmations: "user_confirmations"
@@ -36,8 +39,8 @@ Pushcart::Application.routes.draw do
     delete 'sign_out',               to: 'users#log_out',  as: 'sign_out_user'
   ######
 
-  # Temporary route just used to validate Mandrill. See: https://github.com/thoughtbot/griddler#using-griddler-with-mandrill
-  get "/email_processor", to: proc { [200, {}, ["OK"]] }, as: "mandrill_head_test_request"
+  # # Temporary route just used to validate Mandrill. See: https://github.com/thoughtbot/griddler#using-griddler-with-mandrill
+  # get "/email_processor", to: proc { [200, {}, ["OK"]] }, as: "mandrill_head_test_request"
 
   root to: "application#index"
 end
