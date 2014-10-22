@@ -1,11 +1,10 @@
 class WeeklyEmailDigester
 
-  def initialize(user, last_day_of_week)
+  def initialize(user, last_day_of_week, comparison_categories_breakdown=nil)
     @user = user
 
     set_reporting_period(last_day_of_week)
 
-    # @messages = User.messages
     @purchases = purchases_for_week
 
     if @purchases.blank?
@@ -15,6 +14,7 @@ class WeeklyEmailDigester
 
       build_categories_breakdown
       categorize_items
+      merge_comparison_digest(comparison_categories_breakdown) if comparison_categories_breakdown
 
       return true
     end
@@ -52,6 +52,7 @@ class WeeklyEmailDigester
       @categories_breakdown[i.filtered_category][:servings] += i.servings_total
       @categories_breakdown[:total] += 1
       @categories_breakdown[:servings_total] += i.servings_total
+      @categories_breakdown[:servings_max] = @categories_breakdown[i.filtered_category][:servings] if @categories_breakdown[i.filtered_category][:servings] > @categories_breakdown[:servings_max]
     end
 
     percentages = []
@@ -70,6 +71,18 @@ class WeeklyEmailDigester
     @categories_breakdown
   end
 
+  def merge_comparison_digest(comp_breakdown)
+    largest_prior_reference = 0
+
+    CategoryDigester.ruminate.each do |cat|
+      @categories_breakdown[cat][:prior_servings] = comp_breakdown[cat][:servings]
+      largest_prior_reference = comp_breakdown[cat][:servings] if comp_breakdown[cat][:servings] > largest_prior_reference
+    end
+
+    @categories_breakdown[:prior_servings_total] = largest_prior_reference
+    @categories_breakdown[:reference_servings_max] = largest_prior_reference > @categories_breakdown[:servings_max] ? largest_prior_reference : @categories_breakdown[:servings_max]    
+  end
+
 private
 
   def set_reporting_period(last_day_of_week)
@@ -82,7 +95,7 @@ private
   end
 
   def blank_categories_breakdown
-    categories_breakdown = { total: 0, servings_total: 0 }
+    categories_breakdown = { total: 0, servings_total: 0, servings_max: 0 }
     CategoryDigester.ruminate.map { |c| categories_breakdown[c] = { count: 0, servings: 0 } }
     return categories_breakdown
   end

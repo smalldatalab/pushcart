@@ -129,13 +129,13 @@
                                 %td{align: "center", valign: "top"}
                                   %table.table-inner{border: "0", cellpadding: "0", cellspacing: "0", width: "600"}
                                     %tr
-                                      %td{align: "center", style: "color:#FFF; font-family: Roboto; font-weight:bold; font-size:32px; line-height:150%", valign: "top"} Food Group Breakdown (% of cart by servings)
+                                      %td{align: "center", style: "color:#FFF; font-family: Roboto; font-weight:bold; font-size:32px; line-height:150%", valign: "top"} Food Group Breakdown (# of servings)
                             %table{border: "0", cellpadding: "0", cellspacing: "0", width: "100%"}
                               %tr
                                 %td{height: "25"}
                             - @digest.categories_breakdown.each do |cat, cat_hash|
-                              - unless cat == :total || cat == :high_percent || cat == :servings_total
-                                - band_width = (cat_hash[:percent].to_f/@digest.categories_breakdown[:high_percent].to_f)*100
+                              - if CategoryDigester.ruminate.include? cat
+                                - band_width = (cat_hash[:servings].to_f/@digest.categories_breakdown[:servings_max].to_f)*100
                                 %table{border: "0", cellpadding: "0", cellspacing: "0", width: "100%"}
                                   %tr
                                     %td{align: "center", height: "60", valign: "top"}
@@ -153,10 +153,10 @@
                                                       %td{align: "left", height: "50", valign: "top", width: "80%"}
                                                         %table{border: "0", cellpadding: "0", cellspacing: "0", width: "#{band_width.to_i}%"}
                                                           %tr
-                                                            - if cat_hash[:percent] == 0
-                                                              %td{align: "center", bgcolor: "#70BF41", height: "50", style: "color:#FFFFFF; font-family:Roboto; font-size:17px; font-weight:bold;", valign: "middle"}= "0%"
+                                                            - if cat_hash[:servings] == 0
+                                                              %td{align: "center", bgcolor: "#70BF41", height: "50", style: "color:#FFFFFF; font-family:Roboto; font-size:17px; font-weight:bold;", valign: "middle"}= "0"
                                                             - else 
-                                                              %td{align: "center", bgcolor: "#FFFFFF", height: "50", style: "color:#70BF41; font-family:Roboto; font-size:17px; font-weight:bold;", valign: "middle"}= "#{cat_hash[:percent].round(1)}%"
+                                                              %td{align: "center", bgcolor: "#FFFFFF", height: "50", style: "color:#70BF41; font-family:Roboto; font-size:17px; font-weight:bold;", valign: "middle"}= "#{cat_hash[:servings].to_i}"
                                                       - if false 
                                                         %td{align: "left", height: "50", valign: "top", width: "20%"}
                                                           %img.img4{height: "50", src: "https://gallery.mailchimp.com/388326f4e8f2ac883f689d7e7/images/107b3d8a-6b73-46a9-a6bd-34206be2d98a.png", width: "72"}/

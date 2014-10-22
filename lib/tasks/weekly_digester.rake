@@ -11,7 +11,13 @@ namespace :weekly_digester do
     initialize_performance_assessments("Processing weekly digests for all users.")
 
     User.all.each do |u|
-      digest = WeeklyEmailDigester.new(u, end_date_of_period.day.ago)
+      comparison_digest = WeeklyEmailDigester.new(u, (end_date_of_period + 7).days.ago).categories_breakdown
+
+      if comparison_digest
+        digest = WeeklyEmailDigester.new(u, end_date_of_period.day.ago, comparison_digest)
+      else
+        digest = WeeklyEmailDigester.new(u, end_date_of_period.day.ago)
+      end
 
       if digest.purchases.blank?
         puts "No weekly digest send for User ##{u.id}. (No purchases found for time period.)"

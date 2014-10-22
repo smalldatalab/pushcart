@@ -9,12 +9,11 @@ Your mission:
   = @user.mission.name
 \
 Your cart:
-Food Group | Breakdown (% of Cart)
+Food Group | Current Breakdown (# of servings) | Prior week (# of servings)
 \
 - @digest.categories_breakdown.each do |cat, cat_hash|
-  - unless cat == :total || cat == :high_percent || cat == :servings_total
-    - band_width = (cat_hash[:percent].to_f/@digest.categories_breakdown[:high_percent].to_f)*100
-    = "#{cat.to_s} | #{ cat_hash[:percent] == 0 ? '0%' : cat_hash[:percent].round(1) }"
+  - if CategoryDigester.ruminate.include? cat
+    = "#{cat.to_s} | #{ cat_hash[:servings].to_i } | #{ cat_hash[:prior_servings].to_i } "
 \
 = "# | Total Servings | Name | $"
 - @digest.items_with_categories.each do |cat, items|
