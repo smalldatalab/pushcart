@@ -4,7 +4,9 @@ class EmailProcessor
     source_email = @email.from
     target_email = filter_other_recipients(@email.to)
 
-    if target_email =~ /^pushcart-app-/
+    if target_email =~ /^info@/
+      AlertMailer.forward_to_team(@email).deliver
+    elsif target_email =~ /^pushcart-app-/
       set_user_from_email(source_email)
       unless @user.nil?
         app = ClientApp.find_by_endpoint_email target_email.gsub(/^pushcart-app-/, '')
