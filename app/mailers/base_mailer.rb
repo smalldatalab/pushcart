@@ -1,6 +1,6 @@
 class BaseMailer < ActionMailer::Base
   add_template_helper MailerHelper
-  default from: "\"Pushcart\" <info@#{SITE_URL}>"
+  default from: "\"Pushcart\" <info@#{EMAIL_URI}>"
 
 private
 
