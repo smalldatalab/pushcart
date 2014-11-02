@@ -95,7 +95,7 @@
                               <br />
                               <br />
                               <span class="s1">After this all of your purchases from supported vendors will be automatically processed by Pushcart. And don’t worry -- we will forward all of your e-mails from those vendors on to you for your own reference.</span>
-                              <% if Date.new(2014,11).future? %>
+                              <% if Date.new(2014,11,15).future? %>
                                 <br />
                                 <br />
                                 <span class="s3"><strong>Once you’ve successfully set up your online grocery account(s) with the Pushcart forwarding address, you will be eligible for a $10 credit.</strong></span>
@@ -137,7 +137,7 @@
                               <p class="p3" style="margin: 1em 0;padding: 0;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #606060;font-family: Helvetica;font-size: 15px;line-height: 150%;text-align: left"><span class="s1"><%= @user.household_size > 1 ? "Your household current has #{@user.household_size} members" : "Currently, you are only shopping for yourself in your household." %> members:</span></p>
                               <% @user.household_members.each do |hm| %>
                                 <p class="p3" style="margin: 1em 0;padding: 0;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #606060;font-family: Helvetica;font-size: 15px;line-height: 150%;text-align: left"><span class="s1"><%= "#{hm.gender}, #{hm.age}" %></span></p>
-                              <% end %>
+                            <% end %>
                             
                               <p class="p3" style="margin: 1em 0;padding: 0;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #606060;font-family: Helvetica;font-size: 15px;line-height: 150%;text-align: left"><span class="s1">Want to reset your mission? You can do so </span><a href=<%= url_with_login_token(@user, edit_household_url) %> target="_blank" style="word-wrap: break-word;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #6DC6DD;font-weight: normal;text-decoration: underline"><span class="s2"><strong>here</strong></span></a><span class="s1">.</span></p>
                             <% end %>
