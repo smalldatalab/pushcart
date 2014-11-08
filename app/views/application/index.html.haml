@@ -1,4 +1,19 @@
-.page-wrapper
+.promo-bar
+  .container
+    .row
+      .col-sm-6.promo-message
+        %p.hide-if-success Join and Get $10 Towards Online Groceries
+        %p.success-message{ style: "color: white;" }
+
+      = simple_form_for(:user, url: registration_path(:user), html: {id: 'new_user_sign_up_promo'}, format: :json, remote: true, class: 'new_user_sign_up') do |f|
+
+        .col-sm-4
+          = f.input :email, required: true, autofocus: true, label: false, spellcheck: false, placeholder: 'Enter your e-mail here'
+
+        .col-sm-2
+          = f.button :submit, 'Join', class: "btn btn-block promo-button"
+
+.page-wrapper.promo-offset
   %header.header-9
     .container
       .row
@@ -21,7 +36,7 @@
   %section#signup.content-13.subscribe-form.bg-turquoise
     .container
       .row
-        = simple_form_for(:user, url: registration_path(:user), html: {id: 'new_user_sign_up'}, format: :json, remote: true) do |f|
+        = simple_form_for(:user, url: registration_path(:user), html: {id: 'new_user_sign_up'}, format: :json, remote: true, class: 'new_user_sign_up') do |f|
 
           .col-sm-8
             = f.input :email, required: true, autofocus: true, label: false, spellcheck: false, placeholder: '|Enter your e-mail here'
@@ -32,7 +47,7 @@
           %p{ style: "color: black; text-align: right; font-size: 11px; padding-right: 20px;" }
             = link_to 'Never got your confirmation e-mail?', new_confirmation_path(:user), { style: "color: black; text-decoration: underline;" }
       .row      
-        %h2#success-message{ style: "color: white;" }
+        %h2.success-message{ style: "color: white;" }
   %section.content-27.bg-clouds
     .container
       .row
