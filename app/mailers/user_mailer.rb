@@ -58,6 +58,15 @@ class UserMailer < BaseMailer
         )
   end
 
+  def setup_still_required(user_id)
+    set_user(user_id)
+    mail(
+          to: @user.email,
+          reply_to: user_endpoint_reply_to,
+          subject: "Finish setting up your #{SITE_NAME.titleize} account and get $10!"
+        )
+  end
+
   ### Authentication ###
 
   def resend_login_url(user_id, url=nil)

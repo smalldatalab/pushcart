@@ -1,0 +1,21 @@
+%p Hi,
+
+%p We're excited you've signed up for Pushcart! We wanted to send a quick message to ensure your Pushcart experience is a snap. 
+
+%p To start receiving your nutrition feedback effortlessly - and to receive your $10 credit for online grocery shopping - please replace the email address where your online grocery receipts are sent with your Pushcart forwarding email address: 
+
+%p{style: 'text-align:center'}
+  %b= @user.endpoint_email_with_uri
+
+%p
+  = link_to 'Click here to do so for FreshDirect.', 'https://www.freshdirect.com/your_account/signin_information.jsp'
+  You'll continue to receive the emails as usual because we forward all the messages to your inbox automatically.
+
+%p Once that's done, just sit back, relax, and look out for Pushcart's clear insights and expert tips on your grocery purchases to help you achieve your health goals.
+
+%p Questions or concerns? Just shoot us an email and we'll respond personally. 
+
+%p Healthy & happy shopping,
+
+%p{style: 'margin-left:10px'}
+  The Pushcart Team @ smalldata.io
