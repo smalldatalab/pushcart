@@ -25,6 +25,8 @@
         ga('create', 'UA-56134966-1', 'gopushcart.com');
         ga('require', 'displayfeatures');
         ga('send', 'pageview');
+      :javascript
+        var WRInitTime=(new Date()).getTime();
 
   %body
     .row
@@ -49,3 +51,9 @@
             = link_to 'Click here to sign out.', sign_out_user_path, method: :delete
 
     = javascript_include_tag 'application'
+    - if Rails.env.production?
+      :javascript
+        document.write(unescape("%3Cscript%20src='"+
+        (document.location.protocol=='https:'?
+        "https://cdnssl.clicktale.net/www07/ptc/dc5a4952-28f7-463b-9987-fb5287523b31.js":
+        "http://cdn.clicktale.net/www07/ptc/dc5a4952-28f7-463b-9987-fb5287523b31.js")+"'%20type='text/javascript'%3E%3C/script%3E"));
