@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.1.3'
+ruby '2.1.5'
 
-gem 'rails', '4.1.6'
+gem 'rails', '4.1.8'
 
 gem 'thin'
 
@@ -74,13 +74,13 @@ group :development do
   gem 'capistrano',    '~> 2.15.5'
   gem 'capistrano-ext'
   gem 'capistrano_colors'
-  gem 'mailcatcher' # for viewing test messages in the browser @ http://localhost:1080/
+  # gem 'mailcatcher' # for viewing test messages in the browser @ http://localhost:1080/
   gem 'quiet_assets' # shut up asset logs
   gem 'minitest'
 end
 
 group :development, :test do
-  gem 'did_you_mean'
+  gem 'did_you_mean', '~> 0.9.4'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'faker'
