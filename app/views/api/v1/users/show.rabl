@@ -1,7 +1,10 @@
 object @user
 
 attributes :id,
-           :household_size
+           :household_size,
+           :name
 
-node(:purchase_count) { |user| user.purchases.count }
-node(:alias) { |user| user.endpoint_email }
+node(:mission) { |user| user.mission_id.nil? ? 'N/A' : user.mission.name }
+node(:purchases_count) { |user| user.purchases.count }
+node(:last_purchase_date) { |user| user.purchases.last.created_at }
+node(:last_activity_date) { |user| user.messages.last.created_at }

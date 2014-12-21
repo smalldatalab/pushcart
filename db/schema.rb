@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141218164954) do
+ActiveRecord::Schema.define(version: 20141220160720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,11 +120,19 @@ ActiveRecord::Schema.define(version: 20141218164954) do
     t.datetime "updated_at"
     t.json     "ntx_api_nutrition_data"
     t.json     "ntx_api_metadata"
-    t.integer  "swap_id"
-    t.string   "swap_feedback"
   end
 
   add_index "items", ["purchase_id"], name: "index_items_on_purchase_id", using: :btree
+
+  create_table "memberships", force: true do |t|
+    t.integer  "coach_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "memberships", ["coach_id"], name: "index_memberships_on_coach_id", using: :btree
+  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
 
   create_table "messages", force: true do |t|
     t.integer  "user_id"
@@ -138,10 +146,10 @@ ActiveRecord::Schema.define(version: 20141218164954) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "kind"
-    t.integer  "oauth_application_id"
+    t.integer  "coach_id"
   end
 
-  add_index "messages", ["oauth_application_id"], name: "index_messages_on_oauth_application_id", using: :btree
+  add_index "messages", ["coach_id"], name: "index_messages_on_coach_id", using: :btree
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "missions", force: true do |t|
@@ -212,6 +220,26 @@ ActiveRecord::Schema.define(version: 20141218164954) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "swap_suggestions", force: true do |t|
+    t.integer  "coach_id"
+    t.integer  "user_id"
+    t.integer  "swap_id"
+    t.integer  "item_id"
+    t.integer  "message_id"
+    t.datetime "message_sent_at"
+    t.datetime "swap_rated_at"
+    t.integer  "user_rating"
+    t.string   "feedback"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "swap_suggestions", ["coach_id"], name: "index_swap_suggestions_on_coach_id", using: :btree
+  add_index "swap_suggestions", ["item_id"], name: "index_swap_suggestions_on_item_id", using: :btree
+  add_index "swap_suggestions", ["message_id"], name: "index_swap_suggestions_on_message_id", using: :btree
+  add_index "swap_suggestions", ["swap_id"], name: "index_swap_suggestions_on_swap_id", using: :btree
+  add_index "swap_suggestions", ["user_id"], name: "index_swap_suggestions_on_user_id", using: :btree
 
   create_table "swaps", force: true do |t|
     t.integer  "swap_category_id"

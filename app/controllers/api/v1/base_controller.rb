@@ -5,12 +5,12 @@ class Api::V1::BaseController < ActionController::Base
 
 private
 
-  def set_api_version
-    @api_version = 'v1'
+  def set_coach
+    @coach = Coach.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
   end
 
-  def set_user
-    @user = User.find params[:user_id]
+  def set_api_version
+    @api_version = 'v1'
   end
 
 end

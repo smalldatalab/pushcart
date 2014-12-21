@@ -7,6 +7,11 @@ class User < ActiveRecord::Base
   has_many :items, through: :purchases
   has_many :household_members, dependent: :destroy
   has_many :messages, dependent: :destroy
+  has_many :memberships
+  has_many :coaches, through: :memberships
+
+  has_many :swap_suggestions
+  has_many :swaps, through: :swap_suggestions
 
   belongs_to :mission
 

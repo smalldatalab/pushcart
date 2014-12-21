@@ -5,11 +5,8 @@ Doorkeeper.configure do
 
   # This block will be called to check whether the resource owner is authenticated or not.
   resource_owner_authenticator do
-    raise "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"
-    # Put your resource owner authentication logic here.
-    # Example implementation:
-    #   User.find_by_id(session[:user_id]) || redirect_to(new_user_session_url)
-  end
+    current_coach || warden.authenticate!(scope: :coach)
+  end 
 
   # If you want to restrict access to the web interface for adding oauth authorized applications, you need to declare the block below.
   # admin_authenticator do
@@ -36,7 +33,7 @@ Doorkeeper.configure do
 
   # Define access token scopes for your provider
   # For more information go to https://github.com/applicake/doorkeeper/wiki/Using-Scopes
-  # default_scopes  :public
+  default_scopes  :public
   # optional_scopes :write, :update
 
   # Change the way client credentials are retrieved from the request object.
@@ -62,7 +59,7 @@ Doorkeeper.configure do
   # so that the user skips the authorization step.
   # For example if dealing with trusted a application.
   skip_authorization do |resource_owner, client|
-    client.whitelisted
+    true # client.whitelisted
   end
 
   # WWW-Authenticate Realm (default "Doorkeeper").

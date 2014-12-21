@@ -1,4 +1,4 @@
-class Api::V1::PurchasesController < Api::V1::BaseController
+class Api::V1::PurchasesController < Api::V1::BaseCoachController
 
   before_action :set_user, :set_variables
 

@@ -93,10 +93,11 @@ class UserMailer < BaseMailer
 
   ### Replacement Suggestion ###
 
-  def replacement_suggestion(item)
-    @item = item
-    @user = item.user
-    @swap = item.swap
+  def replacement_suggestion(swap_suggestion)
+    @item = swap_suggestion.item
+    @user = swap_suggestion.user
+    @swap = swap_suggestion.swap
+
     mail(
       to: @user.email,
       reply_to: user_endpoint_reply_to,

@@ -74,7 +74,7 @@ group :development do
   gem 'capistrano',    '~> 2.15.5'
   gem 'capistrano-ext'
   gem 'capistrano_colors'
-  # gem 'mailcatcher' # for viewing test messages in the browser @ http://localhost:1080/
+  gem 'mailcatcher' # for viewing test messages in the browser @ http://localhost:1080/
   gem 'quiet_assets' # shut up asset logs
   gem 'minitest'
 end

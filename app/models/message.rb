@@ -1,6 +1,11 @@
 class Message < ActiveRecord::Base
+  default_scope { order(created_at: :desc) }
+
+  scope :with_coach,
+        -> (coach_id) { where(coach_id: coach_id) }
+
   belongs_to  :user
-  belongs_to  :oauth_application
+  belongs_to  :coach
 
   serialize   :to, Array
 

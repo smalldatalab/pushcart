@@ -1,5 +1,6 @@
 Pushcart::Application.routes.draw do
 
+  devise_for :coaches
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   ### API ###
@@ -14,8 +15,12 @@ Pushcart::Application.routes.draw do
         resources :purchases, only: [:show, :index] do
           resources :items, only: [:show, :index]
         end
+        resources :items, only: [:show]
         resources :messages
+        resources :swap_suggestions, only: [:index, :show, :create]
       end
+      resources :swap_categories, only: :index
+      resources :swaps, only: [:index, :create]
     end
   end
 
