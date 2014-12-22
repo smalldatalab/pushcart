@@ -1,5 +1,5 @@
 class RemoveUnnecessaryClientAppFields < ActiveRecord::Migration
   def change
-    remove_column :oauth_application, :endpoint_email, :string
+    remove_reference :messages, :oauth_applications
   end
 end
