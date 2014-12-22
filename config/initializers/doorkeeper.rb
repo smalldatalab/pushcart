@@ -62,6 +62,8 @@ Doorkeeper.configure do
     true # client.whitelisted
   end
 
+  force_ssl_in_redirect_uri false
+
   # WWW-Authenticate Realm (default "Doorkeeper").
   # realm "Doorkeeper"
 
