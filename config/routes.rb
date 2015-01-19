@@ -13,14 +13,17 @@ Pushcart::Application.routes.draw do
     api_version(:module => "api/v1", :path => {:value => "v1"}, :defaults => {:format => "json"}) do
       resources :users, only: [:show, :index] do
         resources :purchases, only: [:show, :index] do
-          resources :items, only: [:show, :index]
+          resources :items, only: [:show, :index, :update]
         end
-        resources :items, only: [:show]
+        resources :items, only: [:show, :update]
         resources :messages
         resources :swap_suggestions, only: [:index, :show, :create]
       end
       resources :swap_categories, only: :index
       resources :swaps, only: [:index, :create]
+      resources :memberships, only: [] do
+        post :invite, on: :collection
+      end
     end
   end
 
@@ -31,6 +34,7 @@ Pushcart::Application.routes.draw do
     resources :items, only: [] do
       get :swap_feedback,  on: :member
     end
+    resources :memberships, only: [:new, :create]
     devise_for :users, controllers: {
                                       registrations: "user_registrations",
                                       confirmations: "user_confirmations"

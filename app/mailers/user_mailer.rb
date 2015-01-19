@@ -120,4 +120,16 @@ class UserMailer < BaseMailer
     date.strftime("%b %-d")
   end
 
+  ### Memberships
+
+  def join_team_request(user_email, coach_id)
+    @user = User.find_by_email(user_email)
+    @coach = Coach.find(coach_id)
+    mail(
+      to: user_email,
+      reply_to: @coach.email,
+      subject: "Invitation to join #{@coach.name}'s team on Pushcart"
+      )
+  end
+
 end

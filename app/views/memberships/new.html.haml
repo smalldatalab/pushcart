@@ -1,0 +1,21 @@
+.row
+  .col-md-offset-1
+    %h1 Join a Team
+- if @coach
+  .row
+    .col-md-offset-1.col-md-8
+      %p
+        Are you sure you want to join
+        %b= @coach.name
+        = "'s team?"
+
+    = simple_form_for @membership do |f|
+      = f.hidden_field :coach_id, value: @coach.id
+      .row
+        .col-md-offset-2
+          = f.button :submit, 'Confirm', class: 'button'
+          = link_to 'Cancel', my_account_path
+- else
+  .row
+    .col-md-offset-1.col-md-8
+      %p In order to join a team, you must be invited by that team's coach. (If you reach this by responding to an invite, the link is probably malformed. Try again by copying and pasting the link in the browser.)

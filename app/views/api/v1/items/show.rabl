@@ -8,10 +8,12 @@ attributes :id,
            :category,
            :total_price,
            :quantity,
-           :discounted
+           :discounted,
+           :color_code,
 
-node (:purchase_date) { |i| i.created_at }
-node (:filtered_category) { |i| i.filtered_category }
+node(:user_id) { |i| i.user.id }
+node(:purchase_date) { |i| i.created_at }
+node(:filtered_category) { |i| i.filtered_category }
 
 node :nutritional_data do |i|
   hash = {}

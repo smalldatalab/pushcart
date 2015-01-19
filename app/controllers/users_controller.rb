@@ -38,7 +38,6 @@ class UsersController < ApplicationController
 
   def login_token_expired
     @ref = params[:ref]
-
   end
 
   def new_authentication_token

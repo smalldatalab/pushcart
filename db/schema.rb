@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141220160720) do
+ActiveRecord::Schema.define(version: 20150114205332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20141220160720) do
     t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   add_index "coaches", ["confirmation_token"], name: "index_coaches_on_confirmation_token", unique: true, using: :btree
@@ -120,6 +121,7 @@ ActiveRecord::Schema.define(version: 20141220160720) do
     t.datetime "updated_at"
     t.json     "ntx_api_nutrition_data"
     t.json     "ntx_api_metadata"
+    t.string   "color_code"
   end
 
   add_index "items", ["purchase_id"], name: "index_items_on_purchase_id", using: :btree
@@ -187,15 +189,14 @@ ActiveRecord::Schema.define(version: 20141220160720) do
   add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
 
   create_table "oauth_applications", force: true do |t|
-    t.string   "name",                           null: false
-    t.string   "uid",                            null: false
-    t.string   "secret",                         null: false
-    t.boolean  "whitelisted",    default: false
-    t.text     "redirect_uri",                   null: false
+    t.string   "name",                         null: false
+    t.string   "uid",                          null: false
+    t.string   "secret",                       null: false
+    t.boolean  "whitelisted",  default: false
+    t.text     "redirect_uri",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "endpoint_email"
-    t.string   "scopes",         default: "",    null: false
+    t.string   "scopes",       default: "",    null: false
   end
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree

@@ -18,12 +18,14 @@ module Pushcart
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    config.middleware.use ::Baurets::Optionsful::Server
+
     # CORS implementation
     config.middleware.insert_before Warden::Manager, Rack::Cors do
       allow do
         origins '*'
         # resource '/oauth/token', headers: :any, methods: [:post]
-        resource '*', headers: :any, methods: [:post, :get]
+        resource '*', headers: :any, methods: [:post, :get, :put, :options]
       end
     end
   end

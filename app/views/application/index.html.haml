@@ -1,19 +1,4 @@
-.promo-bar
-  .container
-    .row
-      .col-sm-6.promo-message
-        %p.hide-if-success Join and Get $10 Towards Online Groceries
-        %p.success-message{ style: "color: white;" }
-
-      = simple_form_for(:user, url: registration_path(:user), html: {id: 'new_user_sign_up_promo'}, format: :json, remote: true, class: 'new_user_sign_up') do |f|
-
-        .col-sm-4
-          = f.input :email, required: true, autofocus: true, label: false, spellcheck: false, placeholder: 'Enter your e-mail here'
-
-        .col-sm-2
-          = f.button :submit, 'Join', class: "btn btn-block promo-button"
-
-.page-wrapper.promo-offset
+.page-wrapper
   %header.header-9
     .container
       .row
@@ -36,10 +21,11 @@
   %section#signup.content-13.subscribe-form.bg-turquoise
     .container
       .row
-        = simple_form_for(:user, url: registration_path(:user), html: {id: 'new_user_sign_up'}, format: :json, remote: true, class: 'new_user_sign_up') do |f|
+        = simple_form_for(@user, url: registration_path(:user), html: {id: 'new_user_sign_up'}, format: :json, remote: true, class: 'new_user_sign_up') do |f|
 
           .col-sm-8
             = f.input :email, required: true, autofocus: true, label: false, spellcheck: false, placeholder: '|Enter your e-mail here'
+            = f.hidden_field :coach_id, value: @coach_id
 
           .col-sm-4
             = f.button :submit, 'Get Started', class: "btn btn-large btn-primary"
@@ -110,7 +96,7 @@
               %p
                 By using Pushcart's simple email setup, your online grocery receipts are automatically tracked by Pushcart against your health goals.
               %p
-                Every time you place a new grocery order, you'll receive a email from Pushcart with beautiful data visualizations of how your purchases map to your goals.
+                Every time you place a new grocery order, you'll receive an email from Pushcart with beautiful data visualizations of how your purchases map to your goals.
               .box
                 .img
                   = image_tag "#{ASSETS_URL_ROOT}/Graph%402x.png", alt: "", height: "200", width: "200"

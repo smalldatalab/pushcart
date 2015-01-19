@@ -8,6 +8,17 @@ class Item < ActiveRecord::Base
   # before_create :set_json_default_fields
   before_create :retrieve_nutritionix_api_data
 
+  validates :color_code,
+              inclusion: { 
+                           in: proc { Item.color_code_options },
+                           message: "%{value} is not a valid stoplight color"
+                         },
+              allow_blank: true
+
+  def self.color_code_options
+    %W(red yellow green)
+  end
+
   def self.nutritionix_api_fields
     %W(calcium_dv calories calories_from_fat cholesterol dietary_fiber ingredient_statement iron_dv monounsaturated_fat polyunsaturated_fat protein refuse_pct saturated_fat serving_size_qty serving_size_unit serving_weight serving_weight_grams serving_weight_uom servings_per_container sodium sugars total_carbohydrate total_fat trans_fatty_acid vitamin_a_dv vitamin_c_dv water_grams)
   end

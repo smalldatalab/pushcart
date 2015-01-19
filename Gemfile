@@ -21,6 +21,7 @@ gem 'rabl'
 gem 'oj'
 gem 'versionist'
 gem 'rack-cors'
+gem 'optionsful'
 
 ### Authentication ###
 
@@ -56,16 +57,13 @@ gem 'whenever',                  require: false
 
 ### Admin ###
 
-gem 'activeadmin',  github: 'gregbell/active_admin' #Move to specific version once a stable Rails 4 gem is on rubygems
-gem 'country_select'
-gem 'polyamorous',  github: 'activerecord-hackery/polyamorous'
-gem 'ransack',      github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
-gem 'formtastic',   github: 'justinfrench/formtastic'
+gem 'activeadmin',  github: 'activeadmin' #Move to specific version once a stable Rails 4 gem is on rubygems
 
 ### Other ###
 
 gem 'table_print'
 gem 'string-urlize', '~> 1.0.2'
+gem 'email_validator', require: 'email_validator/strict'
 
 group :development do
   gem 'better_errors'

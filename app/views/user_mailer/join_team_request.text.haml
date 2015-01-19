@@ -1,0 +1,18 @@
+Hi,
+\
+#{@coach.name} has invited you to join their team on Pushcart!
+\
+- if @user
+  - coach_id_string = "coach_id=#{@coach.id}"
+  To join #{@coach.name}'s team, please use this link: #{url_with_login_token(@user, new_membership_url, coach_id_string)}
+  \
+  If you do not want to join #{@coach.name}'s team, please ignore this email.
+
+- else  
+  To start getting nutrional coaching from #{@coach.name}, simply use this link and create a Pushcart account: #{raw("#{root_url}?coach_id=#{@coach.id}")}
+  \
+  Joining only take a minute!
+\
+Thanks!
+\
+="~ The Pushcart Team"
