@@ -84,7 +84,11 @@ class WeeklyEmailDigester
   end
 
   def percent_change(prior_servings, servings)
-    (prior_servings - servings).to_f / prior_servings * 100
+    if prior_servings.nil? || servings.nil?
+      return 0
+    else
+      return (prior_servings - servings).to_f / prior_servings * 100
+    end
   end
 
 private
