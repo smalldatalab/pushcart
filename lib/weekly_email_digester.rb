@@ -83,6 +83,10 @@ class WeeklyEmailDigester
     @categories_breakdown[:reference_servings_max] = largest_prior_reference > @categories_breakdown[:servings_max] ? largest_prior_reference : @categories_breakdown[:servings_max]    
   end
 
+  def percent_change(prior_servings, servings)
+    (prior_servings - servings).to_f / prior_servings * 100
+  end
+
 private
 
   def set_reporting_period(last_day_of_week)
