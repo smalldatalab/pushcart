@@ -163,20 +163,20 @@
                                                         %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "70%"}
                                                           %tr
                                                             - if cat_hash[:servings] > 0 && percent_change == 0
-                                                              %td{:style => "text-align:center; background-color:white; height:50; width:#{((band_width/100)*30).to_i}%;color:#70BF41; font-family:Roboto; font-size:17px; font-weight:bold;"}
+                                                              %td{:style => "text-align:center; background-color:white; height:50px; width:#{((band_width/100)*30).to_i}%; color:#70BF41; font-family:Roboto; font-size:17px; font-weight:bold;"}
                                                                 = "#{cat_hash[:servings].to_i}"
                                                               %td{:style => "background-color:#70BF41; width:30%;"}
                                                             - elsif cat_hash[:servings] > 0 && percent_change < -1
-                                                              %td{:style => "text-align:center; background-color:white; height:50px; color:#70BF41; font-family:Roboto; font-size:17px; font-weight:bold;  width:#{((band_width/100)*30).to_i}%;"}
+                                                              %td{:style => "text-align:center; background-color:white; height:50px; color:#70BF41; font-family:Roboto; font-size:17px; font-weight:bold; width:#{((band_width/100)*30).to_i}%;"}
                                                                 = "#{cat_hash[:servings].to_i}"
-                                                              %td{:style => "text-align:center; background-color:#70BF41; height:50px;border-color:white; border-top-style:dashed; border-right-style:dashed; border-bottom-style:dashed; border-left-style:dashed; color:white; font-family:Roboto; font-size:17px; font-weight:bold; width:#{((percent_change/100)*30).to_i.abs}%;"}
+                                                              %td{:style => "text-align:center; background-color:#70BF41; height:50px; border-color:white; border-top-style:dashed; border-right-style:dashed; border-bottom-style:dashed; border-left-style:dashed; color:white; font-family:Roboto; font-size:17px; font-weight:bold; width:#{((percent_change/100)*30).to_i.abs}%;"}
                                                               %td{:style => "height:55px; width:10%; color:white; font-family:Roboto; font-size:15px; font-weight:bold; padding-left:10px;"}
                                                                 = percent_change.to_i
                                                                 change from last week
                                                             - elsif cat_hash[:servings] > 0 && percent_change > 1
-                                                              %td{:style => "text-align:center; background-color:white; height:50; width:#{((band_width/100)*30).to_i}%;color:#70BF41; font-family:Roboto; font-size:17px; font-weight:bold;"}
+                                                              %td{:style => "text-align:center; background-color:white; height:50px; width:#{((band_width/100)*30).to_i}%;color:#70BF41; font-family:Roboto; font-size:17px; font-weight:bold;"}
                                                                 = "#{cat_hash[:servings].to_i}"
-                                                              %td{:style => "text-align:center; background-color:white; height:50; width: #{((percent_change/100)*30).to_i.abs}%; border-left-color:#70BF41; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:dashed; color:white; font-family:Roboto; font-size:17px; font-weight:bold;"}
+                                                              %td{:style => "text-align:center; background-color:white; height:50px; width: #{((percent_change/100)*30).to_i.abs}%; border-left-color:#70BF41; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:dashed; color:white; font-family:Roboto; font-size:17px; font-weight:bold;"}
                                                               %td{:style => "height:55px; width:10%; color:white; font-family:Roboto; font-size:15px; font-weight:bold;padding-left:10px;"}
                                                                 +#{percent_change.to_i} change from last week
                                                             - elsif cat_hash[:servings] == 0 && percent_change < -1
