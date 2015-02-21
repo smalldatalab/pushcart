@@ -17,10 +17,14 @@ class EmailScraper
   end
 
   def scrape
-    scraper = determine_scraper
+    scraper = determine_scraper(@email)
 
     if !scraper
       return false
+    elsif scraper == :gmail_autoforwarder_confirm
+      @email.kind = 'autoforwarder_confirmation'
+
+      return GmailAutoforwarder.new(@email).process
     else
       @user.purchases << process_email_body(scraper)
       if @user.save
@@ -32,24 +36,48 @@ class EmailScraper
   end
 
   def process_email_body(scraper)
-    if scraper == :fd
+    if scraper == :fresh_direct
       return FreshDirectScraper.new(@email).process_purchase
     elsif scraper == :instacart
       return InstacartScraper.new(@email).process_purchase
     elsif scraper == :peapod
       return PeapodScraper.new(@email).process_purchase
+    elsif scraper == :seamless
+      return SeamlessScraper.new(@email).process_purchase
+    elsif scraper == :grubhub
+      return GrubhubScraper.new(@email).process_purchase
+    elsif scraper == :caviar
+      return CaviarScraper.new(@email).process_purchase
     end
   end
 
-  def determine_scraper
-    if !!(@email.subject =~ /Your\sorder\sfor/) && !!(@email.raw_text =~ /Fresh\s*Direct/i) && !(@email.subject =~ /on\sits\sway/)
-      return :fd
-    elsif !!(@email.subject =~ Regexp.new('Your Order with Instacart'))
+  def determine_scraper(email)
+    if matches_to(email.subject, 'Your order for') && matches_to(email.raw_text, /Fresh\s*Direct/i) && !matches_to(email.subject, 'on its way')
+      return :fresh_direct
+    elsif matches_to(email.subject, 'Your Order with Instacart')
       return :instacart
-    elsif !!(@email.subject =~ Regexp.new('Peapod')) && !!(@email.subject =~ Regexp.new('Order Confirmation'))
+    elsif matches_to(email.subject, 'Peapod') && matches_to(email.subject, 'Order Confirmation')
       return :peapod
+    elsif matches_to(email.subject, /\AConfirmed!\s/) && matches_to(email.raw_html, /seamless/i)
+      return :seamless
+    elsif matches_to(email.subject, /is\sin\sthe\sWorks$/) && matches_to(email.raw_html, /grubhub/i)
+      return :grubhub
+    elsif matches_to(email.subject, 'Your Caviar Order')
+      return :caviar
+    elsif matches_to(email.subject, 'Gmail Forwarding Confirmation') && email.from == 'forwarding-noreply@google.com'
+      return :gmail_autoforwarder_confirm
     else
       return false
+    end
+  end
+
+private
+
+  def matches_to(input, candidate)
+    if input.is_a? Regexp
+      !!(input =~ candidate)
+    else
+      !!(input =~ Regexp.new(candidate))
     end
   end
 

@@ -36,3 +36,6 @@
 
 # Ignore dumps
 /*.dmp
+
+# Ignore test coverage reports
+/coverage

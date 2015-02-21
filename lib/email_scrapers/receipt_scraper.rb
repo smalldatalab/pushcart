@@ -21,13 +21,25 @@ private
   def clean_string(el)
 
     # Remove spaces & px
-    clean = el.gsub(/(\s|px)/, '')
+      clean = el.gsub(/(\s|px)/, '')
 
     # Downcase
-    clean = clean.downcase
+      clean = clean.downcase
 
     # Chop off trailing ;
-    clean = clean.gsub(/;$/, '')
+      clean = clean.gsub(/;$/, '')
+
+    # Convert RGBs to hexes
+      rgbs = clean.scan(/rgb\([^\)]*\)/).flatten
+
+      unless rgbs.empty?
+        rgbs.each do |rgb|
+          values  = rgb.scan(/\(([^\)]+)\)/)[0][0].split(',')
+          hex     = Color::RGB.new(values[0].to_f, values[1].to_f, values[2].to_f).hex
+
+          clean = clean.gsub(rgb, "##{hex}")
+        end
+      end
 
     return clean
   end

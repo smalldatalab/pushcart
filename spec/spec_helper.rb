@@ -1,5 +1,5 @@
-# require 'simplecov'
-# SimpleCov.start
+require 'simplecov'
+SimpleCov.start
 
 require 'rubygems'
 
@@ -15,6 +15,17 @@ require 'email_spec'
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 RSpec.configure do |config|
+
+  config.expect_with :rspec do |c|
+    # Disable the `expect` sytax...
+    # c.syntax = :should
+
+    # ...or disable the `should` syntax...
+    # c.syntax = :expect
+
+    # ...or explicitly enable both
+    c.syntax = [:should, :expect]
+  end
 
   config.mock_with :mocha
 

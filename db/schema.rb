@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150114205332) do
+ActiveRecord::Schema.define(version: 20150219003756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -212,6 +212,8 @@ ActiveRecord::Schema.define(version: 20150114205332) do
     t.datetime "updated_at"
     t.integer  "ntx_api_rejected_item_count"
     t.integer  "category_rejected_item_count"
+    t.string   "sub_vendor"
+    t.datetime "order_date"
   end
 
   add_index "purchases", ["user_id"], name: "index_purchases_on_user_id", using: :btree

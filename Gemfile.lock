@@ -81,6 +81,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    color (1.7.1)
     daemons (1.1.9)
     database_cleaner (1.2.0)
     debug_inspector (0.0.2)
@@ -194,7 +195,7 @@ GEM
     optionsful (0.5.3)
       rails (>= 3.0.0)
     orm_adapter (0.5.0)
-    pg (0.17.1)
+    pg (0.18.1)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
     pry (0.10.0)
@@ -339,6 +340,7 @@ DEPENDENCIES
   capistrano-ext
   capistrano_colors
   coffee-rails (~> 4.0.1)
+  color
   database_cleaner
   delayed_job_active_record
   devise

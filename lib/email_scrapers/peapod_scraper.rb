@@ -68,9 +68,9 @@ private
           tr.children.each_with_index do |td, index|
             case index
             when 0 # Item name
-              item.name = td.text
+              item.name = td.text.strip
             when 1 # Description (Size)
-              item.description = td.text
+              item.description = td.text.strip
             when 2 # Quantity
               item.quantity = td.text
             when 3 # Item Price

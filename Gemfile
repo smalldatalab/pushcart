@@ -13,6 +13,7 @@ gem 'pg'
 gem 'griddler'
 gem 'nokogiri'
 gem 'nokogiri-styles'
+gem 'color'
 
 ### API ###
 
@@ -74,13 +75,13 @@ group :development do
   gem 'capistrano_colors'
   gem 'mailcatcher' # for viewing test messages in the browser @ http://localhost:1080/
   gem 'quiet_assets' # shut up asset logs
-  gem 'minitest'
 end
 
 group :development, :test do
   gem 'did_you_mean', '~> 0.9.4'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'minitest'
   gem 'faker'
   gem 'mocha', require: 'mocha/api'
   gem 'shoulda'

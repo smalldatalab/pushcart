@@ -45,16 +45,13 @@ private
 
   def parse_items_and_add_to_purchase
     tables = @body_html.xpath('//table')
-    # Rails.logger.info '!!!!!!!!!!TABLES: #{tables}'
     purchase_tables = tables.map{ |t| t if matches_element_characteristic?(t['style'], 'padding:0;margin:0;border-collapse:collapse;border-spacing:0;border-style:none;') }
-    # Rails.logger.info '!!!!!!!!!!PURCHASE TABLES: #{purchase_tables}'
 
     purchase_tables.each do |table|
       unless table.nil?
         table.children.each do |tbody|
           category = nil
           tbody.children.each do |tr|
-            # Rails.logger.info '!!!!!!!!!!TR: #{tr}'
             item = Item.new(category: category) unless category.nil?
             tr.children.each do |td|
               if matches_element_characteristic?(td['style'], 'color:#f93;font-weight:bold;font-family:Verdana,Arial,sans-serif;font-size:12px;') || matches_element_characteristic?(td['style'], 'font-size:12;font-family:Verdana,Arial,sans-serif;color:rgb(255,153,51);font-weight:bold;')
@@ -78,7 +75,7 @@ private
                 end
               end
             end
-            if item && !item.name.nil?
+            if item && item.name && item.quantity && item.total_price
               @purchase.items << item
             end
           end

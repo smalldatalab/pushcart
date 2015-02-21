@@ -52,7 +52,7 @@ private
   # end
 
   def retrieve_nutritionix_api_data
-    unless name.nil?
+    unless name.nil? || Rails.env.test?
       api_data = NUTRITIONIX_API.search(name)
       p api_data
       if api_data.blank? || api_data == 'Connection error.'
