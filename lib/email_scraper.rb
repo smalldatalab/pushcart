@@ -58,7 +58,7 @@ class EmailScraper
       return :instacart
     elsif matches_to(email.subject, 'Peapod') && matches_to(email.subject, 'Order Confirmation')
       return :peapod
-    elsif matches_to(email.subject, /\AConfirmed!\s/) && matches_to(email.raw_html, /seamless/i)
+    elsif matches_to(email.subject, /Confirmed!\s/) && matches_to(email.raw_html, /seamless/i)
       return :seamless
     elsif matches_to(email.subject, /is\sin\sthe\sWorks$/) && matches_to(email.raw_html, /grubhub/i)
       return :grubhub
