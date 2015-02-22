@@ -44,7 +44,7 @@ class CategoryDigester
   end
 
   def self.ruminate
-    [:dairy, :vegetables, :fruit, :grain, :protein, :fat, :uncategorized]
+    [:dairy, :vegetables, :fruit, :grain, :protein, :fat, :uncategorized, :prepared_meals]
   end
 
 end
