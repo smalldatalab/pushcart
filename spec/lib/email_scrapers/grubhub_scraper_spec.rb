@@ -31,7 +31,7 @@ describe GrubhubScraper do
                       sub_vendor: 'Taste of Thai Express',
                       order_unique_id: '123540506',
                       items: [
-                              {"name"=>"Pad See Ew [Mild (1), With Chicken]", "price_breakdown"=>"$8.99", "category"=>"Prepared Meals", "total_price"=>8.99, "quantity"=>1.0},
+                              {"name"=>"Pad See Ew [Mild (1), With Chicken]", "price_breakdown"=>"$8.99", "category"=>"Prepared Meals", "total_price"=>8.99, "quantity"=>1.0},
                               {"name"=>"Masaman Curry[Mild (1), With Chicken]", "price_breakdown"=>"$9.99", "category"=>"Prepared Meals", "total_price"=>9.99, "quantity"=>1.0},
                               {"name"=>"Vegetarian Spring Roll", "price_breakdown"=>"$4.99", "category"=>"Prepared Meals", "total_price"=>4.99, "quantity"=>1.0},
                               {"name"=>"Mixed Vegetable[With Vegetable]", "price_breakdown"=>"$9.49", "category"=>"Prepared Meals", "total_price"=>9.49, "quantity"=>1.0}

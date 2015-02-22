@@ -121,13 +121,13 @@ FactoryGirl.define do
     trait :grubhub_receipt_three do
       from 'order@grubhub.com'
       subject 'Your Order from Taste of Thai Express is in the Works'
-      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/grubhub/receipt_three.eml')
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/grubhub/receipt_three_html.html')
     end
 
     trait :grubhub_receipt_four do
       from 'orders@grubhub.com'
       subject 'Your Order from Tiengarden Vegan Kitchen is in the Works'
-      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/grubhub/receipt_four.eml')
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/grubhub/receipt_four_html.html')
     end
 
     trait :caviar_receipt_one do
