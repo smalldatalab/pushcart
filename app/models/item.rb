@@ -37,7 +37,7 @@ class Item < ActiveRecord::Base
     if category == 'Prepared Meals'
       return 1
     else
-      ntx_api_nutrition_data.blank? ? nil : ntx_api_nutrition_data['nf_servings_per_container']
+      return ntx_api_nutrition_data.blank? ? nil : ntx_api_nutrition_data['nf_servings_per_container']
     end
   end
 
