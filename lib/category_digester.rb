@@ -35,9 +35,9 @@ class CategoryDigester
     when /condiment/i
       :fat
     when /prepared/i
-      :prepared_meal
+      :prepared_meals
     when /meal/i
-      :prepared_meal
+      :prepared_meals
     else
       :uncategorized
     end
