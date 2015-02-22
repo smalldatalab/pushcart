@@ -85,7 +85,7 @@ FactoryGirl.define do
     trait :seamless_receipt_four do
       from 'confirmation@seamless.com'
       subject 'Confirmed! Fusion Sushi (brought to you by Chef 28) received your order. Estimated Delivery: 25 - 40 minutes'
-      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/seamless/receipt_four.eml')
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/seamless/receipt_four_html.html')
     end
 
     trait :seamless_receipt_five do

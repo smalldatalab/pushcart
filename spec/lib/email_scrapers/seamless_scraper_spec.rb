@@ -48,7 +48,7 @@ describe SeamlessScraper do
                       order_date: '2014-12-07 17:56:00',
                       total_price: 44.37,
                       sub_vendor: 'Fusion Sushi (brought to you by Chef 28)',
-                      order_unique_id: '959247886   C',
+                      order_unique_id: '959247886 C',
                       items: [
                               {"name"=>"Manhattan Roll", "description"=>"Base order item", "price_breakdown"=>"$12.00 (base price)", "category"=>"Prepared Meals", "total_price"=>12.0, "quantity"=>1.0},
                               {"name"=>"Spicy Tuna Roll", "description"=>"Base order item", "price_breakdown"=>"$6.50 (base price)", "category"=>"Prepared Meals", "total_price"=>6.5, "quantity"=>1.0},
@@ -63,7 +63,7 @@ describe SeamlessScraper do
                       order_date: '2015-01-19 13:00:00',
                       total_price: 17.46,
                       sub_vendor: 'Saigon Market',
-                      order_unique_id: '1105675822   C',
+                      order_unique_id: '1105675822 C',
                       items: [
                               {"name"=>"28. Pho Bo Soup", "description"=>"Base order item", "price_breakdown"=>"  (base price)", "category"=>"Prepared Meals", "total_price"=>9.25, "quantity"=>1.0},
                               {"name"=>"Large", "description"=>"Add-on item (cost inclued in base item total cost)", "price_breakdown"=>"$9.25 (add-on price)", "category"=>"Prepared Meals", "total_price"=>0.0, "quantity"=>1.0},
@@ -76,16 +76,16 @@ describe SeamlessScraper do
                       order_date: '2015-02-02 14:31:00',
                       total_price: 20.78,
                       sub_vendor: 'Mamagyro (Broadway)',
-                      order_unique_id: '1157113742   C',
+                      order_unique_id: '1157113742 C',
                       items: [
-                              {"name"=>"2 Mama's Gyros", "description"=>"Base order itemSpecial Instructions: Extra Spicy Tzatziki Sauce", "price_breakdown"=>"$11.25 (base price)", "category"=>"Prepared Meals", "total_price"=>11.25, "quantity"=>1.0},
+                              {"name"=>"2 Mama's Gyros", "description"=>"Base order item\nSpecial Instructions: Extra Spicy Tzatziki Sauce", "price_breakdown"=>"$11.25 (base price)", "category"=>"Prepared Meals", "total_price"=>11.25, "quantity"=>1.0},
                               {"name"=>"Beef and Lamb (First Gyro)", "description"=>"Add-on item (cost inclued in base item total cost)", "price_breakdown"=>"free (add-on price)", "category"=>"Prepared Meals", "total_price"=>0.0, "quantity"=>1.0},
                               {"name"=>"Beef and Lamb (Second Gyro)", "description"=>"Add-on item (cost inclued in base item total cost)", "price_breakdown"=>"free (add-on price)", "category"=>"Prepared Meals", "total_price"=>0.0, "quantity"=>1.0},
                               {"name"=>"Whole Wheat Pita (First Gyro)", "description"=>"Add-on item (cost inclued in base item total cost)", "price_breakdown"=>"free (add-on price)", "category"=>"Prepared Meals", "total_price"=>0.0, "quantity"=>1.0},
                               {"name"=>"Whole Wheat Pita (Second Gyro)", "description"=>"Add-on item (cost inclued in base item total cost)", "price_breakdown"=>"free (add-on price)", "category"=>"Prepared Meals", "total_price"=>0.0, "quantity"=>1.0},
                               {"name"=>"Spicy Tzatziki Sauce (First Gyro)", "description"=>"Add-on item (cost inclued in base item total cost)", "price_breakdown"=>"free (add-on price)", "category"=>"Prepared Meals", "total_price"=>0.0, "quantity"=>1.0},
                               {"name"=>"Spicy Tzatziki Sauce (Second Gyro)", "description"=>"Add-on item (cost inclued in base item total cost)", "price_breakdown"=>"free (add-on price)", "category"=>"Prepared Meals", "total_price"=>0.0, "quantity"=>1.0},
-                              {"name"=>"Spinach Quinoa", "description"=>"Base order itemSpecial Instructions: No Dill Please", "price_breakdown"=>"$6.00 (base price)", "category"=>"Prepared Meals", "total_price"=>6.0, "quantity"=>1.0}
+                              {"name"=>"Spinach Quinoa", "description"=>"Base order item\nSpecial Instructions: No Dill Please", "price_breakdown"=>"$6.00 (base price)", "category"=>"Prepared Meals", "total_price"=>6.0, "quantity"=>1.0}
                              ]
                     },
                     {
