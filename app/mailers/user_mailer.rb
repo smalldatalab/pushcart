@@ -111,7 +111,7 @@ class UserMailer < BaseMailer
   def message_received(message_id)
     @message = Message.find(message_id)
     mail(
-      to: @message.from,
+      to: @message.user.email,
       subject: "[Pushcart] #{@message.subject}"
       )
   end 
