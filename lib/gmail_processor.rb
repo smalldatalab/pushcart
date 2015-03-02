@@ -2,8 +2,12 @@ require 'google/api_client'
 
 class GmailProcessor
 
-  def initialize(user)
-    @user               = user
+  def self.process(user_id)
+    new(user_id).process_all_supported_emails
+  end
+
+  def initialize(user_id)
+    @user               = User.find(user_id)
     @scrapable_services = YAML.load_file(Rails.root.to_s + '/lib/email_scrapers/scrapable_services.yml')
     @scrape_from        = @user.inbox_last_scraped ? @user.inbox_last_scraped - 1.day : nil
 

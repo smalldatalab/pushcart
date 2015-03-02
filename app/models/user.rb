@@ -89,7 +89,7 @@ class User < ActiveRecord::Base
 private
 
   def scrape_gmail
-    GmailProcessor.new(self).process_all_supported_emails
+    GmailProcessor.delay.process(self.id)
   end
 
   def set_endpoint_email
