@@ -1,0 +1,20 @@
+'Fresh Direct':
+  sender_domain: 'freshdirect.com'
+'Instacart':
+  sender_domain: 'instacart.com'
+'Peapod':
+  sender_domain: 'peapod.com'
+'Delivery.com':
+  sender_domain: 'delivery.com'
+'Amazon Fresh':
+  sender_domain: 'amazon.com' #fresh-reply@amazon.com
+'Good Eggs':
+  sender_domain: 'goodeggs.com'
+'Food52':
+  sender_domain: 'food52.com'
+'Seamless':
+  sender_domain: 'seamless.com'
+'Grubhub':
+  sender_domain: 'grubhub.com'
+'Caviar':
+  sender_domain: 'trycaviar.com'

@@ -18,7 +18,8 @@ private
                               sender_email:     @email.from.to_s,
                               sub_vendor:       parse_sub_vendor,
                               order_unique_id:  parse_order_number, 
-                              total_price:      parse_order_total
+                              total_price:      parse_order_total,
+                              order_date:       @email.date ? @email.date : nil
                              )
   end
 
@@ -61,18 +62,29 @@ private
   end
 
   def parse_items_and_add_to_purchase
-    item_trs = @body_html
-                .xpath('//table')
-                .map { |t| t if matches_element_characteristic?(t['style'], 'background-color:#ffffff;') }
-                .compact[0]
-                .children[0] #tbody level
-                .children[1] #tr level
-                .children[0] #td level
-                .children
-                .map { |t| t if matches_element_characteristic?(t['style'], 'font-size:15px; color:#403345;') }
-                .compact[0] # item table
-                .children[0] # item tbody
-                .children
+    tbody_trs = @body_html
+                  .xpath('//table')
+                  .map { |t| t if matches_element_characteristic?(t['style'], 'background-color:#ffffff;') }
+                  .compact[0]
+                  .children
+
+    if tbody_trs.first.name == 'tbody'
+      item_trs = tbody_trs[0] #tbody level
+                  .children[1] #tr level
+                  .children[0] #td level
+                  .children
+                  .map { |t| t if matches_element_characteristic?(t['style'], 'font-size:15px; color:#403345;') }
+                  .compact[0] # item table
+                  .children[0] # item tbody
+                  .children
+    elsif tbody_trs.first.name == 'tr'
+      item_trs = tbody_trs[1] #tr level
+                  .children[0] #td level
+                  .children
+                  .map { |t| t if matches_element_characteristic?(t['style'], 'font-size:15px; color:#403345;') }
+                  .compact[0] # item table
+                  .children
+    end
 
     item_trs.each do |tr|
       item_hash = { category: 'Prepared Meals' }

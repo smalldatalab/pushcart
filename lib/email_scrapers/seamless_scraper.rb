@@ -16,7 +16,8 @@ private
     purchase = {
                   vendor:       'Seamless',
                   sender_email: @email.from.to_s,
-                  total_price:  parse_order_total.gsub(/\$/, '')
+                  total_price:  parse_order_total.gsub(/\$/, ''),
+                  order_date:       @email.date ? @email.date : nil
                 }.merge parse_metadata
 
     @purchase = Purchase.new(purchase)
@@ -30,8 +31,21 @@ private
                       .map{ |t| t if matches_element_characteristic?(t['style'], 'border-top:4px solid #cccccc') }
                       .compact[0]
 
-    metadata_table.children.each do |tbody|
-      tbody.children.each do |tr|
+    if metadata_table.children.first.name == 'tbody'
+      metadata_table.children.each do |tbody|
+        tbody.children.each do |tr|
+          tds = tr.children
+
+          metadata[:sub_vendor]       = parse_sub_vendor tds[0]
+
+          final_div = (tds.count == 3 ? tds.last : tds[4])
+
+          metadata[:order_unique_id]  = parse_order_number final_div
+          metadata[:order_date]       = DateTime.parse(parse_order_date final_div)
+        end
+      end
+    else
+      metadata_table.children.each do |tr|
         tds = tr.children
 
         metadata[:sub_vendor]       = parse_sub_vendor tds[0]
@@ -40,7 +54,6 @@ private
 
         metadata[:order_unique_id]  = parse_order_number final_div
         metadata[:order_date]       = DateTime.parse(parse_order_date final_div)
-
       end
     end
 
@@ -50,7 +63,7 @@ private
   def parse_sub_vendor(td)
     return td
       .children
-      .map{ |t| t if matches_element_characteristic?(t['style'], 'font-family:Arial,Helvetica,sans-serif;font-size:18px;padding-top:.25em;padding-bottom:.25em;line-height:22px;color:#444444;text-align:left;font-weight:normal') }
+      .map{ |t| t if (matches_element_characteristic?(t['style'], 'font-family:Arial,Helvetica,sans-serif;font-size:18px;padding-top:.25em;padding-bottom:.25em;line-height:22px;color:#444444;text-align:left;font-weight:normal') || matches_element_characteristic?(t['style'], 'font-family:Arial,Helvetica,sans-serif;font-size:18px;padding-top:.25em;padding-bottom:.25em;line-height:22px;color:#000000;text-align:left;font-weight:normal')) }
       .compact[0]
       .children
       .text
@@ -95,84 +108,94 @@ private
 
 
     item_tables.each do |table|
-      table.children.each do |tbody|
-        tbody.children.each do |tr|
-          item_hash = { category: 'Prepared Meals' }
-
-          # NOTE: Scrapes both items and optional add-ons as items
-
-          if (tr.children.count == 12 || tr.children.count == 6) && tr.children.first.text.blank?
-            # Special request to primary item
-
-            tr
-              .children
-              .map { |t| t.text if t.name = 'strong' }
-              .map { |t| @purchase.items.last.description << "\n" + t.gsub(/\=E2\=80\=A2/, '').gsub(/\A\p{Space}*/, '').strip unless t.blank? }
-
-          elsif tr.children.count == 12 || tr.children.count == 6
-            # Primary item
-
-            tds = tr.children.map { |t| t if t.name == 'td' }.compact
-
-            item_hash[:description] = 'Base order item'
-
-            item_hash[:quantity] = tds[0]
-                                    .children
-                                    .map{ |t| t if matches_element_characteristic?(t['style'], 'font-family: Arial, Helvetica, sans-serif; font-size: 18px; padding-top: .25em; padding-bottom: .25em; line-height: 22px; text-align: left; font-weight: normal;') }
-                                    .compact[0]
-                                    .children[0]
-                                    .text
-
-            item_hash[:name] = tds[1]
-                                .children[0]
-                                .text
-                                .strip
-
-            item_hash[:price_breakdown] = tds[2]
-                                            .children[0]
-                                            .text
-                                            .strip + ' (base price)'
-
-            item_hash[:total_price] = tds[5]
-                                        .children[0]
-                                        .text
-                                        .strip.gsub(/\$/, '')
-
-            @purchase.items << Item.new(item_hash)
-          elsif tr.children.count == 10 || tr.children.count == 5
-            # Supplementary items
-
-            tds = tr.children.map { |t| t if t.name == 'td' }.compact
-
-            item_hash[:description] = 'Add-on item (cost inclued in base item total cost)'
-
-            item_hash[:name] = tds[1]
-                                .children
-                                .map{ |t| t if matches_element_characteristic?(t['style'], 'font-size:12px;margin:0em;padding:0em;font-family:Arial,Helvetica,sans-serif;line-height:18px;text-align:left;list-style:disc') }
-                                .compact[0]
-                                .text
-                                .gsub(/(\=A0|\=C2|\=E2|\=80|\=A2|•)/, '')
-                                .gsub(/\A\p{Space}*/, '')
-                                .gsub(/\A\*/, '')
-                                .strip
-
-            price =  tds[2]
-                      .children[0]
-                      .text
-                      .gsub(/(\=A0|\=C2)/, '')
-                      .gsub(/\A\p{Space}*/, '')
-                      .strip                      
-
-            item_hash[:price_breakdown] = (price.blank? ? 'free' : price) + ' (add-on price)'
-
-            item_hash[:quantity] = 1
-
-            item_hash[:total_price] = 0.0
-
-            @purchase.items << Item.new(item_hash)
+      if table.children.first.name == 'tbody'
+        table.children.each do |tbody|
+          tbody.children.each do |tr|
+            parse_item(tr)
           end
         end
+      else
+        table.children.each do |tr|
+          parse_item(tr)
+        end        
       end
+    end
+  end
+
+  def parse_item(tr)
+    item_hash = { category: 'Prepared Meals' }
+
+    # NOTE: Scrapes both items and optional add-ons as items
+
+    if (tr.children.count == 12 || tr.children.count == 6) && tr.children.first.text.blank?
+      # Special request to primary item
+
+      tr
+        .children
+        .map { |t| t.text if t.name = 'strong' }
+        .map { |t| @purchase.items.last.description << "\n" + t.gsub(/\=E2\=80\=A2/, '').gsub(/\A\p{Space}*/, '').strip unless t.blank? }
+
+    elsif tr.children.count == 12 || tr.children.count == 6
+      # Primary item
+
+      tds = tr.children.map { |t| t if t.name == 'td' }.compact
+
+      item_hash[:description] = 'Base order item'
+
+      item_hash[:quantity] = tds[0]
+                              .children
+                              .map{ |t| t if matches_element_characteristic?(t['style'], 'font-family: Arial, Helvetica, sans-serif; font-size: 18px; padding-top: .25em; padding-bottom: .25em; line-height: 22px; text-align: left; font-weight: normal;') }
+                              .compact[0]
+                              .children[0]
+                              .text
+
+      item_hash[:name] = tds[1]
+                          .children[0]
+                          .text
+                          .strip
+
+      item_hash[:price_breakdown] = tds[2]
+                                      .children[0]
+                                      .text
+                                      .strip + ' (base price)'
+
+      item_hash[:total_price] = tds[5]
+                                  .children[0]
+                                  .text
+                                  .strip.gsub(/\$/, '')
+
+      @purchase.items << Item.new(item_hash)
+    elsif tr.children.count == 10 || tr.children.count == 5
+      # Supplementary items
+
+      tds = tr.children.map { |t| t if t.name == 'td' }.compact
+
+      item_hash[:description] = 'Add-on item (cost inclued in base item total cost)'
+
+      item_hash[:name] = tds[1]
+                          .children
+                          .map{ |t| t if matches_element_characteristic?(t['style'], 'font-size:12px;margin:0em;padding:0em;font-family:Arial,Helvetica,sans-serif;line-height:18px;text-align:left;list-style:disc') }
+                          .compact[0]
+                          .text
+                          .gsub(/(\=A0|\=C2|\=E2|\=80|\=A2|•)/, '')
+                          .gsub(/\A\p{Space}*/, '')
+                          .gsub(/\A\*/, '')
+                          .strip
+
+      price =  tds[2]
+                .children[0]
+                .text
+                .gsub(/(\=A0|\=C2)/, '')
+                .gsub(/\A\p{Space}*/, '')
+                .strip                      
+
+      item_hash[:price_breakdown] = (price.blank? ? 'free' : price) + ' (add-on price)'
+
+      item_hash[:quantity] = 1
+
+      item_hash[:total_price] = 0.0
+
+      @purchase.items << Item.new(item_hash)
     end
   end
 

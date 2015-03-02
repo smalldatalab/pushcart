@@ -52,7 +52,7 @@ class EmailScraper
   end
 
   def determine_scraper(email)
-    if matches_to(email.subject, 'Your order for') && matches_to(email.raw_text, /Fresh\s*Direct/i) && !matches_to(email.subject, 'on its way')
+    if matches_to(email.subject, 'Your order for') && (matches_to(email.raw_html, /Fresh\s*Direct/i) || matches_to(email.raw_text, /Fresh\s*Direct/i)) && !matches_to(email.subject, 'on its way')
       return :fresh_direct
     elsif matches_to(email.subject, 'Your Order with Instacart')
       return :instacart
@@ -62,7 +62,7 @@ class EmailScraper
       return :seamless
     elsif matches_to(email.subject, /is\sin\sthe\sWorks$/) && matches_to(email.raw_html, /grubhub/i)
       return :grubhub
-    elsif matches_to(email.subject, 'Your Caviar Order')
+    elsif matches_to(email.subject, 'Your Caviar Order') && matches_to(email.raw_html, 'has been received! We')
       return :caviar
     elsif matches_to(email.subject, 'Gmail Forwarding Confirmation') && email.from == 'forwarding-noreply@google.com'
       return :gmail_autoforwarder_confirm

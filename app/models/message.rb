@@ -9,7 +9,7 @@ class Message < ActiveRecord::Base
 
   serialize   :to, Array
 
-  after_create :pass_through_original_email
+  after_create :pass_through_original_email,  if: Proc.new { |m| m.source == 'inbound email' }
 
 private
 

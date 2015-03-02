@@ -17,7 +17,8 @@ private
                               vendor:           'Peapod',
                               sender_email:     @email.from.to_s,
                               total_price:      parse_order_total,
-                              order_unique_id:  parse_order_number
+                              order_unique_id:  parse_order_number,
+                              order_date:       @email.date ? @email.date : nil
                             })
   end
 

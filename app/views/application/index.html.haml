@@ -2,11 +2,11 @@
   %header.header-9
     .container
       .row
-        .navbar.col-sm-12{role: "navigation"}
+        .navbar.col-sm-12{role: 'navigation'}
           .navbar-header
-            #logoWrapper.wrapper{"data-content-field" => "site-title"}
-              %a{href: "http://www.gopushcart.com"}
-                = image_tag "#{ASSETS_URL_ROOT}/Pushcart_Logo_Reverse_No_Tag.png", alt: "",  height: "250", width: "250"
+            #logoWrapper.wrapper{'data-content-field' => 'site-title'}
+              %a{href: 'http://www.gopushcart.com'}
+                = image_tag "#{ASSETS_URL_ROOT}/Pushcart_Logo_Reverse_No_Tag.png", alt: '',  height: '250', width: '250'
   %section.header-9-sub.bg-midnight-blue
     .background  
     .container
@@ -28,17 +28,19 @@
             = f.hidden_field :coach_id, value: @coach_id
 
           .col-sm-4
-            = f.button :submit, 'Get Started', class: "btn btn-large btn-primary"
+            = f.button :submit, 'Get Started', class: 'btn btn-large btn-primary'
 
-          %p{ style: "color: black; text-align: right; font-size: 11px; padding-right: 20px;" }
-            = link_to 'Never got your confirmation e-mail?', new_confirmation_path(:user), { style: "color: black; text-decoration: underline;" }
+          %p{ style: 'color: black; text-align: right; font-size: 11px; padding-right: 20px;' }
+            = link_to 'Never got your confirmation e-mail?', new_confirmation_path(:user), { style: 'color: black; text-decoration: underline;' }
       .row      
-        %h2.success-message{ style: "color: white;" }
+        %h2.success-message{ style: 'color: white;' }
+      .row
+        = link_to 'Sign in with Google', user_omniauth_authorize_path(:google_oauth2)
   %section.content-27.bg-clouds
     .container
       .row
         .col-sm-4
-          = image_tag "#{ASSETS_URL_ROOT}/basket%402x.png", alt: "", height: "271",  width: "271"
+          = image_tag "#{ASSETS_URL_ROOT}/basket%402x.png", alt: '', height: '271',  width: '271'
         .col-sm-7.col-sm-offset-1
           %br/
           %h3 You buy your groceries online to save time and money. Now go the extra step for your health.
@@ -46,21 +48,21 @@
             Pushcart works seamlessly with your online grocery service to analyze your purchases and map them to your personal health goals.
           %h3
             No receipt scanning, no apps to install. Just clear insights and tips on achieving your health goals delivered straight to your email inbox.
-          %div{align: "center"}
+          %div{align: 'center'}
             %h4 Supported Online Groceries
-            %a.btn{href: "http://www.freshdirect.com"}
-              = image_tag "#{ASSETS_URL_ROOT}/freshdirect.png", alt: "", height: "100", width: "100"
-            %a{href: "http://www.instacart.com"}
-              = image_tag "#{ASSETS_URL_ROOT}/instacart.png", alt: "", height: "100", width: "150"
-            %a{href: "http://www.peapod.com"}
-              = image_tag "#{ASSETS_URL_ROOT}/peapod_logo.png", alt: "", height: "100", width: "100"
+            %a.btn{href: 'http://www.freshdirect.com'}
+              = image_tag "#{ASSETS_URL_ROOT}/freshdirect.png", alt: '', height: '100', width: '100'
+            %a{href: 'http://www.instacart.com'}
+              = image_tag "#{ASSETS_URL_ROOT}/instacart.png", alt: '', height: '100', width: '150'
+            %a{href: 'http://www.peapod.com'}
+              = image_tag "#{ASSETS_URL_ROOT}/peapod_logo.png", alt: '', height: '100', width: '100'
   %section.content-16.v-center
     %div
       .container
         %h3
-          = image_tag "#{ASSETS_URL_ROOT}/Clipboard%402x.png", alt: "", height: "200", width: "200"
+          = image_tag "#{ASSETS_URL_ROOT}/Clipboard%402x.png", alt: '', height: '200', width: '200'
           Getting Started Is As Easy As 1-2-3
-    %a.control-btn.fui-arrow-down{href: "#step1"}
+    %a.control-btn.fui-arrow-down{href: '#step1'}
   %section.content-31
     .container
       #step1.row
@@ -69,12 +71,12 @@
           %h3 Sign Up With Your Email
           %p
             All you have to do is signup
-            %a{href: "#signup"} above
+            %a{href: '#signup'} above
             for Pushcart with your email. That's it. No receipts to save, or apps to install. We're in limited Beta but once you're added you'll get an invite email with the next step right away.
           .box
             .img
-              = image_tag "#{ASSETS_URL_ROOT}/Mail%402x.png", alt: "", width: "96.5", height: "100"
-              = image_tag "#{ASSETS_URL_ROOT}/Mail%402x.png", alt: "", width: "96.5", height: "100"
+              = image_tag "#{ASSETS_URL_ROOT}/Mail%402x.png", alt: '', width: '96.5', height: '100'
+              = image_tag "#{ASSETS_URL_ROOT}/Mail%402x.png", alt: '', width: '96.5', height: '100'
       .row
         .number 2
         .col-sm-8.col-sm-offset-2
@@ -85,8 +87,8 @@
               %p You can also add additional details on the other members of your household and their personal health goals as well.
               .box
                 .img
-                  = image_tag "#{ASSETS_URL_ROOT}/Goal%402x.png", alt: "", height: "102", width: "102"
-                  = image_tag "#{ASSETS_URL_ROOT}/Goal%402x.png", alt: "", height: "102", width: "102"
+                  = image_tag "#{ASSETS_URL_ROOT}/Goal%402x.png", alt: '', height: '102', width: '102'
+                  = image_tag "#{ASSETS_URL_ROOT}/Goal%402x.png", alt: '', height: '102', width: '102'
       .row
         .number 3
         .col-sm-8.col-sm-offset-2
@@ -99,8 +101,8 @@
                 Every time you place a new grocery order, you'll receive an email from Pushcart with beautiful data visualizations of how your purchases map to your goals.
               .box
                 .img
-                  = image_tag "#{ASSETS_URL_ROOT}/Graph%402x.png", alt: "", height: "200", width: "200"
-                  = image_tag "#{ASSETS_URL_ROOT}/Graph%402x.png", alt: "", height: "200", width: "200"
+                  = image_tag "#{ASSETS_URL_ROOT}/Graph%402x.png", alt: '', height: '200', width: '200'
+                  = image_tag "#{ASSETS_URL_ROOT}/Graph%402x.png", alt: '', height: '200', width: '200'
   %section.contacts-4
     .container
       .content
@@ -109,8 +111,8 @@
           Pushcart is a product designed and developed by the Small Data Lab at Cornell Tech in New York City.
           %br/
         .links
-          %a{href: "http://smalldata.tech.cornell.edu"} smalldata.tech.cornell.edu
+          %a{href: 'http://smalldata.tech.cornell.edu'} smalldata.tech.cornell.edu
   %footer.footer-4.bg-midnight-blue
     .container
       %div{style: "font-family: 'Patua One', cursive;"}
-        %a.homepage-footer{href: "http://www.gopushcart.com"} Pushcart
+        %a.homepage-footer{href: 'http://www.gopushcart.com'} Pushcart

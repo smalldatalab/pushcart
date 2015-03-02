@@ -31,6 +31,11 @@ gem 'simple_token_authentication' #Auto-login tokens
 gem 'doorkeeper'
 gem 'bazaar'
 
+##### Gmail Integration
+
+gem 'omniauth-google-oauth2'
+gem 'google-api-client'
+
 ### Assets ###
 
 # gem 'turbolinks'

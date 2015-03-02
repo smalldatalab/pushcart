@@ -5,7 +5,14 @@ class ReceiptScraper
   end
 
   def clean_body_html
-    @email.raw_html.gsub(/(\r|\n|\=\r|\=\n)/, '').gsub('\"', '"').gsub(/\A\p{Space}*/, ' ')
+    @email
+      .raw_html
+      .gsub('\\r', '')
+      .gsub('\\n', '')
+      .gsub('\\t', "\t")
+      .gsub(/(\r|\n|\=\r|\=\n)/, '')
+      .gsub('\"', '"')
+      .gsub(/\A\p{Space}*/, ' ')
   end
 
 private

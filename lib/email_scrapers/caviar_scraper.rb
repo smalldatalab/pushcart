@@ -18,11 +18,14 @@ private
                               sender_email:     @email.from.to_s,
                               sub_vendor:       parse_sub_vendor,
                               order_unique_id:  parse_order_number, 
-                              total_price:      parse_order_total
+                              total_price:      parse_order_total,
+                              order_date:       @email.date ? @email.date : nil
                              )
   end
 
   def parse_sub_vendor
+    @body_html.xpath('//td').map {|u| p u['style']}
+
     return @body_html
             .xpath('//td')
             .map{ |t| t if matches_element_characteristic?(t['style'], 'color:#2d394f;font-size:18px;line-height:24px;font-weight:700;text-align:center;padding:32px 0 0') }

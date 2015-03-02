@@ -40,7 +40,7 @@ private
                   m.subject            = @email.subject
                   m.kind               = kind
                   m.user               = user unless user.nil?
-                  m.oauth_application  = app  unless app.nil?
+                  m.source             = 'inbound email'
                 end
   end
 

@@ -10,7 +10,7 @@ Pushcart::Application.routes.draw do
       use_doorkeeper
     end
 
-    api_version(:module => "api/v1", :path => {:value => "v1"}, :defaults => {:format => "json"}) do
+    api_version(:module => 'api/v1', :path => {:value => 'v1'}, :defaults => {:format => 'json'}) do
       resources :users, only: [:show, :index] do
         resources :purchases, only: [:show, :index] do
           resources :items, only: [:show, :index, :update]
@@ -36,9 +36,11 @@ Pushcart::Application.routes.draw do
     end
     resources :memberships, only: [:new, :create]
     devise_for :users, controllers: {
-                                      registrations: "user_registrations",
-                                      confirmations: "user_confirmations"
+                                      registrations: 'user_registrations',
+                                      confirmations: 'user_confirmations',
+                                      omniauth_callbacks: 'users/omniauth_callbacks'
                                     }
+
     get 'account_confirmation',      to: 'users#account_confirmation'
     get 'my_account',                to: 'users#my_account'
     get 'thank_you_for_registering', to: 'users#thank_you_for_registering'
@@ -51,5 +53,5 @@ Pushcart::Application.routes.draw do
   # # Temporary route just used to validate Mandrill. See: https://github.com/thoughtbot/griddler#using-griddler-with-mandrill
   # get "/email_processor", to: proc { [200, {}, ["OK"]] }, as: "mandrill_head_test_request"
 
-  root to: "application#index"
+  root to: 'application#index'
 end

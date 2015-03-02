@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   acts_as_token_authenticatable
 
-  devise :registerable, :confirmable, :timeoutable, :trackable
+  devise :registerable, :confirmable, :timeoutable, :trackable, :omniauthable, :omniauth_providers => [:google_oauth2]
 
   has_many :purchases
   has_many :items, through: :purchases
@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
 
   after_initialize :set_endpoint_email
   after_save       :send_onboarding_emails,         if: Proc.new { |u| u.confirmed_at_changed? && u.confirmed_at_was.nil? }
-  after_save       :send_pushcart_endpoint_mailer,  if: Proc.new { |u| u.endpoint_email_changed? && !u.confirmed_at_was.nil? }
+  after_save       :send_pushcart_endpoint_mailer,  if: Proc.new { |u| u.endpoint_email_changed? && !u.confirmed_at_was.nil? && identity_provider.nil? }
 
   validates_presence_of   :email, :endpoint_email
   validates_uniqueness_of :email, :endpoint_email
@@ -45,6 +45,22 @@ class User < ActiveRecord::Base
     else
       authentication_token
     end
+  end
+
+  def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
+    data = access_token.info
+    user = User.where(email: data['email']).first
+
+    unless user
+      user = User.create(
+                          name: data['name'],
+                          email: data['email'],
+                          identity_provider: 'gmail',
+                          inbox_api_token: access_token.credentials
+                        )
+    end
+
+    user
   end
 
   def send_onboarding_emails

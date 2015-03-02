@@ -106,6 +106,20 @@ describe SeamlessScraper do
                               {"name"=>"Soda", "description"=>"Base order item", "price_breakdown"=>"$1.50 (base price)", "category"=>"Prepared Meals", "total_price"=>1.5, "quantity"=>1.0},
                               {"name"=>"Diet Coke", "description"=>"Add-on item (cost inclued in base item total cost)", "price_breakdown"=>"free (add-on price)", "category"=>"Prepared Meals", "total_price"=>0.0, "quantity"=>1.0}
                              ]
+                    },
+                    {
+                      name: :seamless_gmail_api_receipt_one,
+                      order_date: 'Fri, 16 Nov 2012 08:10:00 EST -05:00',
+                      total_price: 18.65,
+                      sub_vendor: "Ollie's (42nd St.)",
+                      order_unique_id: '311539476 C',
+                      items: [
+                              {"name"=>"6. Roast Pork & Wonton Soup", "description"=>"Base order item", "price_breakdown"=>"$7.50 (base price)", "category"=>"Prepared Meals", "total_price"=>8.5, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"Egg Noodles", "description"=>"Add-on item (cost inclued in base item total cost)", "price_breakdown"=>"$1.00 (add-on price)", "category"=>"Prepared Meals", "total_price"=>0.0, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"L25. Sautéed String Beans Lunch Special", "description"=>"Base order item", "price_breakdown"=>"$7.25 (base price)", "category"=>"Prepared Meals", "total_price"=>7.25, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"Vegetable Fried Rice", "description"=>"Add-on item (cost inclued in base item total cost)", "price_breakdown"=>"free (add-on price)", "category"=>"Prepared Meals", "total_price"=>0.0, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"Wonton Soup", "description"=>"Add-on item (cost inclued in base item total cost)", "price_breakdown"=>"free (add-on price)", "category"=>"Prepared Meals", "total_price"=>0.0, "quantity"=>1.0, "discounted"=>false}
+                             ]
                     }
                   ]
 
@@ -135,6 +149,7 @@ describe SeamlessScraper do
 
       it 'should have the correct #order_unique_id' do
         @results.order_unique_id.should eq rcpt[:order_unique_id]
+        # @results.items.map {|i| p i.attributes.delete_if { |k,v| ['id', 'purchase_id', "created_at", "updated_at", "ntx_api_nutrition_data", "ntx_api_metadata", "color_code"].include? k }}
       end
 
       rcpt[:items].each_with_index do |item, index|

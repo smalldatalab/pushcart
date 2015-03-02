@@ -45,6 +45,16 @@ describe GrubhubScraper do
                       items: [
                               {"name"=>"Spicy Soy Cutlet[Make it Gluten-Free]mild. not too spicy", "price_breakdown"=>"$13.00", "category"=>"Prepared Meals", "total_price"=>13.0, "quantity"=>1.0}
                              ]
+                    },
+                    {
+                      name: :grubhub_gmail_api_receipt_one,
+                      total_price: 46.68,
+                      sub_vendor: 'Jellyfish',
+                      order_unique_id: '55317347',
+                      items: [
+                              {"name"=>"Black Diamond Roll", "price_breakdown"=>"$19.00", "category"=>"Prepared Meals", "total_price"=>19.0, "quantity"=>1.0},
+                              {"name"=>"Fire and Snow Roll", "price_breakdown"=>"$16.00", "category"=>"Prepared Meals", "total_price"=>16.0, "quantity"=>1.0}
+                             ]
                     }
                   ]
 

@@ -40,6 +40,12 @@ FactoryGirl.define do
       raw_text File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/gmail_autoforward_receipt.eml')
     end
 
+    trait :fresh_direct_gmail_api_receipt_one do
+      from 'FreshDirect <service@freshdirect.com>'
+      subject 'Your order for Saturday, Jan 3 2015'
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/gmail_api_receipt.eml')
+    end    
+
     trait :instacart_receipt do
       from 'orders@instacart.com'
       subject 'Fwd: Your Order with Instacart'
@@ -106,6 +112,12 @@ FactoryGirl.define do
       raw_html File.read(Rails.root.to_s + '/lib/sample_emails/seamless/receipt_seven.eml')
     end
 
+    trait :seamless_gmail_api_receipt_one do
+      from 'confirmation@Seamless.com'
+      subject "Confirmed! Ollie's (42nd St.) received your order. Estimated Delivery: 30 - 45 minutes"
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/seamless/gmail_api_receipt.html')
+    end
+
     trait :grubhub_receipt_one do
       from 'order@grubhub.com'
       subject 'Your Order from Jellyfish is in the Works'
@@ -128,6 +140,12 @@ FactoryGirl.define do
       from 'orders@grubhub.com'
       subject 'Your Order from Tiengarden Vegan Kitchen is in the Works'
       raw_html File.read(Rails.root.to_s + '/lib/sample_emails/grubhub/receipt_four_html.html')
+    end
+
+    trait :grubhub_gmail_api_receipt_one do
+      from 'GrubHub <order@grubhub.com>'
+      subject 'Your Order from Jellyfish is in the Works'
+      raw_html File.read(Rails.root.to_s + '/lib/sample_emails/grubhub/gmail_api_receipt.html')
     end
 
     trait :caviar_receipt_one do
