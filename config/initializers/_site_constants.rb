@@ -6,9 +6,6 @@ SITE_URL            = Rails.env.staging? ? 'sandbox.gopushcart.com' : 'gopushcar
 SECRET_KEY          = Rails.application.secrets.aes_secret_key
 ASSETS_URL_ROOT     = 'https://s3.amazonaws.com/pushcart-assets/images'
 
-SECRET_KEY          = Rails.application.secrets.aes_secret_key
-ASSETS_URL_ROOT     = 'https://s3.amazonaws.com/pushcart-assets/images'
-
 #Gmail API setup
 
 require 'google/api_client'
