@@ -6,11 +6,12 @@ class UserMailer < BaseMailer
     @email          = email
     @return_address = return_address
     mail(
-        to: @email.from,
+        to: ['michael@aqua.io'],
+        #to: @email.from[:email],
         subject: "[#{SITE_NAME.titleize}: Could not find your account] #{@email.subject}"
       )
   end
- 
+
   def email_processed(user_id, email)
     set_user(user_id)
     @email = email
@@ -114,7 +115,7 @@ class UserMailer < BaseMailer
       to: @message.user.email,
       subject: "[Pushcart] #{@message.subject}"
       )
-  end 
+  end
 
   def american_date_format(date)
     date.strftime("%b %-d")

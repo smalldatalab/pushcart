@@ -15,7 +15,25 @@ class ReceiptScraper
       .gsub(/\A\p{Space}*/, ' ')
   end
 
+  def build_itemizable(properties)
+    item = Item.find_or_create_by({name: properties[:name], description: properties[:description]})
+    item.update_attributes!({category: properties[:category]}) if properties[:category]
+
+    itemizable = Itemizable.new properties.except(:name, :description, :category)
+    itemizable.item = item
+
+    return itemizable
+  end
+
 private
+
+  def clean_matches(nokogiri_array)
+    nokogiri_array.to_a.delete_if { |item| item.nil? || (item.name == 'text' && item.text.blank?) }
+  end
+
+  def first_clean_match(nokogiri_array)
+    clean_matches(nokogiri_array)[0]
+  end
 
   def matches_element_characteristic?(element, characteristic_string)
     if element.nil?
@@ -49,7 +67,7 @@ private
                 has_important = true
               end
 
-              dirty_string = dirty_string.gsub(/#{Regexp.escape property_name}:\s?/, '')              
+              dirty_string = dirty_string.gsub(/#{Regexp.escape property_name}:\s?/, '')
 
               props = dirty_string.split
 

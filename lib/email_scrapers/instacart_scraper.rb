@@ -52,21 +52,21 @@ private
         if td['class'] == 'section-head'
           category = td.text
         elsif td['class'] == 'order-item'
-          item = Item.new(category: category) unless category.nil?
+          item_hash = {category: category} unless category.nil?
           td.css('.item-delivered').children.each do |item_attr|
             case item_attr['class']
             when 'item-name'
-              item.name, item.description = item_attr.text.strip.split("\n")
+              item_hash[:name], item_hash[:description] = item_attr.text.strip.split("\n")
             when 'item-price'
-              item.price_breakdown = item_attr.text.strip
-              quantity_and_price = item.price_breakdown.split(' × ')
-              item.quantity = quantity_and_price[0]
+              item_hash[:price_breakdown] = item_attr.text.strip
+              quantity_and_price = item_hash[:price_breakdown].split(' × ')
+              item_hash[:quantity] = quantity_and_price[0]
               price = quantity_and_price[1].gsub(/\$/, '').to_f
-              item.total_price = price * item.quantity
+              item_hash[:total_price] = price * item_hash[:quantity]
             end
           end
           if item && !item.name.nil?
-            @purchase.items << item
+            @purchase.itemizables << build_itemizable(item_hash)
           end
         end
       end

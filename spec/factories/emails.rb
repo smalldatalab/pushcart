@@ -4,6 +4,8 @@ FactoryGirl.define do
     from 'notices@some_grocery_email.com'
     subject 'email subject'
     body 'Hello!'
+    raw_text ''
+    raw_html ''
     attachments {[]}
 
     trait :fresh_direct_receipt_one do
@@ -44,7 +46,7 @@ FactoryGirl.define do
       from 'FreshDirect <service@freshdirect.com>'
       subject 'Your order for Saturday, Jan 3 2015'
       raw_html File.read(Rails.root.to_s + '/lib/sample_emails/fresh_direct/gmail_api_receipt.eml')
-    end    
+    end
 
     trait :instacart_receipt do
       from 'orders@instacart.com'

@@ -5,29 +5,29 @@ Pushcart::Application.routes.draw do
   ActiveAdmin.routes(self)
   ### API ###
 
-  scope 'api' do
-    scope 'v1' do
-      use_doorkeeper
-    end
+    scope 'api' do
+      scope 'v1' do
+        use_doorkeeper
+      end
 
-    api_version(:module => 'api/v1', :path => {:value => 'v1'}, :defaults => {:format => 'json'}) do
-      resources :users, only: [:show, :index] do
-        resources :purchases, only: [:show, :index] do
-          resources :items, only: [:show, :index, :update]
+      api_version(:module => 'api/v1', :path => {:value => 'v1'}, :defaults => {:format => 'json'}) do
+        resources :users, only: [:show, :index] do
+          resources :purchases, only: [:show, :index] do
+            resources :items, only: [:show, :index, :update]
+          end
+          resources :items, only: [:show, :update]
+          resources :messages
+          resources :swap_suggestions, only: [:index, :show, :create]
         end
-        resources :items, only: [:show, :update]
-        resources :messages
-        resources :swap_suggestions, only: [:index, :show, :create]
-      end
-      resources :swap_categories, only: :index
-      resources :swaps, only: [:index, :create]
-      resources :memberships, only: [] do
-        post :invite, on: :collection
+        resources :swap_categories, only: :index
+        resources :swaps, only: [:index, :create]
+        resources :memberships, only: [] do
+          post :invite, on: :collection
+        end
       end
     end
-  end
 
-  ###
+  ######
 
   ### User Site ###
     resources :users, only: [:edit, :update]
@@ -46,12 +46,15 @@ Pushcart::Application.routes.draw do
     get 'thank_you_for_registering', to: 'users#thank_you_for_registering'
     get 'login_token_expired',       to: 'users#login_token_expired'
     post 'new_authentication_token', to: 'users#new_authentication_token'
-    get 'edit_household',            to: 'users#edit_household'  
+    get 'edit_household',            to: 'users#edit_household'
     delete 'sign_out',               to: 'users#log_out',  as: 'sign_out_user'
   ######
 
-  # # Temporary route just used to validate Mandrill. See: https://github.com/thoughtbot/griddler#using-griddler-with-mandrill
-  # get "/email_processor", to: proc { [200, {}, ["OK"]] }, as: "mandrill_head_test_request"
+  ### Email ###
+    mount_griddler
+
+    # # Temporary route just used to validate Mandrill. See: https://github.com/thoughtbot/griddler#using-griddler-with-mandrill
+    # get "/email_processor", to: proc { [200, {}, ["OK"]] }, as: "mandrill_head_test_request"
 
   root to: 'application#index'
 end

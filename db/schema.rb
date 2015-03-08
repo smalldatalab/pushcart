@@ -11,18 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226024212) do
+ActiveRecord::Schema.define(version: 20150307153222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "active_admin_comments", force: true do |t|
-    t.string   "namespace"
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string   "namespace",     limit: 255
     t.text     "body"
-    t.string   "resource_id",   null: false
-    t.string   "resource_type", null: false
+    t.string   "resource_id",   limit: 255, null: false
+    t.string   "resource_type", limit: 255, null: false
     t.integer  "author_id"
-    t.string   "author_type"
+    t.string   "author_type",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -31,17 +31,17 @@ ActiveRecord::Schema.define(version: 20150226024212) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
-  create_table "admin_users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+  create_table "admin_users", force: :cascade do |t|
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -49,27 +49,27 @@ ActiveRecord::Schema.define(version: 20150226024212) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "coaches", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+  create_table "coaches", force: :cascade do |t|
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",        default: 0,  null: false
-    t.string   "unlock_token"
+    t.string   "unconfirmed_email",      limit: 255
+    t.integer  "failed_attempts",                    default: 0,  null: false
+    t.string   "unlock_token",           limit: 255
     t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
+    t.string   "name",                   limit: 255
   end
 
   add_index "coaches", ["confirmation_token"], name: "index_coaches_on_confirmation_token", unique: true, using: :btree
@@ -77,56 +77,60 @@ ActiveRecord::Schema.define(version: 20150226024212) do
   add_index "coaches", ["reset_password_token"], name: "index_coaches_on_reset_password_token", unique: true, using: :btree
   add_index "coaches", ["unlock_token"], name: "index_coaches_on_unlock_token", unique: true, using: :btree
 
-  create_table "delayed_jobs", force: true do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",               default: 0, null: false
+    t.integer  "attempts",               default: 0, null: false
+    t.text     "handler",                            null: false
     t.text     "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
     t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
+    t.string   "locked_by",  limit: 255
+    t.string   "queue",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  create_table "emails", force: true do |t|
+  create_table "emails", force: :cascade do |t|
     t.json     "mandrill_data"
-    t.string   "status"
+    t.string   "status",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "household_members", force: true do |t|
+  create_table "household_members", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "age"
-    t.string   "gender"
+    t.string   "age",        limit: 255
+    t.string   "gender",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "items", force: true do |t|
+  create_table "itemizables", force: :cascade do |t|
+    t.integer  "item_id"
     t.integer  "purchase_id"
-    t.string   "name"
-    t.string   "description"
-    t.string   "price_breakdown"
-    t.string   "category"
-    t.float    "total_price"
     t.float    "quantity"
-    t.boolean  "discounted",             default: false
+    t.float    "total_price"
+    t.string   "price_breakdown"
+    t.boolean  "discounted",      default: false
+    t.string   "color_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string   "name",                   limit: 255
+    t.string   "description",            limit: 255
+    t.string   "category",               limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.json     "ntx_api_nutrition_data"
     t.json     "ntx_api_metadata"
-    t.string   "color_code"
   end
 
-  add_index "items", ["purchase_id"], name: "index_items_on_purchase_id", using: :btree
-
-  create_table "memberships", force: true do |t|
+  create_table "memberships", force: :cascade do |t|
     t.integer  "coach_id"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -136,98 +140,96 @@ ActiveRecord::Schema.define(version: 20150226024212) do
   add_index "memberships", ["coach_id"], name: "index_memberships_on_coach_id", using: :btree
   add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
 
-  create_table "messages", force: true do |t|
+  create_table "messages", force: :cascade do |t|
     t.integer  "user_id"
     t.text     "raw_html"
     t.text     "raw_text"
-    t.string   "to"
-    t.string   "from"
-    t.string   "subject"
-    t.boolean  "successfully_processed", default: false
-    t.boolean  "scraped",                default: false
+    t.string   "to",                     limit: 255
+    t.string   "from",                   limit: 255
+    t.string   "subject",                limit: 255
+    t.boolean  "successfully_processed",             default: false
+    t.boolean  "scraped",                            default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "kind"
+    t.string   "kind",                   limit: 255
     t.integer  "coach_id"
     t.json     "inbox_metadata"
     t.datetime "date"
-    t.string   "source"
+    t.string   "source",                 limit: 255
   end
 
   add_index "messages", ["coach_id"], name: "index_messages_on_coach_id", using: :btree
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
-  create_table "missions", force: true do |t|
-    t.string   "name"
+  create_table "missions", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "oauth_access_grants", force: true do |t|
-    t.integer  "resource_owner_id", null: false
-    t.integer  "application_id",    null: false
-    t.string   "token",             null: false
-    t.integer  "expires_in",        null: false
-    t.text     "redirect_uri",      null: false
-    t.datetime "created_at",        null: false
+  create_table "oauth_access_grants", force: :cascade do |t|
+    t.integer  "resource_owner_id",             null: false
+    t.integer  "application_id",                null: false
+    t.string   "token",             limit: 255, null: false
+    t.integer  "expires_in",                    null: false
+    t.text     "redirect_uri",                  null: false
+    t.datetime "created_at",                    null: false
     t.datetime "revoked_at"
-    t.string   "scopes"
+    t.string   "scopes",            limit: 255
   end
 
   add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
 
-  create_table "oauth_access_tokens", force: true do |t|
+  create_table "oauth_access_tokens", force: :cascade do |t|
     t.integer  "resource_owner_id"
     t.integer  "application_id"
-    t.string   "token",             null: false
-    t.string   "refresh_token"
+    t.string   "token",             limit: 255, null: false
+    t.string   "refresh_token",     limit: 255
     t.integer  "expires_in"
     t.datetime "revoked_at"
-    t.datetime "created_at",        null: false
-    t.string   "scopes"
+    t.datetime "created_at",                    null: false
+    t.string   "scopes",            limit: 255
   end
 
   add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true, using: :btree
   add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id", using: :btree
   add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
 
-  create_table "oauth_applications", force: true do |t|
-    t.string   "name",                         null: false
-    t.string   "uid",                          null: false
-    t.string   "secret",                       null: false
-    t.boolean  "whitelisted",  default: false
-    t.text     "redirect_uri",                 null: false
+  create_table "oauth_applications", force: :cascade do |t|
+    t.string   "name",         limit: 255,                 null: false
+    t.string   "uid",          limit: 255,                 null: false
+    t.string   "secret",       limit: 255,                 null: false
+    t.boolean  "whitelisted",              default: false
+    t.text     "redirect_uri",                             null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "scopes",       default: "",    null: false
+    t.string   "scopes",       limit: 255, default: "",    null: false
   end
 
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
 
-  create_table "purchases", force: true do |t|
+  create_table "purchases", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "vendor"
-    t.string   "sender_email"
-    t.string   "order_unique_id"
+    t.string   "vendor",          limit: 255
+    t.string   "sender_email",    limit: 255
+    t.string   "order_unique_id", limit: 255
     t.float    "total_price"
     t.text     "raw_message"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "ntx_api_rejected_item_count"
-    t.integer  "category_rejected_item_count"
-    t.string   "sub_vendor"
+    t.string   "sub_vendor",      limit: 255
     t.datetime "order_date"
   end
 
   add_index "purchases", ["user_id"], name: "index_purchases_on_user_id", using: :btree
 
-  create_table "swap_categories", force: true do |t|
-    t.string   "name"
+  create_table "swap_categories", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "swap_suggestions", force: true do |t|
+  create_table "swap_suggestions", force: :cascade do |t|
     t.integer  "coach_id"
     t.integer  "user_id"
     t.integer  "swap_id"
@@ -236,7 +238,7 @@ ActiveRecord::Schema.define(version: 20150226024212) do
     t.datetime "message_sent_at"
     t.datetime "swap_rated_at"
     t.integer  "user_rating"
-    t.string   "feedback"
+    t.string   "feedback",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -247,35 +249,35 @@ ActiveRecord::Schema.define(version: 20150226024212) do
   add_index "swap_suggestions", ["swap_id"], name: "index_swap_suggestions_on_swap_id", using: :btree
   add_index "swap_suggestions", ["user_id"], name: "index_swap_suggestions_on_user_id", using: :btree
 
-  create_table "swaps", force: true do |t|
+  create_table "swaps", force: :cascade do |t|
     t.integer  "swap_category_id"
-    t.string   "name"
+    t.string   "name",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "swaps", ["swap_category_id"], name: "index_swaps_on_swap_category_id", using: :btree
 
-  create_table "users", force: true do |t|
-    t.string   "email",                           default: "", null: false
-    t.integer  "sign_in_count",                   default: 0,  null: false
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                           limit: 255, default: "", null: false
+    t.integer  "sign_in_count",                               default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
+    t.string   "current_sign_in_ip",              limit: 255
+    t.string   "last_sign_in_ip",                 limit: 255
+    t.string   "confirmation_token",              limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.string   "endpoint_email",                  default: "", null: false
+    t.string   "unconfirmed_email",               limit: 255
+    t.string   "endpoint_email",                  limit: 255, default: "", null: false
     t.datetime "authentication_token_expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "mission_id"
-    t.string   "authentication_token"
-    t.string   "name"
+    t.string   "authentication_token",            limit: 255
+    t.string   "name",                            limit: 255
     t.json     "inbox_api_token"
-    t.string   "identity_provider"
+    t.string   "identity_provider",               limit: 255
     t.datetime "inbox_last_scraped"
   end
 

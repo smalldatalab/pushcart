@@ -157,27 +157,27 @@ describe SeamlessScraper do
         describe "item ##{index}" do
 
           it 'should have the correct #name' do
-            @results.items[index].name.should eq item['name']
+            @results.itemizables[index].item.name.should eq item['name']
           end
 
           it 'should have the correct #description' do
-            @results.items[index].description.should eq item['description']
+            @results.itemizables[index].item.description.should eq item['description']
           end
 
           it 'should have the correct #price_breakdown' do
-            @results.items[index].price_breakdown.should eq item['price_breakdown']
+            @results.itemizables[index].price_breakdown.should eq item['price_breakdown']
           end
 
           it 'should have the correct #category' do
-            @results.items[index].category.should eq item['category']
+            @results.itemizables[index].item.category.should eq item['category']
           end
 
           it 'should have the correct #total_price' do
-            @results.items[index].total_price.should eq item['total_price']
+            @results.itemizables[index].total_price.should eq item['total_price']
           end
 
           it 'should have the correct #quantity' do
-            @results.items[index].quantity.should eq item['quantity']
+            @results.itemizables[index].quantity.should eq item['quantity']
           end
 
         end
@@ -187,8 +187,8 @@ describe SeamlessScraper do
       it "should save the purchase" do
         @results.user = FactoryGirl.create(:user)
         @results.save.should eq true
-        @results.items.count.should eq rcpt[:items].count
-        @results.items.last.created_at.should_not eq nil
+        @results.itemizables.count.should eq rcpt[:items].count
+        @results.itemizables.last.created_at.should_not eq nil
       end
 
     end

@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.2.0'
+ruby '2.2.1'
 
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.0'
 
 gem 'thin'
 
@@ -11,6 +11,7 @@ gem 'pg'
 ### E-mail receipt & scraping ###
 
 gem 'griddler'
+gem 'griddler-mandrill'
 gem 'nokogiri'
 gem 'nokogiri-styles'
 gem 'color'
@@ -40,20 +41,20 @@ gem 'google-api-client'
 
 # gem 'turbolinks'
 gem 'haml'
-gem 'sass-rails',       '~> 4.0.2'
-gem 'coffee-rails',     '~> 4.0.1'
+gem 'sass-rails'
+gem 'coffee-rails'
 gem 'jquery-rails'
-gem 'uglifier',         '>= 1.3.0'
-gem 'bootstrap-sass',   '~> 3.2.0'
+gem 'uglifier'
+gem 'bootstrap-sass'
 
 ### Forms ###
 
-gem 'simple_form',      '~> 3.1.0.rc1'
+gem 'simple_form',      '~> 3.1.0'
 gem 'nested_form'
 
 ### Background Processes ###
 
-gem 'foreman',                   '~> 0.63.0'
+gem 'foreman',                   '~> 0.77.0'
 gem 'delayed_job_active_record'
 gem 'whenever',                  require: false
 

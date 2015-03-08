@@ -29,7 +29,7 @@ describe EmailScraper do
   describe '#determine_scraper' do
 
     before(:all) do
-      @scraper = EmailScraper.new(FactoryGirl.create(:message))
+      @scraper = EmailScraper.new(FactoryGirl.create(:message).id)
     end
 
     [

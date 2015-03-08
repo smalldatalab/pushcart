@@ -17,7 +17,7 @@ private
                               vendor:           'Grubhub',
                               sender_email:     @email.from.to_s,
                               sub_vendor:       parse_sub_vendor,
-                              order_unique_id:  parse_order_number, 
+                              order_unique_id:  parse_order_number,
                               total_price:      parse_order_total,
                               order_date:       @email.date ? @email.date : nil
                              )
@@ -94,7 +94,7 @@ private
       item_hash[:price_breakdown] = tds[2].text.gsub(' ', '')
       item_hash[:total_price]     = item_hash[:price_breakdown].gsub(/\$/, '').to_f
 
-      @purchase.items << Item.new(item_hash)
+      @purchase.itemizables << build_itemizable(item_hash)
     end
   end
 

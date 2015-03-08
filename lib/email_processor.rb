@@ -1,24 +1,16 @@
 class EmailProcessor
   def self.process(email)
     @email = email
-    source_email = @email.from
-    target_email = filter_other_recipients(@email.to)
+    source_email = @email.from[:email]
+    target_email = filter_other_recipients(@email.to[:email])
 
     if target_email =~ /^info@/
       AlertMailer.forward_to_team(@email).deliver
-    elsif target_email =~ /^pushcart-app-/
-      set_user_from_email(source_email)
-      unless @user.nil?
-        app = ClientApp.find_by_endpoint_email target_email.gsub(/^pushcart-app-/, '')
-        create_message('user_to_application_message', @user, app)
-      end
-    # elsif target_email =~ /^hello/
-    #   create_message('user_mission_setting_message', nil, app)
     else
       set_user_from_email(target_email)
 
       unless @user.nil?
-        create_message('grocery_vendor_to_user_message', @user)
+        create_message('vendor_to_user_message', @user)
 
         EmailScraper.delay.new(@message.id)
       end
@@ -35,10 +27,11 @@ private
     @message =  Message.create do |m|
                   m.raw_html           = @email.raw_html
                   m.raw_text           = @email.raw_text
-                  m.to                 = @email.to
-                  m.from               = @email.from
+                  m.to                 = @email.to[:email]
+                  m.from               = @email.from[:email]
                   m.subject            = @email.subject
                   m.kind               = kind
+                  m.source             = 'inbound_email_processor'
                   m.user               = user unless user.nil?
                   m.source             = 'inbound email'
                 end
@@ -53,6 +46,7 @@ private
     end
 
     if @user.nil?
+      p @email
       UserMailer.delay.cannot_find_account(@email, email_address)
       Rails.logger.info "Invalid e-mail address for user: #{email_address}"
     end

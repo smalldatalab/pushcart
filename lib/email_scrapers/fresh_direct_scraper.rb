@@ -45,83 +45,41 @@ private
   end
 
   def parse_items_and_add_to_purchase
-    # tables = @body_html.xpath('//table')
-
     category = nil
     @body_html.xpath('//tr').each do |tr|
-      item = Item.new(category: category) unless category.nil?
+      item_hash = {category: category} unless category.nil?
       tr.children.each do |td|
         if matches_element_characteristic?(td['style'], 'color:#f93;font-weight:bold;font-family:Verdana,Arial,sans-serif;font-size:12px;') || matches_element_characteristic?(td['style'], 'font-size:12;font-family:Verdana,Arial,sans-serif;color:rgb(255,153,51);font-weight:bold;')
           category = td.text
         elsif tr['valign'] == 'middle'
           case td['width']
           when '40' # Quantity
-            item.quantity = td.text
+            item_hash[:quantity] = td.text
           when nil # Name & Description
             name_and_description = td.text.strip
             name, description = name_and_description.split(/\t\t\t\t\t\t/)
-            item.name = name.strip
-            item.description = description[/\(.*?\)/].gsub(/(^\(|\)$)/, '') if description
+            item_hash[:name] = name.strip
+            item_hash[:description] = description[/\(.*?\)/].gsub(/(^\(|\)$)/, '') if description
           when '70' # Price breakdown or additional information
             if td.text =~ /(\(|\))/
-              item.price_breakdown = td.text.gsub(/(^\(\$|\)$)/, '')
+              item_hash[:price_breakdown] = td.text.gsub(/(^\(\$|\)$)/, '')
             elsif td.text =~ /S/
-              item.discounted = true
+              item_hash[:discounted] = true
             end
           when '60' # Total price
-            item.total_price = td.text.gsub(/\$/, '')
+            item_hash[:total_price] = td.text.gsub(/\$/, '')
           end
         end
       end
-      if item && item.name && item.quantity && item.total_price
-        # p item.attributes.delete_if { |k,v| ['id', 'purchase_id', "created_at", "updated_at", "ntx_api_nutrition_data", "ntx_api_metadata", "color_code"].include? k }
-        @purchase.items << item
+      if item_hash && item_hash[:name] && item_hash[:quantity] && item_hash[:total_price]
+
+        unless item_hash[:name] =~ /(Group\sDiscount|with\scoupon)/i
+          @purchase.itemizables << build_itemizable(item_hash)
+        end
+
+        item_hash = {}
       end
     end
-
-    # tables.map{ |t| p t.children, t['style'] }#if matches_element_characteristic?(t['style'], 'padding:0;margin:0;border-collapse:collapse;border-spacing:0;border-style:none;') }
-    # purchase_tables = tables.map{ |t| t if matches_element_characteristic?(t['style'], 'padding:0;margin:0;border-collapse:collapse;border-spacing:0;border-style:none;') }.compact
-
-    # purchase_tables.each do |table|
-    #   table.children.each do |tbody|
-    #     category = nil
-    #     tbody.children.each do |tr|
-    #       item = Item.new(category: category) unless category.nil?
-    #       tr.children.each do |td|
-    #         # p td['valign']
-    #         if matches_element_characteristic?(td['style'], 'color:#f93;font-weight:bold;font-family:Verdana,Arial,sans-serif;font-size:12px;') || matches_element_characteristic?(td['style'], 'font-size:12;font-family:Verdana,Arial,sans-serif;color:rgb(255,153,51);font-weight:bold;')
-    #           category = td.text
-    #           p category
-    #         elsif tr['valign'] == 'middle'
-    #           p "!!!!!!!!!!!!!!"
-    #           case td['width']
-    #           when '40' # Quantity
-    #             p td.text
-    #             item.quantity = td.text
-    #           when nil # Name & Description
-    #             name_and_description = td.text.strip
-    #             name, description = name_and_description.split(/\t\t\t\t\t\t/)
-    #             item.name = name.strip
-    #             item.description = description[/\(.*?\)/].gsub(/(^\(|\)$)/, '') unless description.nil?
-    #           when '70' # Price breakdown or additional information
-    #             if td.text =~ /(\(|\))/
-    #               item.price_breakdown = td.text.gsub(/(^\(\$|\)$)/, '')
-    #             elsif td.text =~ /S/
-    #               item.discounted = true
-    #             end
-    #           when '60' # Total price
-    #             item.total_price = td.text.gsub(/\$/, '')
-    #           end
-    #         end
-    #       end
-    #       # p item
-    #       if item && item.name && item.quantity && item.total_price
-    #         p item.attributes.delete_if { |k,v| ['id', 'purchase_id', "created_at", "updated_at", "ntx_api_nutrition_data", "ntx_api_metadata", "color_code"].include? k }
-    #         @purchase.items << item
-    #       end
-    #     end
-    #   end
-    # end
   end
 
 end

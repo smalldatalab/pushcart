@@ -17,7 +17,7 @@ private
                   vendor:       'Seamless',
                   sender_email: @email.from.to_s,
                   total_price:  parse_order_total.gsub(/\$/, ''),
-                  order_date:       @email.date ? @email.date : nil
+                  order_date:   @email.date ? @email.date : nil
                 }.merge parse_metadata
 
     @purchase = Purchase.new(purchase)
@@ -29,12 +29,15 @@ private
     metadata_table = @body_html
                       .xpath('//table')
                       .map{ |t| t if matches_element_characteristic?(t['style'], 'border-top:4px solid #cccccc') }
-                      .compact[0]
 
-    if metadata_table.children.first.name == 'tbody'
-      metadata_table.children.each do |tbody|
-        tbody.children.each do |tr|
-          tds = tr.children
+    metadata_table = first_clean_match(metadata_table)
+
+    table_children = clean_matches(metadata_table.children)
+
+    if table_children.first.name == 'tbody'
+      table_children.each do |tbody|
+        clean_matches(tbody.children).each do |tr|
+          tds = clean_matches(tr.children)
 
           metadata[:sub_vendor]       = parse_sub_vendor tds[0]
 
@@ -45,8 +48,8 @@ private
         end
       end
     else
-      metadata_table.children.each do |tr|
-        tds = tr.children
+      table_children.each do |tr|
+        tds = clean_matches(tr.children)
 
         metadata[:sub_vendor]       = parse_sub_vendor tds[0]
 
@@ -61,35 +64,44 @@ private
   end
 
   def parse_sub_vendor(td)
-    return td
-      .children
-      .map{ |t| t if (matches_element_characteristic?(t['style'], 'font-family:Arial,Helvetica,sans-serif;font-size:18px;padding-top:.25em;padding-bottom:.25em;line-height:22px;color:#444444;text-align:left;font-weight:normal') || matches_element_characteristic?(t['style'], 'font-family:Arial,Helvetica,sans-serif;font-size:18px;padding-top:.25em;padding-bottom:.25em;line-height:22px;color:#000000;text-align:left;font-weight:normal')) }
-      .compact[0]
-      .children
-      .text
+    node = td
+            .children
+            .map{ |t| t if (matches_element_characteristic?(t['style'], 'font-family:Arial,Helvetica,sans-serif;font-size:18px;padding-top:.25em;padding-bottom:.25em;line-height:22px;color:#444444;text-align:left;font-weight:normal') || matches_element_characteristic?(t['style'], 'font-family:Arial,Helvetica,sans-serif;font-size:18px;padding-top:.25em;padding-bottom:.25em;line-height:22px;color:#000000;text-align:left;font-weight:normal')) }
+
+    node = first_clean_match(node)
+
+    return node
+            .children
+            .text
   end
 
   def parse_order_date(td)
-    return td
-      .children
-      .map{ |t| t if matches_element_characteristic?(t['style'], 'font-family:Arial,Helvetica,sans-serif;padding-top:0em;padding-right:0em;padding-bottom:.25em;font-size:12px;line-height:17px;text-align:left;font-weight:normal') }
-      .compact[0]
-      .children
-      .text
-      .gsub(/Ordered:/, '')
-      .strip
+    node = td
+            .children
+            .map{ |t| t if matches_element_characteristic?(t['style'], 'font-family:Arial,Helvetica,sans-serif;padding-top:0em;padding-right:0em;padding-bottom:.25em;font-size:12px;line-height:17px;text-align:left;font-weight:normal') }
+
+    node = first_clean_match(node)
+
+    return node
+            .children
+            .text
+            .gsub(/Ordered:/, '')
+            .strip
   end
 
   def parse_order_number(td)
-    return td
-      .children
-      .map{ |t| t if t['style'] && matches_element_characteristic?(t['style'], 'font-family:Arial,Helvetica,sans-serif;font-size:18px;padding-top:.25em;padding-bottom:.25em;line-height:22px;text-align:left;font-weight:normal') }
-      .compact[0]
-      .children
-      .text
-      .gsub(/\p{Space}/, ' ')
-      .gsub(/(\=C2\=A0|\s\s|Order #:)/, '')
-      .strip
+    node = td
+            .children
+            .map{ |t| t if t['style'] && matches_element_characteristic?(t['style'], 'font-family:Arial,Helvetica,sans-serif;font-size:18px;padding-top:.25em;padding-bottom:.25em;line-height:22px;text-align:left;font-weight:normal') }
+
+    node = first_clean_match(node)
+
+    return node
+            .children
+            .text
+            .gsub(/\p{Space}/, ' ')
+            .gsub(/(\=C2\=A0|\s\s|Order #:)/, '')
+            .strip
   end
 
   def parse_order_total
@@ -104,20 +116,22 @@ private
     item_tables = @body_html
                     .xpath('//table')
                     .map{ |t| t if matches_element_characteristic?(t['style'], 'background-color:#ffffff') }
-                    .compact
 
+    item_tables = clean_matches(item_tables)
 
     item_tables.each do |table|
-      if table.children.first.name == 'tbody'
-        table.children.each do |tbody|
-          tbody.children.each do |tr|
+      table_children = clean_matches(table.children)
+
+      if table_children.first.name == 'tbody'
+        table_children.each do |tbody|
+          clean_matches(tbody.children).each do |tr|
             parse_item(tr)
           end
         end
       else
-        table.children.each do |tr|
+        table_children.each do |tr|
           parse_item(tr)
-        end        
+        end
       end
     end
   end
@@ -127,18 +141,26 @@ private
 
     # NOTE: Scrapes both items and optional add-ons as items
 
-    if (tr.children.count == 12 || tr.children.count == 6) && tr.children.first.text.blank?
+    tr_children = clean_matches(tr.children)
+
+    if (tr_children.count == 12 || tr_children.count == 6) && tr_children.first.text.blank?
       # Special request to primary item
 
-      tr
-        .children
-        .map { |t| t.text if t.name = 'strong' }
-        .map { |t| @purchase.items.last.description << "\n" + t.gsub(/\=E2\=80\=A2/, '').gsub(/\A\p{Space}*/, '').strip unless t.blank? }
+      desc = nil
 
-    elsif tr.children.count == 12 || tr.children.count == 6
+      tr_children
+        .map { |t| t.text if t.name = 'strong' }
+        .map { |t| desc = t.gsub(/\=E2\=80\=A2/, '').gsub(/\A\p{Space}*/, '').strip unless t.blank? }
+
+      if desc
+        item = @purchase.itemizables.last.item
+        item.update_attributes!(description: item.description + "\n#{desc}") unless Regexp.new(item.description) =~ desc
+      end
+
+    elsif tr_children.count == 12 || tr_children.count == 6
       # Primary item
 
-      tds = tr.children.map { |t| t if t.name == 'td' }.compact
+      tds = tr_children.map { |t| t if t.name == 'td' }.compact
 
       item_hash[:description] = 'Base order item'
 
@@ -164,11 +186,11 @@ private
                                   .text
                                   .strip.gsub(/\$/, '')
 
-      @purchase.items << Item.new(item_hash)
-    elsif tr.children.count == 10 || tr.children.count == 5
+      @purchase.itemizables << build_itemizable(item_hash)
+    elsif tr_children.count == 10 || tr_children.count == 5
       # Supplementary items
 
-      tds = tr.children.map { |t| t if t.name == 'td' }.compact
+      tds = tr_children.map { |t| t if t.name == 'td' }.compact
 
       item_hash[:description] = 'Add-on item (cost inclued in base item total cost)'
 
@@ -187,7 +209,7 @@ private
                 .text
                 .gsub(/(\=A0|\=C2)/, '')
                 .gsub(/\A\p{Space}*/, '')
-                .strip                      
+                .strip
 
       item_hash[:price_breakdown] = (price.blank? ? 'free' : price) + ' (add-on price)'
 
@@ -195,7 +217,7 @@ private
 
       item_hash[:total_price] = 0.0
 
-      @purchase.items << Item.new(item_hash)
+      @purchase.itemizables << build_itemizable(item_hash)
     end
   end
 

@@ -10,11 +10,13 @@
   sender_domain: 'amazon.com' #fresh-reply@amazon.com
 'Good Eggs':
   sender_domain: 'goodeggs.com'
-'Food52':
-  sender_domain: 'food52.com'
+'Eat24':
+  sender_domain: 'eat24.com'
 'Seamless':
   sender_domain: 'seamless.com'
 'Grubhub':
   sender_domain: 'grubhub.com'
 'Caviar':
   sender_domain: 'trycaviar.com'
+'Postmates':
+  sender_domain: 'postmates.com'

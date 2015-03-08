@@ -10,6 +10,7 @@ class GmailProcessor
     @user               = User.find(user_id)
     @scrapable_services = YAML.load_file(Rails.root.to_s + '/lib/email_scrapers/scrapable_services.yml')
     @scrape_from        = @user.inbox_last_scraped ? @user.inbox_last_scraped - 1.day : nil
+    @gmail_api          = GMAIL_CLIENT.discovered_api('gmail', 'v1')
 
     initialize_client
     refresh_authorization
@@ -55,7 +56,7 @@ class GmailProcessor
     p "Searching for #{service} e-mails..."
 
     result = @client.execute(
-                              api_method: GMAIL_API.users.messages.list,
+                              api_method: @gmail_api.users.messages.list,
                               parameters: {
                                             'userId' => 'me',
                                             'includeSpamTrash' => true,

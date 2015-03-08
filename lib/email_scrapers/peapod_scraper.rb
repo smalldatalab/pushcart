@@ -65,24 +65,24 @@ private
             category = tr.text
           end
         elsif !category.nil?
-          item = Item.new(category: category) unless category.nil?
+          item_hash = {category: category} unless category.nil?
           tr.children.each_with_index do |td, index|
             case index
             when 0 # Item name
-              item.name = td.text.strip
+              item_hash[:name] = td.text.strip
             when 1 # Description (Size)
-              item.description = td.text.strip
+              item_hash[:description] = td.text.strip
             when 2 # Quantity
-              item.quantity = td.text
+              item_hash[:quantity] = td.text
             when 3 # Item Price
-              item.price_breakdown = "#{td.text}/ea"
+              item_hash[:price_breakdown] = "#{td.text}/ea"
             when 4 # Total Price
-              item.discounted = true if td.text =~ /\=C2\=A0/
-              item.total_price = td.text.gsub(/\=C2\=A/, '')
+              item_hash[:discounted] = true if td.text =~ /\=C2\=A0/
+              item_hash[:total_price] = td.text.gsub(/\=C2\=A/, '')
             end
           end
-          if item && !item.name.nil?
-            @purchase.items << item
+          if item_hash && item_hash[:name]
+            @purchase.itemizables << build_itemizable(item_hash)
           end
         end
       end
