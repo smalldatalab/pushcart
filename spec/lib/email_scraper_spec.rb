@@ -8,7 +8,7 @@ describe EmailScraper do
       @ie = FactoryGirl.create(:message)
     end
 
-    it "should change the message state to processed" do
+    pending "should change the message state to processed" do
       @ie.successfully_processed.should == false
 
       EmailScraper.new(@ie.id)

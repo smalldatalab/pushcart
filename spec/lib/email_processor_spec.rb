@@ -13,7 +13,7 @@ describe EmailProcessor do
     @email.from = {email: @email.from}
   end
 
-  it "should send right mailer if user is not found" do
+  pending "should send right mailer if user is not found" do
     @email.stubs(:to).returns({email: ["non-existant-email@#{EMAIL_URI}"]})
     UserMailer.any_instance.expects(:cannot_find_account).with(@email, 'non-existant-email')
 
