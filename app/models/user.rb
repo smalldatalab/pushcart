@@ -4,14 +4,13 @@ class User < ActiveRecord::Base
   devise :registerable, :confirmable, :timeoutable, :trackable, :omniauthable, :omniauth_providers => [:google_oauth2]
 
   has_many :purchases
+  has_many :itemizables, through: :purchases
   has_many :items, through: :purchases
+  has_many :swaps, through: :itemizables
   has_many :household_members, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :memberships
   has_many :coaches, through: :memberships
-
-  has_many :swap_suggestions
-  has_many :swaps, through: :swap_suggestions
 
   belongs_to :mission
 

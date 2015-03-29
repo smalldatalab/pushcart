@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  actions :all, except: [:edit]
+  actions :all, except: [:edit, :new]
 
   index do
     selectable_column
@@ -38,5 +38,5 @@ ActiveAdmin.register User do
     end
     active_admin_comments
   end
-  
+
 end

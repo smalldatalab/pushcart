@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150307153222) do
+ActiveRecord::Schema.define(version: 20150325080719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +118,8 @@ ActiveRecord::Schema.define(version: 20150307153222) do
     t.string   "color_code"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "swap_id"
+    t.integer  "coach_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -228,26 +230,6 @@ ActiveRecord::Schema.define(version: 20150307153222) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "swap_suggestions", force: :cascade do |t|
-    t.integer  "coach_id"
-    t.integer  "user_id"
-    t.integer  "swap_id"
-    t.integer  "item_id"
-    t.integer  "message_id"
-    t.datetime "message_sent_at"
-    t.datetime "swap_rated_at"
-    t.integer  "user_rating"
-    t.string   "feedback",        limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "swap_suggestions", ["coach_id"], name: "index_swap_suggestions_on_coach_id", using: :btree
-  add_index "swap_suggestions", ["item_id"], name: "index_swap_suggestions_on_item_id", using: :btree
-  add_index "swap_suggestions", ["message_id"], name: "index_swap_suggestions_on_message_id", using: :btree
-  add_index "swap_suggestions", ["swap_id"], name: "index_swap_suggestions_on_swap_id", using: :btree
-  add_index "swap_suggestions", ["user_id"], name: "index_swap_suggestions_on_user_id", using: :btree
 
   create_table "swaps", force: :cascade do |t|
     t.integer  "swap_category_id"

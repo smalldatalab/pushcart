@@ -10,14 +10,13 @@ Pushcart::Application.routes.draw do
         use_doorkeeper
       end
 
-      api_version(:module => 'api/v1', :path => {:value => 'v1'}, :defaults => {:format => 'json'}) do
+      api_version(module: 'api/v1', path: {value: 'v1'}, defaults: {format: 'json'}) do
         resources :users, only: [:show, :index] do
           resources :purchases, only: [:show, :index] do
-            resources :items, only: [:show, :index, :update]
+            resources :itemizables, path: 'items', only: [:show, :index, :update]
           end
-          resources :items, only: [:show, :update]
+          resources :itemizables, path: 'items', only: [:show, :update]
           resources :messages
-          resources :swap_suggestions, only: [:index, :show, :create]
         end
         resources :swap_categories, only: :index
         resources :swaps, only: [:index, :create]

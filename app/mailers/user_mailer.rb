@@ -74,9 +74,9 @@ class UserMailer < BaseMailer
     set_user(user_id)
     @url  = url
     mail(
-      to: @user.email,
-      subject: "Your login request"
-      )
+          to: @user.email,
+          subject: "Your login request"
+        )
   end
 
   ### Weekly Digest ###
@@ -85,26 +85,26 @@ class UserMailer < BaseMailer
     @user = user
     @digest = digest
     mail(
-      to: @user.email,
-      reply_to: user_endpoint_reply_to,
-      bcc: 'michael@aqua.io',
-      subject: "Your Weekly Pushcart Digest | #{american_date_format(digest.start_date)} - #{american_date_format(digest.end_date)}"
-      )
+          to: @user.email,
+          reply_to: user_endpoint_reply_to,
+          bcc: 'michael@aqua.io',
+          subject: "Your Weekly Pushcart Digest | #{american_date_format(digest.start_date)} - #{american_date_format(digest.end_date)}"
+        )
   end
 
   ### Replacement Suggestion ###
 
-  def replacement_suggestion(swap_suggestion)
-    @item = swap_suggestion.item
-    @user = swap_suggestion.user
-    @swap = swap_suggestion.swap
+  def replacement_suggestion(itemizable_id)
+    @itemizable = Itemizable.find(itemizable_id)
+    @user = @itemizable.purchase.user
+    @swap = @itemizable.swap
 
     mail(
-      to: @user.email,
-      reply_to: user_endpoint_reply_to,
-      bcc: 'michael@aqua.io',
-      subject: "A suggested item substitution for your next purchase!"
-      )
+          to: @user.email,
+          reply_to: user_endpoint_reply_to,
+          bcc: 'michael@aqua.io',
+          subject: "A suggested item substitution for your next purchase!"
+        )
   end
 
   ### Message Confirmation ###
@@ -112,9 +112,9 @@ class UserMailer < BaseMailer
   def message_received(message_id)
     @message = Message.find(message_id)
     mail(
-      to: @message.user.email,
-      subject: "[Pushcart] #{@message.subject}"
-      )
+          to: @message.user.email,
+          subject: "[Pushcart] #{@message.subject}"
+        )
   end
 
   def american_date_format(date)
@@ -127,10 +127,10 @@ class UserMailer < BaseMailer
     @user = User.find_by_email(user_email)
     @coach = Coach.find(coach_id)
     mail(
-      to: user_email,
-      reply_to: @coach.email,
-      subject: "Invitation to join #{@coach.name}'s team on Pushcart"
-      )
+          to: user_email,
+          reply_to: @coach.email,
+          subject: "Invitation to join #{@coach.name}'s team on Pushcart"
+        )
   end
 
 end

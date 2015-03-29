@@ -6,8 +6,6 @@ describe Item do
 
     it { should have_many(:itemizables) }
     it { should have_many(:purchases).through(:itemizables) }
-    it { should have_many(:swap_suggestions) }
-    it { should have_many(:swaps).through(:swap_suggestions) }
 
   end
 

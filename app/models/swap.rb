@@ -1,8 +1,8 @@
 class Swap < ActiveRecord::Base
   belongs_to :swap_category
 
-  has_many :swap_suggestions
-  has_many :items, through: :swap_suggestions
+  has_many :itemizables
+  has_many :items, through: :itemizables
 
   validates_presence_of :name, :swap_category_id
   validates_uniqueness_of :name
@@ -13,7 +13,7 @@ class Swap < ActiveRecord::Base
       "http://www.freshdirect.com/search.jsp?searchParams=#{format_search_string(name)}"
     when 'Peapod'
       'http://www.peapod.com/processShowBrowseAisles.jhtml'
-    when 'Instacart'  
+    when 'Instacart'
       "https://www.instacart.com/store/whole-foods/search/#{format_search_string(name, '%20')}"
     else
       search_string = format_search_string("#{vendor} #{name}")
