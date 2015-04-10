@@ -1,6 +1,10 @@
 class EmailProcessor
-  def self.process(email)
+
+  def initialize(email)
     @email = email
+  end
+
+  def process
     source_email = @email.from[:email]
     target_email = filter_other_recipients(@email.to[:email])
 
@@ -19,11 +23,11 @@ class EmailProcessor
 
 private
 
-  def self.filter_other_recipients(recipients)
+  def filter_other_recipients(recipients)
     recipients.find { |address| address =~ /@#{EMAIL_URI}$/ }
   end
 
-  def self.create_message(kind, user=nil, app=nil)
+  def create_message(kind, user=nil, app=nil)
     @message =  Message.create do |m|
                   m.raw_html           = @email.raw_html
                   m.raw_text           = @email.raw_text
@@ -37,7 +41,7 @@ private
                 end
   end
 
-  def self.set_user_from_email(email_address)
+  def set_user_from_email(email_address)
 
     if email_address =~ /@#{EMAIL_URI}/
       @user = User.find_by_endpoint_email email_address.gsub(/@#{EMAIL_URI}/, '')

@@ -10,8 +10,8 @@ gem 'pg'
 
 ### E-mail receipt & scraping ###
 
-gem 'griddler'
-gem 'griddler-mandrill'
+gem 'griddler',                     '~> 1.1'
+gem 'griddler-mandrill',            '~> 1.0'
 gem 'nokogiri'
 gem 'nokogiri-styles'
 gem 'color'

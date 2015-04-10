@@ -13,17 +13,17 @@ describe EmailProcessor do
     @email.from = {email: @email.from}
   end
 
-  pending "should send right mailer if user is not found" do
+  pending 'should send right mailer if user is not found' do
     @email.stubs(:to).returns({email: ["non-existant-email@#{EMAIL_URI}"]})
     UserMailer.any_instance.expects(:cannot_find_account).with(@email, 'non-existant-email')
 
-    EmailProcessor.process(@email)
+    EmailProcessor.new(@email).process
   end
 
-  it "should save a copy of the email and queue for later scraping" do
+  it 'should save a copy of the email and queue for later scraping' do
     EmailScraper.expects(:new)
 
-    EmailProcessor.process(@email)
+    EmailProcessor.new(@email).process
   end
 
 end
