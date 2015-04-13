@@ -89,6 +89,34 @@ describe FreshDirectScraper do
                              ]
                     },
                     {
+                      name: :fresh_direct_receipt_five,
+                      total_price: 140.18,
+                      order_unique_id: '15332604723',
+                      items: [
+                              {"name"=>"Poland Spring Natural Spring Water Gallon Bottles, Case", "description"=>"1 gal bottles, 6 per case", "price_breakdown"=>"8.99/cs", "category"=>"Buy Big", "total_price"=>8.99, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"San Pellegrino Sparkling Natural Mineral Water, Case", "description"=>"25.3oz bottles", "price_breakdown"=>"27.99/cs", "category"=>"Buy Big", "total_price"=>27.99, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"Fage TOTAL 0% Greek Yogurt with Cherry Pomegranate", "description"=>"5.3oz", "price_breakdown"=>"1.80/ea", "category"=>"Dairy", "total_price"=>3.6, "quantity"=>2.0, "discounted"=>true},
+                              {"name"=>"Fage TOTAL 0% Greek Yogurt with Honey", "description"=>"5.3oz", "price_breakdown"=>"1.80/ea", "category"=>"Dairy", "total_price"=>3.6, "quantity"=>2.0, "discounted"=>true},
+                              {"name"=>"Fage TOTAL 0% Greek Yogurt with Raspberry", "description"=>"5.3oz", "price_breakdown"=>"1.80/ea", "category"=>"Dairy", "total_price"=>3.6, "quantity"=>2.0, "discounted"=>true},
+                              {"name"=>"Fage TOTAL 0% Plain Greek Yogurt", "description"=>"17.6oz", "price_breakdown"=>"3.99/ea", "category"=>"Dairy", "total_price"=>3.99, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"Organic Valley Nonfat Milk", "description"=>"1/2 gallon", "price_breakdown"=>"4.99/ea", "category"=>"Dairy", "total_price"=>9.98, "quantity"=>2.0, "discounted"=>false},
+                              {"name"=>"Lemons", "description"=>"Farm Fresh, Med", "price_breakdown"=>"0.99/ea", "category"=>"Fruit", "total_price"=>1.98, "quantity"=>2.0, "discounted"=>false},
+                              {"name"=>"Limes", "description"=>"Farm Fresh", "price_breakdown"=>"0.49/ea", "category"=>"Fruit", "total_price"=>0.98, "quantity"=>2.0, "discounted"=>false},
+                              {"name"=>"Bel Aria Grapeseed Oil", "description"=>"17oz", "price_breakdown"=>"4.99/ea", "category"=>"Grocery", "total_price"=>4.99, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"Cascade Lemon Automatic Dishwasher Liquigel", "description"=>"45oz", "price_breakdown"=>"4.99/ea", "category"=>"Grocery", "total_price"=>4.99, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"Kettle Bakes Lightly Salted Potato Chips", "description"=>"4oz", "price_breakdown"=>"3.19/ea", "category"=>"Grocery", "total_price"=>3.19, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"Lysol Power Toilet Bowl Cleaner", "description"=>"16oz", "price_breakdown"=>"2.49/ea", "category"=>"Grocery", "total_price"=>2.49, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"Melitta #4 Natural Brown Coffee Filters", "description"=>"100 ct", "price_breakdown"=>"4.79/ea", "category"=>"Grocery", "total_price"=>4.79, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"Planters Peanut Oil", "description"=>"24oz", "price_breakdown"=>"5.59/ea", "category"=>"Grocery", "total_price"=>5.59, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"Popchips All Natural Popped Chip Snack, Chili Lime Potato", "description"=>"3oz", "price_breakdown"=>"2.99/ea", "category"=>"Grocery", "total_price"=>2.99, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"Viva 1-Ply Choose-A-Size Paper Towels, 8 Giant Rolls", "description"=>"100 sheets per roll", "price_breakdown"=>"15.99/ea", "category"=>"Grocery", "total_price"=>15.99, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"Xochitl Mexican Style Tortilla Chips, Salted", "description"=>"16oz", "price_breakdown"=>"4.69/ea", "category"=>"Grocery", "total_price"=>4.69, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"Method Foam Hand Wash, Sweet Water, Refill", "description"=>"28oz", "price_breakdown"=>"6.59/ea", "category"=>"Health & Beauty", "total_price"=>6.59, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"Kashi Organic Promise Strawberry Fields Cereal", "description"=>"10.3oz", "price_breakdown"=>"4.79/ea", "category"=>"Organic & All-Natural", "total_price"=>4.79, "quantity"=>1.0, "discounted"=>false},
+                              {"name"=>"Fresh Step Premium Scoopable Clumping Cat Litter", "description"=>"7lbs", "price_breakdown"=>"5.99/ea", "category"=>"Pet", "total_price"=>5.99, "quantity"=>1.0, "discounted"=>false}
+                             ]
+                    },
+                    {
                       name: :fresh_direct_gmail_api_receipt_one,
                       total_price: 36.73,
                       order_unique_id: '15606538705',

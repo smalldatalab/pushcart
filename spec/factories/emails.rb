@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :email, class: OpenStruct do
-    to ["my-epicure-address@#{EMAIL_URI}"]
+    to [{email: "my-epicure-address@#{EMAIL_URI}"}]
     from 'notices@some_grocery_email.com'
     subject 'email subject'
     body 'Hello!'
@@ -34,6 +34,13 @@ FactoryGirl.define do
       subject 'Fwd: Your order for Tuesday, Aug 5 2014'
       raw_html File.read('/Users/woodchip/pushcart_sample_emails/fresh_direct/receipt_four.eml')
       raw_text File.read('/Users/woodchip/pushcart_sample_emails/fresh_direct/receipt_four.eml')
+    end
+
+    trait :fresh_direct_receipt_five do
+      from 'receipt@freshdirect.com'
+      subject 'Fwd: Your order for Sunday, Jan 26 2014'
+      raw_html File.read('/Users/woodchip/pushcart_sample_emails/fresh_direct/receipt_five.eml')
+      raw_text File.read('/Users/woodchip/pushcart_sample_emails/fresh_direct/receipt_five.eml')
     end
 
     trait :fresh_direct_auto_forward_receipt_one do
@@ -175,7 +182,7 @@ FactoryGirl.define do
     end
 
     trait :set_mission do
-      to "set_your_mission@#{SITE_URL}"
+      to [{email: "set_your_mission@#{SITE_URL}"}]
       from 'michael.carroll@cornell.edu'
       subject 'Re: Set your household mission!'
       raw_html File.read('/Users/woodchip/pushcart_sample_emails/missions/set_mission_example.eml')
