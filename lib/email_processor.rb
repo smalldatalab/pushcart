@@ -5,8 +5,8 @@ class EmailProcessor
   end
 
   def process
-    source_email = @email.from[:email]
-    target_email = filter_other_recipients(@email.to)
+    @source_email = @email.from[:email]
+    @target_email = filter_other_recipients(@email.to)
 
     if target_email =~ /^info@/
       AlertMailer.forward_to_team(@email).deliver
@@ -31,8 +31,8 @@ private
     @message =  Message.create do |m|
                   m.raw_html           = @email.raw_html
                   m.raw_text           = @email.raw_text
-                  m.to                 = @email.to[:email]
-                  m.from               = @email.from[:email]
+                  m.to                 = @target_email
+                  m.from               = @source_email
                   m.subject            = @email.subject
                   m.kind               = kind
                   m.source             = 'inbound_email_processor'
