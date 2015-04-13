@@ -6,7 +6,7 @@ class EmailProcessor
 
   def process
     source_email = @email.from[:email]
-    target_email = filter_other_recipients(@email.to[:email])
+    target_email = filter_other_recipients(@email.to)
 
     if target_email =~ /^info@/
       AlertMailer.forward_to_team(@email).deliver
@@ -24,7 +24,7 @@ class EmailProcessor
 private
 
   def filter_other_recipients(recipients)
-    recipients.find { |address| address =~ /@#{EMAIL_URI}$/ }
+    recipients.find { |address| address[:email] =~ /@#{EMAIL_URI}$/ }
   end
 
   def create_message(kind, user=nil, app=nil)
