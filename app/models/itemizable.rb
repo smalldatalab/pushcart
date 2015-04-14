@@ -7,7 +7,7 @@ class Itemizable < ActiveRecord::Base
 
   has_one :user, through: :purchase
 
-  # after_save :send_swap_message, if: Proc.new { |i| i.swap_id && i.swap_id_changed? }
+  after_save :send_swap_message, if: Proc.new { |i| i.swap_id && i.swap_id_changed? }
 
   validates_presence_of :item, :purchase
 
