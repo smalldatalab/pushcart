@@ -7,7 +7,7 @@ class EmailProcessor
   def process
     source_email = @email.from[:email]
 
-    Rails.logger.info @email.cc
+    Rails.logger.info @email
 
     target_email = filter_other_recipients(@email.to)
 
