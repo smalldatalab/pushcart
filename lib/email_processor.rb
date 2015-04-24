@@ -24,7 +24,7 @@ class EmailProcessor
 private
 
   def filter_other_recipients(recipients)
-    p "!!!!!!!!!!!!!!!!!!!!!!!!!!#{recipients}"
+    Rails.logger.warn "!!!!!!!!!!!!!!!!!!!!!!!!!!#{recipients}"
     recips = recipients.compact
     recips.find { |address| address[:email] =~ /@#{EMAIL_URI}$/ }[:email]
   end
