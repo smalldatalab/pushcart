@@ -24,7 +24,9 @@ class EmailProcessor
 private
 
   def filter_other_recipients(recipients)
-    recipients.find { |address| address[:email] =~ /@#{EMAIL_URI}$/ }[:email]
+    p "!!!!!!!!!!!!!!!!!!!!!!!!!!#{recipients}"
+    recips = recipients.compact
+    recips.find { |address| address[:email] =~ /@#{EMAIL_URI}$/ }[:email]
   end
 
   def create_message(kind, user=nil, app=nil)
