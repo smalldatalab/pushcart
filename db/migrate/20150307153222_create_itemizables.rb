@@ -2,8 +2,6 @@ ENABLE_NUTRITIONIX = false
 
 class CreateItemizables < ActiveRecord::Migration
   def change
-    add_column :itemizables, :swap_id,  :integer, index: true
-
     create_table :itemizables do |t|
       t.belongs_to :item
       t.belongs_to :purchase
@@ -16,6 +14,8 @@ class CreateItemizables < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_column :itemizables, :swap_id,  :integer, index: true
 
     reversible do |dir|
       dir.up do
