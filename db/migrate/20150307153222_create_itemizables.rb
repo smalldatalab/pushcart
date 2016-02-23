@@ -5,6 +5,7 @@ class CreateItemizables < ActiveRecord::Migration
     create_table :itemizables do |t|
       t.belongs_to :item
       t.belongs_to :purchase
+      t.belongs_to :swap
 
       t.float      :quantity
       t.float      :total_price
@@ -14,8 +15,6 @@ class CreateItemizables < ActiveRecord::Migration
 
       t.timestamps
     end
-
-    add_column :itemizables, :swap_id,  :integer, index: true
 
     reversible do |dir|
       dir.up do
