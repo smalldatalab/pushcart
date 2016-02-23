@@ -2,7 +2,7 @@ ENABLE_NUTRITIONIX = false
 
 class CreateItemizables < ActiveRecord::Migration
   def change
-    add_column :items, :swap_id, :integer, index: true
+    add_column :itemizables, :swap_id,  :integer, index: true
 
     create_table :itemizables do |t|
       t.belongs_to :item
