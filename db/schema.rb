@@ -197,3 +197,75 @@ ActiveRecord::Schema.define(version: 20150517231341) do
   add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id", using: :btree
   add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
 
+  create_table "oauth_applications", force: :cascade do |t|
+    t.string   "name",         limit: 255,                 null: false
+    t.string   "uid",          limit: 255,                 null: false
+    t.string   "secret",       limit: 255,                 null: false
+    t.boolean  "whitelisted",              default: false
+    t.text     "redirect_uri",                             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "scopes",       limit: 255, default: "",    null: false
+  end
+
+  add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
+
+  create_table "purchases", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "vendor",          limit: 255
+    t.string   "sender_email",    limit: 255
+    t.string   "order_unique_id", limit: 255
+    t.float    "total_price"
+    t.text     "raw_message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "sub_vendor",      limit: 255
+    t.datetime "order_date"
+  end
+
+  add_index "purchases", ["user_id"], name: "index_purchases_on_user_id", using: :btree
+
+  create_table "swap_categories", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "swaps", force: :cascade do |t|
+    t.integer  "swap_category_id"
+    t.string   "name",             limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "swaps", ["swap_category_id"], name: "index_swaps_on_swap_category_id", using: :btree
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                           limit: 255, default: "", null: false
+    t.integer  "sign_in_count",                               default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip",              limit: 255
+    t.string   "last_sign_in_ip",                 limit: 255
+    t.string   "confirmation_token",              limit: 255
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email",               limit: 255
+    t.string   "endpoint_email",                  limit: 255, default: "", null: false
+    t.datetime "authentication_token_expires_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "mission_id"
+    t.string   "authentication_token",            limit: 255
+    t.string   "name",                            limit: 255
+    t.json     "inbox_api_token"
+    t.string   "identity_provider",               limit: 255
+    t.datetime "inbox_last_scraped"
+  end
+
+  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["endpoint_email"], name: "index_users_on_endpoint_email", unique: true, using: :btree
+
+end
