@@ -3,7 +3,7 @@ development:
   encoding: unicode
   database: pushcart_development
   pool: 5
-  username: 
+  username:
   password:
 
 test:
@@ -29,3 +29,4 @@ production:
   pool: 10
   username: <%= Rails.application.secrets.db_user %>
   password: <%= Rails.application.secrets.db_password %>
+  host: <%= Rails.application.secrets.db_host %>
