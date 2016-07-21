@@ -39,3 +39,5 @@
 
 # Ignore test coverage reports
 /coverage
+
+pushcart_sample_emails
