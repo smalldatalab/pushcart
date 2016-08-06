@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.5'
+ruby '2.3.1'
 
 gem 'rails', '4.2.0'
 
@@ -12,7 +12,7 @@ gem 'pg'
 
 gem 'griddler',                     '~> 1.1'
 gem 'griddler-mandrill',            '~> 1.0'
-gem 'nokogiri'
+gem 'nokogiri',                     '~> 1.6.6'
 gem 'nokogiri-styles'
 gem 'color'
 
@@ -84,7 +84,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'did_you_mean', '~> 0.9.4'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'minitest'

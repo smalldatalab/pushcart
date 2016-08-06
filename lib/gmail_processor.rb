@@ -29,7 +29,7 @@ class GmailProcessor
     if email_list['messages']
       email_list['messages'].each_with_index do |email, index|
         full_email = JSON.parse @client.execute(
-                                                  api_method: GMAIL_API.users.messages.get,
+                                                  api_method: @gmail_api.users.messages.get,
                                                   parameters: {
                                                                 'id'     => email['id'],
                                                                 'userId' => 'me',

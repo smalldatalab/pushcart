@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   acts_as_token_authenticatable
 
-  devise :registerable, :confirmable, :timeoutable, :trackable, :omniauthable, :omniauth_providers => [:google_oauth2]
+  devise :registerable, :timeoutable, :trackable, :omniauthable, :omniauth_providers => [:google_oauth2]
 
   has_many :purchases
   has_many :itemizables, through: :purchases
