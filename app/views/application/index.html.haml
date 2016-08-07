@@ -21,21 +21,7 @@
   %section#signup.content-13.subscribe-form.bg-turquoise
     .container
       .row
-        = simple_form_for(@user, url: registration_path(:user), html: {id: 'new_user_sign_up'}, format: :json, remote: true, class: 'new_user_sign_up') do |f|
-
-          .col-sm-8
-            = f.input :email, required: true, autofocus: true, label: false, spellcheck: false, placeholder: '|Enter your e-mail here'
-            = f.hidden_field :coach_id, value: @coach_id
-
-          .col-sm-4
-            = f.button :submit, 'Get Started', class: 'btn btn-large btn-primary'
-
-          %p{ style: 'color: black; text-align: right; font-size: 11px; padding-right: 20px;' }
-            = link_to 'Never got your confirmation e-mail?', new_confirmation_path(:user), { style: 'color: black; text-decoration: underline;' }
-      .row      
-        %h2.success-message{ style: 'color: white;' }
-      .row
-        = link_to 'Sign in with Google', user_omniauth_authorize_path(:google_oauth2)
+        = link_to 'Sign in with Google', user_omniauth_authorize_path(:google_oauth2), class: 'btn btn-large btn-primary'
   %section.content-27.bg-clouds
     .container
       .row
