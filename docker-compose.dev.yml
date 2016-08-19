@@ -1,0 +1,26 @@
+# To run locally, make a symbolic link to this file with
+#   ln -s docker-complse.dev.yml docker-compose.yml
+
+postgres:
+  image: postgres:9.4.8
+  ports:
+    - "5432:5432"
+  volumes:
+    - ./dump:/dump
+api:
+  build: ./
+  links:
+    - postgres:pushcart-postgres
+  ports:
+    - "3000:3000"
+  volumes:
+    - ./:/app # App source code
+nginx:
+  image: nginx:1.10
+  links:
+    - api:pushcart-api
+  ports:
+    - "80:80"
+  volumes:
+    - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    - ./public:/app/public # For api assets

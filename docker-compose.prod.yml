@@ -1,0 +1,18 @@
+# This is for production, and requires an external DB.
+
+api:
+  restart: always
+  image: smalldatalab/pushcart-api:1.11
+  volumes:
+    - /app/public
+nginx:
+  restart: always
+  image: nginx:1.10
+  links:
+    - api:pushcart-api
+  ports:
+    - "80:80"
+  volumes:
+    - ./nginx.conf:/etc/nginx/nginx.conf:ro
+  volumes_from:
+    - api
