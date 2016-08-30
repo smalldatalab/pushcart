@@ -12,7 +12,7 @@ class CsvDb
                                     vendor:           'Durham Coop Market',
                                     sender_email:     'CSV Import',
                                     order_unique_id:  row[13],
-                                    order_date:       row[3],
+                                    order_date:       Time.strptime(row[3], "%m/%d/%Y %H:%M"),
                                     raw_message:      "Filename: #{csv_data.original_filename}"
                                   })
         elsif row[0] == "total"
